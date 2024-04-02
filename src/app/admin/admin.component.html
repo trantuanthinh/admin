@@ -1,0 +1,18 @@
+<mat-sidenav-container>
+    <div style="background-color: rgb(125, 255, 138);">
+        <button type="button" mat-button (click)="sidenav.toggle()">
+            <span style="font-weight: bold; color: black;"> Quản lý</span>
+        </button>
+    </div>
+
+    <mat-sidenav #sidenav [ngStyle.lt-md]="{'width': '100%'}" [ngStyle.gt-sm]="{'width': '372px'}"
+        [fixedInViewport]="true" [mode]="'side'" [position]="'start'" [opened]="true"
+        style="background-color: #00917b;">
+        <app-admin-navbar></app-admin-navbar>
+    </mat-sidenav>
+
+    <div>
+        <p>aaaaaaa</p>
+        <router-outlet></router-outlet>
+    </div>
+</mat-sidenav-container>
