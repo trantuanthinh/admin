@@ -9,11 +9,7 @@
         </div>
     </div>
 
-    <h1 class="text-3xl font-bold underline">
-        Hello world!
-    </h1>
-
-    <mat-accordion style="margin-top: 10%;" multi displayMode="flat">
+    <mat-accordion class="mt-4" multi displayMode="flat">
         <ng-container *ngFor="let app of arrApps">
             <mat-expansion-panel [expanded]="openedPanel == app.code">
                 <mat-expansion-panel-header>

@@ -1,5 +1,3 @@
-/** @format */
-
 import { Component } from "@angular/core";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { MatButtonModule } from "@angular/material/button";

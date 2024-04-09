@@ -1,5 +1,3 @@
-/** @format */
-
 import { CommonModule } from "@angular/common";
 import { ChangeDetectorRef, Component, EventEmitter, Input, Output } from "@angular/core";
 import { FlexLayoutServerModule } from "@angular/flex-layout/server";

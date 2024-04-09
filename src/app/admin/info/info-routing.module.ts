@@ -1,5 +1,3 @@
-/** @format */
-
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { AdComponent } from "./ad/ad.component";
