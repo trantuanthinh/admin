@@ -23,12 +23,11 @@ export class AdminNavbarComponent {
 	public currentUser: any = {
 		id: "",
 		name: "Admin",
-		// pictureUrl: './assets/images/C-Mate-logo-ver-2.png',
 	};
 
 	@Input() opened: boolean = true;
 	@Output() onToggle: any = new EventEmitter();
-	public openedPanel: string = "websiteNews";
+	public openedPanel: string = "infomations";
 	public arrApps: any[] = [];
 	constructor(public router: Router, private cdr: ChangeDetectorRef) {
 		timer(1000)

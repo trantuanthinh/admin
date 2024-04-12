@@ -1,15 +1,16 @@
 <div class="admin-navbar" fxLayout="column" fxLayoutAlign="start center">
     <div class="member-container" fxLayout="column" fxLayoutAlign="start center">
         <div class="logo-container full-width mrt-24" fxLayout="row" fxLayoutAlign="center start">
-            <img class="logo" [src]="currentUser?.pictureUrl" />
-            <span class="version">Phiên bản: {{ versions }}</span>
+            <img class="logo" src="assets\logo311.jpg"/> 
+            <h1>Sweeties</h1>
         </div>
-        <div class="contact" fxLayout="column" fxLayoutAlign="center center">
+        <!-- <div class="contact" fxLayout="column" fxLayoutAlign="center center">
             <div class="name">3T Cake Management</div>
-        </div>
+        </div> -->
     </div>
 
-    <mat-accordion class="mt-4" multi displayMode="flat">
+    <mat-accordion multi displayMode="flat">
+        <button [routerLink]="['/admin/home']">Home</button>
         <ng-container *ngFor="let app of arrApps">
             <mat-expansion-panel [expanded]="openedPanel == app.code">
                 <mat-expansion-panel-header>
@@ -23,10 +24,10 @@
                     <mat-nav-list>
                         <ng-container *ngFor="let item of app?.children">
                             <div *ngIf="item.type=='subheading'" class="full-width mrt-12">
-                                <span class="mrl-6 list-title">{{item?.label}}</span>
+                                <span>{{item?.label}}</span>
                             </div>
                             <mat-list-item *ngIf="item.type=='link'" (click)="log([item.route])"
-                                [routerLink]="[item.route]" class="mat-list-item-menu" [routerLinkActive]="['active']"
+                                [routerLink]="[item.route]" [routerLinkActive]="['active']"
                                 [routerLinkActiveOptions]="{ exact: true }">
                                 <span>{{item?.label}}</span>
                             </mat-list-item>
