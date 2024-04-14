@@ -1,19 +1,41 @@
-.logo{
+.logo {
     width: 50px;
     height: 50px;
     cursor: pointer;
     border-radius: 50%;
 }
-.logo-container{
+
+.logo-container {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
 }
-.h1{
-    
-} 
-.options{
+
+.h1 {}
+
+.options {
+    padding: 1px;
     display: flex;
+    flex-direction: column;
 }
 
+a {
+    width: 100%;
+    padding: 0.8rem 3rem;
+    font-weight: 500;
+    font-size: 15px;
+    color: rgb(247, 244, 244);
+}
+
+nav {
+    // position: relative;
+    top: 0;
+    bottom: 0;
+    height: 100vh;
+    left: 0;
+    // background: #fff;
+    width: 280px;
+    overflow: hidden;
+    // box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
+}
