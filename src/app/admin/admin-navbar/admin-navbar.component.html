@@ -10,7 +10,13 @@
     </div>
 
     <mat-accordion multi displayMode="flat">
+
         <button [routerLink]="['/admin/home']">Home</button>
+        <button [routerLink]="['/admin/product-management']">Product Management</button>
+        <button [routerLink]="['/admin/order-management']">Order Management</button>
+        <button [routerLink]="['/admin/ingredient-management']">Ingredient Management</button>
+        <button [routerLink]="['admin/customer-management']">Customer-Management</button>
+
         <ng-container *ngFor="let app of arrApps">
             <mat-expansion-panel [expanded]="openedPanel == app.code">
                 <mat-expansion-panel-header>
