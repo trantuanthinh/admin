@@ -1,7 +1,7 @@
 <div class="admin-navbar" fxLayout="column" fxLayoutAlign="start center">
     <div class="member-container" fxLayout="column" fxLayoutAlign="start center">
         <div class="logo-container full-width mrt-24" fxLayout="row" fxLayoutAlign="center start">
-            <img class="logo" src="assets\logo311.jpg"/> 
+            <img class="logo" src="assets\logo311.jpg" />
             <h1>Sweeties</h1>
         </div>
         <!-- <div class="contact" fxLayout="column" fxLayoutAlign="center center">
@@ -10,12 +10,44 @@
     </div>
 
     <mat-accordion multi displayMode="flat">
+        <div class="options">
+            <nav>
+                <ul>
 
-        <button [routerLink]="['/admin/home']">Home</button>
-        <button [routerLink]="['/admin/product-management']">Product Management</button>
-        <button [routerLink]="['/admin/order-management']">Order Management</button>
-        <button [routerLink]="['/admin/ingredient-management']">Ingredient Management</button>
-        <button [routerLink]="['admin/customer-management']">Customer-Management</button>
+                    <li><a href="#">
+                            <i class="fas fa-home"></i>
+                            <!-- <span class="nav-item">Home</span> -->
+                            <button [routerLink]="['/admin/home']">Home</button>
+                        </a></li>
+        
+                    <li><a href="#">
+                            <i class="fas fa-home"></i>
+                            <!-- <span class="nav-item">Home</span> -->
+                            <button [routerLink]="['/admin/product-management']">Product Management</button>
+                        </a></li>
+        
+                    <li><a href="#">
+                            <i class="fas fa-home"></i>
+                            <!-- <span class="nav-item">Home</span> -->
+                            <button [routerLink]="['/admin/order-management']">Order Management</button>
+                        </a></li>
+        
+                    <li><a href="#">
+                            <i class="fas fa-home"></i>
+                            <!-- <span class="nav-item">Home</span> -->
+                            <button [routerLink]="['/admin/ingredient-management']">Ingredient Management</button>
+                        </a></li>
+        
+                    <li><a href="#">
+                            <i class="fas fa-home"></i>
+                            <!-- <span class="nav-item">Home</span> -->
+                            <button [routerLink]="['admin/customer-management']">Customer Management</button>
+                        </a></li>
+                </ul>
+            </nav>
+
+        </div>
+
 
         <ng-container *ngFor="let app of arrApps">
             <mat-expansion-panel [expanded]="openedPanel == app.code">
