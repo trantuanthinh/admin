@@ -22,7 +22,7 @@ const routes: Routes = [
 				path: "cookies",
 				component: CookiesComponent,
 			},
-			{ path: "", redirectTo: "cakes", pathMatch: "full" },
+			// { path: "", redirectTo: "cakes", pathMatch: "full" },
 		],
 	},
 ];

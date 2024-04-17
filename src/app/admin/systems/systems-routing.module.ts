@@ -17,7 +17,7 @@ const routes: Routes = [
 				path: "theme",
 				component: ThemeComponent,
 			},
-			{ path: "", redirectTo: "settings", pathMatch: "full" },
+			// { path: "", redirectTo: "settings", pathMatch: "full" },
 		],
 	},
 ];

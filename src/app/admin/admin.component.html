@@ -1,17 +1,21 @@
-<mat-sidenav-container>
-    <mat-sidenav #sidenav [ngStyle.lt-md]="{'width': '100%'}" [ngStyle.gt-sm]="{'width': '372px'}"
-        [fixedInViewport]="true" [mode]="'side'" [position]="'start'" [opened]="true"
-        style="background-color: #00917b;">
+<!-- <mat-sidenav-container>
+    <mat-sidenav #sidenav [ngStyle.lt-md]="{'width': '100%'}" [ngStyle.gt-sm]="{'width': '200px'}"
+        [fixedInViewport]="true" [mode]="'side'" [position]="'start'" style="background-color: #f5fad8;">
         <app-admin-navbar></app-admin-navbar>
-    </mat-sidenav>
+    </mat-sidenav> -->
 
-    <div style="background-color: rgb(125, 255, 138);">
-        <button type="button" mat-button (click)="sidenav.toggle()">
-            <span style="font-weight: bold; color: black;"> Quản lý</span>
-        </button>
+    <!-- <div  class="dashboard" >
+        <app-admin-navbar></app-admin-navbar>
     </div>
 
-    <div>
+    <div class="infor">
         <router-outlet></router-outlet>
     </div>
-</mat-sidenav-container>
+
+</mat-sidenav-container> --> 
+
+<app-admin-navbar (onToggleSideNav)="onToggleSideNav($event)"></app-admin-navbar>
+<app-body
+    [collapsed]="isSideNavCollapsed"
+    [screenWidth]="screenWidth"
+></app-body>

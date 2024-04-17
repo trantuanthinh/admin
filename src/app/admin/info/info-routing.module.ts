@@ -17,7 +17,7 @@ const routes: Routes = [
 				path: "customers",
 				component: CustomerComponent,
 			},
-			{ path: "", redirectTo: "ad", pathMatch: "full" },
+			// { path: "", redirectTo: "ad", pathMatch: "full" },
 		],
 	},
 ];

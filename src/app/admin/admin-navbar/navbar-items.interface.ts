@@ -1,29 +1,28 @@
-export type NavigationItem =
-    | NavigationLink
-    | NavigationGroup
-    | NavigationSubheading;
-
-export interface NavigationGroup {
-    type: 'group';
-    code: string;
-    label: string;
-    icon?: string;
-    children: Array<NavigationSubheading | NavigationLink>;
-}
-
-export interface NavigationLink {
-    type: 'link';
-    code: string;
-    actions?: 'favorite-menu' | 'more-menu' | 'favorite-only';
-    route: string | any;
-    label: string;
-    icon?: string;
-    favorite?: boolean;
-    routerLinkActiveOptions?: { exact: boolean };
-}
-
-export interface NavigationSubheading {
-    type: 'subheading';
-    label: string;
-    icon?: string;
-}
+export const navbarData = [
+    {
+        routeLink: '/admin/home',
+        icon: 'fas fa-home',
+        label: 'Home'
+    },
+    {
+        routeLink: '/admin/product-management',
+        icon: 'fas fa-birthday-cake',
+        label: 'Products Management'
+    },
+    {
+        routeLink: '/admin/order-management',
+        icon: 'fas fa-shopping-cart',
+        label: 'Order Management'
+    },
+    {
+        routeLink: '/admin/ingredient-management',
+        icon: 'fas fa-cookie-bite',
+        label: 'Ingredient Management'
+    },
+    {
+        routeLink: '/admin/customer-management',
+        icon: 'fas fa-users',
+        label: 'Customer Management'
+    },
+   
+];

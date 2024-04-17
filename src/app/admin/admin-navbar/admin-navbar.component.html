@@ -1,46 +1,100 @@
-<div class="admin-navbar" fxLayout="column" fxLayoutAlign="start center">
+<!-- <div class="container">
+
+    <div class="navigation">
+        <ul>
+            <li><a href="#" class="logo">
+                
+            </a></li>
+            <li>
+                <button (click)="handleClick()"><img src="assets\cake_logo.png"></button>
+            </li>
+            <li>
+                <a class="options" [routerLink]="['/admin/home']">
+                    <span class="icon">
+                        <i class="fas fa-home"></i>
+                    </span>
+                    <span class="title" *ngIf="show">Home</span>
+                </a>
+            </li> -->
+
+            <!-- <li><a class="options" [routerLink]="['/admin/product-management']">
+                    <span class="icon">
+                        <i class="fas fa-birthday-cake"></i>
+                    </span>
+                    <span class="title">Product Management</span>
+                </a></li>
+            <li><a class="options" [routerLink]="['/admin/order-management']">
+                    <span class="icon">
+                        <i class="fas fa-shopping-cart"></i>
+                    </span>
+                    <span class="title">OrderManagement</span>
+                </a></li>
+            <li><a class="options" [routerLink]="['/admin/ingredient-management']">
+                    <span class="icon">
+                        <i class="fas fa-cookie-bite"></i>
+                    </span>
+                    <span class="title">Ingredient
+                        Management</span>
+                </a></li>
+            <li><a class="options" [routerLink]="['/admin/customer-management']">
+                    <span class="icon">
+                        <i class="fas fa-users"></i>
+                    </span>
+                    <span class="title">Customer
+                        Management</span>
+                </a></li> -->
+<!-- 
+        </ul>
+    </div>
+</div> -->
+
+<!-- <div class="navigation" [class.active]="navigationActive">
+    <app-admin-navbar></app-admin-navbar>
+</div>
+
+<button mat-button class="toggle" (click)="toggleNavigation()">
+    <i class="fas fa-bars"></i>
+</button> -->
+
+<div class="sidenav" [ngClass]="collapsed ? 'sidenav-collapsed': ''">
+    <div class="logo-container">
+        <button class="logo" (click)="toggleCollapse()"><img src="assets\logo.png"></button>
+        <div class="logo-text" @fadeInOut *ngIf="collapsed">Sweeties</div>
+        <button class="btn-close" @rotate *ngIf="collapsed" (click)="closeSidenav()">
+            <i class="fas fa-window-close"></i>
+        </button>
+    </div>
+    <ul class="sidenav-nav">
+        <li class="sidenav-nav-item" *ngFor="let data of navData">
+            <a class="sidenav-nav-link" [routerLink]="[data.routeLink]" 
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{exact: true}"
+            >
+                <i class="sidenav-link-icon" [class]="data.icon"></i>
+                <span class="sidenav-link-text" @fadeInOut *ngIf="collapsed">
+                    {{data.label}}
+                </span>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+
+<!-- <div class="admin-navbar" fxLayout="column" fxLayoutAlign="start center">
+
     <div class="member-container" fxLayout="column" fxLayoutAlign="start center">
+
         <div class="logo-container full-width mrt-24" fxLayout="row" fxLayoutAlign="center start">
             <img class="logo" src="assets\logo311.jpg" />
             <h1>Sweeties</h1>
         </div>
+
         <!-- <div class="contact" fxLayout="column" fxLayoutAlign="center center">
-            <div class="name">3T Cake Management</div>
-        </div> -->
-    </div>
-
-    <mat-accordion multi displayMode="flat">
-        <div class="options">
-            <nav>
-                <ul>
-                    <li><a href="#">
-                            <span [routerLink]="['/admin/home']">Home</span>
-                            <!-- <button >Home</button> -->
-                        </a></li>
-        
-                    <li><a href="#">
-                            <span [routerLink]="['/admin/product-management']">Product Management</span>
-                            <!-- <button >Product Management</button> -->
-                        </a></li>
-        
-                    <li><a href="#">
-                            <span [routerLink]="['/admin/order-management']">Order Management</span>
-                            <!-- <button >Order Management</button> -->
-                        </a></li>
-        
-                    <li><a href="#">
-                            <span [routerLink]="['/admin/ingredient-management']">Ingredient Management</span>
-                            <!-- <button [routerLink]="['/admin/ingredient-management']">Ingredient Management</button> -->
-                        </a></li>
-        
-                    <li><a href="#">
-                            <span [routerLink]="['admin/customer-management']">Customer Managemen</span>
-                            <!-- <button [routerLink]="['admin/customer-management']">Customer Management</button> -->
-                        </a></li>
-                </ul>
-            </nav>
-
-        </div>
+                    <div class="name">3T Cake Management</div>
+                </div> -->
+<!-- </div> -->
+<!-- <mat-accordion multi displayMode="flat">
 
 
         <ng-container *ngFor="let app of arrApps">
@@ -68,5 +122,5 @@
                 </mat-panel-description>
             </mat-expansion-panel>
         </ng-container>
-    </mat-accordion>
-</div>
+    </mat-accordion> -->
+<!-- </div> --> -->

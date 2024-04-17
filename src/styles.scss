@@ -1,19 +1,25 @@
-/**
- * You can add global styles to this file, and also import other style files
- *
- * @format
- */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 html,
-body {
-	height: 100%;
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
 }
 
+// body {
+// 	height: 100%;
+// 	position: relative;
+	
+// }
+
 body {
+	position: relative;
 	margin: 0;
-	font-family: Roboto, "Helvetica Neue", sans-serif;
+	font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+      "Lucida Sans", Arial, sans-serif;
 }
