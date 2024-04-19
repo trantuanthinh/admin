@@ -25,7 +25,6 @@ export class TestComponent implements OnInit {
 	getCategories() {
 		this.shareService.getCategories().subscribe((response: any) => {
 			console.log(response.data);
-
 			this.data = response.data;
 		});
 		console.log(this.data);
