@@ -24,5 +24,4 @@ export const navbarData = [
         icon: 'fas fa-users',
         label: 'Customer Management'
     },
-   
 ];

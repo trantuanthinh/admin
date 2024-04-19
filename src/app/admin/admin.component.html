@@ -4,7 +4,7 @@
         <app-admin-navbar></app-admin-navbar>
     </mat-sidenav> -->
 
-    <!-- <div  class="dashboard" >
+<!-- <div  class="dashboard" >
         <app-admin-navbar></app-admin-navbar>
     </div>
 
@@ -12,9 +12,18 @@
         <router-outlet></router-outlet>
     </div>
 
-</mat-sidenav-container> --> 
+</mat-sidenav-container> -->
 
-<app-admin-navbar (onToggleSideNav)="onToggleSideNav($event)"></app-admin-navbar>
+<app-admin-navbar
+    (labelName)="(labelName)"
+    (onToggleSideNav)="onToggleSideNav($event)"
+></app-admin-navbar>
+
+<app-header
+    [collapsed]="isSideNavCollapsed"
+    [screenWidth]="screenWidth"
+></app-header>
+
 <app-body
     [collapsed]="isSideNavCollapsed"
     [screenWidth]="screenWidth"

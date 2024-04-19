@@ -123,6 +123,8 @@ CREATE TABLE IF NOT EXISTS `products` (
   FOREIGN KEY (`size_id`) REFERENCES `sizes`(`size_id`),
   FOREIGN KEY (`flavour_id`) REFERENCES `flavours`(`flavour_id`)
 );
+INSERT INTO `products` (`name`, `image`, `price`, `email`, `address`, `gender`, `dateOfBirth`)
+VALUES ('Trần Tuấn', 'Thịnh', '0123456789', 'thinh.tran.cit20@eiu.edu.vn', 'Bình Dương', 'male', '2002-05-11');
 
 -- 10.init table des_products: DONE
 CREATE TABLE IF NOT EXISTS `des_products` (

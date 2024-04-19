@@ -17,7 +17,7 @@
                 </a>
             </li> -->
 
-            <!-- <li><a class="options" [routerLink]="['/admin/product-management']">
+<!-- <li><a class="options" [routerLink]="['/admin/product-management']">
                     <span class="icon">
                         <i class="fas fa-birthday-cake"></i>
                     </span>
@@ -56,30 +56,38 @@
     <i class="fas fa-bars"></i>
 </button> -->
 
-<div class="sidenav" [ngClass]="collapsed ? 'sidenav-collapsed': ''">
+<div class="sidenav" [ngClass]="collapsed ? 'sidenav-collapsed' : ''">
     <div class="logo-container">
-        <button class="logo" (click)="toggleCollapse()"><img src="assets\logo.png"></button>
+        <button class="logo" (click)="toggleCollapse()">
+            <img src="assets\logo.png" />
+        </button>
         <div class="logo-text" @fadeInOut *ngIf="collapsed">Sweeties</div>
-        <button class="btn-close" @rotate *ngIf="collapsed" (click)="closeSidenav()">
+        <button
+            class="btn-close"
+            @rotate
+            *ngIf="collapsed"
+            (click)="closeSidenav()"
+        >
             <i class="fas fa-window-close"></i>
         </button>
     </div>
     <ul class="sidenav-nav">
         <li class="sidenav-nav-item" *ngFor="let data of navData">
-            <a class="sidenav-nav-link" [routerLink]="[data.routeLink]" 
+            <a
+                class="sidenav-nav-link"
+                [routerLink]="[data.routeLink]"
                 routerLinkActive="active"
-                [routerLinkActiveOptions]="{exact: true}"
+                [routerLinkActiveOptions]="{ exact: true }"
+                (click)="updateLabel()"
             >
                 <i class="sidenav-link-icon" [class]="data.icon"></i>
                 <span class="sidenav-link-text" @fadeInOut *ngIf="collapsed">
-                    {{data.label}}
+                    {{ data.label }}
                 </span>
             </a>
         </li>
     </ul>
 </div>
-
-
 
 <!-- <div class="admin-navbar" fxLayout="column" fxLayoutAlign="start center">
 
@@ -123,4 +131,5 @@
             </mat-expansion-panel>
         </ng-container>
     </mat-accordion> -->
-<!-- </div> --> -->
+<!-- </div> -->
+-->
