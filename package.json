@@ -38,7 +38,7 @@
     "postcss": "^8.4.38",
     "tailwindcss": "^3.4.3",
     "typescript": "~5.4.2",
-    "@angular/common":"17.3.5",
+    "@angular/common": "17.3.5",
     "@angular/animations": "17.3.5"
   },
   "name": "admin",
@@ -48,7 +48,7 @@
     "build": "ng build",
     "ng": "ng",
     "serve:ssr:admin": "node dist/admin/server/server.mjs",
-    "start": "ng serve",
+    "start": "ng serve --proxy-config proxy.conf.json",
     "test": "ng test",
     "watch": "ng build --watch --configuration development"
   },

@@ -5,7 +5,7 @@
 @tailwind utilities;
 
 html,
-*{
+* {
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
@@ -14,12 +14,12 @@ html,
 // body {
 // 	height: 100%;
 // 	position: relative;
-	
+
 // }
 
 body {
 	position: relative;
 	margin: 0;
 	font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
-      "Lucida Sans", Arial, sans-serif;
+		"Lucida Sans", Arial, sans-serif;
 }
