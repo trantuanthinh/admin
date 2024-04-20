@@ -15,10 +15,8 @@ import { MatListModule } from "@angular/material/list";
 import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { Router, RouterModule } from "@angular/router";
-import { take } from "rxjs";
-import { timer } from "rxjs/internal/observable/timer";
-import { navbarData } from "./navbar-items.interface";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
+import { navbarData } from "./navbar-items.interface";
 
 interface SideNavToggle {
     screenWidth: number;
@@ -48,28 +46,21 @@ export class AdminNavbarComponent implements OnInit {
         id: "",
         name: "Admin",
     };
-    // show: boolean = false;
-
-    // handleClick(){
-    // 	this.show = !this.show
-    // 	console.log(this.show);
-    // }
-
     @Output() onToggleSideNav: EventEmitter<SideNavToggle> = new EventEmitter();
     @Output() labelName: EventEmitter<string> = new EventEmitter<string>();
-    label: string = "Home";
+    label!: string;
 
     collapsed = false;
     screenWidth = 0;
     navData = navbarData;
 
-    updateLabel() {
+    emitTitle(item: string) {
+        this.label = item;
         this.labelName.emit(this.label);
     }
 
     @HostListener("window:resize", ["$event"])
     onResize(event: any) {
-        // Check if window is defined before accessing its properties
         if (typeof window !== "undefined") {
             this.screenWidth = window.innerWidth;
             this.checkScreenWidth();
@@ -82,6 +73,8 @@ export class AdminNavbarComponent implements OnInit {
             this.screenWidth = window.innerWidth;
             this.checkScreenWidth();
         }
+        this.label = "Home";
+        this.emitTitle(this.label);
     }
 
     toggleCollapse(): void {
@@ -119,6 +112,7 @@ export class AdminNavbarComponent implements OnInit {
     public openedPanel: string = "infomations";
     public arrApps: any[] = [];
     constructor(public router: Router, private cdr: ChangeDetectorRef) {}
+
     updateStyleProperty() {
         this.cdr.detectChanges();
     }

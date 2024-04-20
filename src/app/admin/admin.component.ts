@@ -1,11 +1,11 @@
-import { Component, Input } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { Component, Input, OnChanges, SimpleChanges } from "@angular/core";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { MatButtonModule } from "@angular/material/button";
+import { MatIconModule } from "@angular/material/icon";
 import { MatSidenavModule } from "@angular/material/sidenav";
 import { RouterModule } from "@angular/router";
 import { AdminNavbarComponent } from "./admin-navbar/admin-navbar.component";
-import { MatIcon, MatIconModule } from "@angular/material/icon";
-import { CommonModule } from "@angular/common";
 import { BodyComponent } from "./body/body.component";
 import { HeaderComponent } from "./header/header.component";
 
@@ -31,13 +31,24 @@ interface SideNavToggle {
     templateUrl: "./admin.component.html",
     styleUrl: "./admin.component.scss",
 })
-export class AdminComponent {
+export class AdminComponent implements OnChanges {
     title = "sidenav";
 
-    @Input() labelName: string | undefined;
+    @Input() labelName!: string;
+    currentTitle = "Home";
 
     isSideNavCollapsed = false;
     screenWidth = 0;
+
+    ngOnChanges(changes: SimpleChanges): void {
+        this.currentTitle = this.labelName;
+        console.log(this.labelName + "1");
+        console.log(this.currentTitle + "2");
+    }
+
+    update($event: string) {
+        this.currentTitle = $event;
+    }
 
     onToggleSideNav(data: SideNavToggle): void {
         this.screenWidth = data.screenWidth;

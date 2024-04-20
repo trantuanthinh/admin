@@ -3,7 +3,7 @@
     <div class="navigation">
         <ul>
             <li><a href="#" class="logo">
-                
+
             </a></li>
             <li>
                 <button (click)="handleClick()"><img src="assets\cake_logo.png"></button>
@@ -43,7 +43,7 @@
                     <span class="title">Customer
                         Management</span>
                 </a></li> -->
-<!-- 
+<!--
         </ul>
     </div>
 </div> -->
@@ -62,24 +62,14 @@
             <img src="assets\logo.png" />
         </button>
         <div class="logo-text" @fadeInOut *ngIf="collapsed">Sweeties</div>
-        <button
-            class="btn-close"
-            @rotate
-            *ngIf="collapsed"
-            (click)="closeSidenav()"
-        >
+        <button class="btn-close" @rotate *ngIf="collapsed" (click)="closeSidenav()">
             <i class="fas fa-window-close"></i>
         </button>
     </div>
     <ul class="sidenav-nav">
         <li class="sidenav-nav-item" *ngFor="let data of navData">
-            <a
-                class="sidenav-nav-link"
-                [routerLink]="[data.routeLink]"
-                routerLinkActive="active"
-                [routerLinkActiveOptions]="{ exact: true }"
-                (click)="updateLabel()"
-            >
+            <a class="sidenav-nav-link" [routerLink]="[data.routeLink]" routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }" (click)="emitTitle(data.label)">
                 <i class="sidenav-link-icon" [class]="data.icon"></i>
                 <span class="sidenav-link-text" @fadeInOut *ngIf="collapsed">
                     {{ data.label }}

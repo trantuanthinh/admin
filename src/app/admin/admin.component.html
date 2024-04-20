@@ -14,17 +14,10 @@
 
 </mat-sidenav-container> -->
 
-<app-admin-navbar
-    (labelName)="(labelName)"
-    (onToggleSideNav)="onToggleSideNav($event)"
-></app-admin-navbar>
+<app-admin-navbar (labelName)="update($event)" (onToggleSideNav)="onToggleSideNav($event)"></app-admin-navbar>
 
-<app-header
-    [collapsed]="isSideNavCollapsed"
-    [screenWidth]="screenWidth"
-></app-header>
+<app-header [labelName]="currentTitle" [collapsed]="isSideNavCollapsed" [screenWidth]="screenWidth"></app-header>
 
-<app-body
-    [collapsed]="isSideNavCollapsed"
-    [screenWidth]="screenWidth"
-></app-body>
+<h1>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa {{labelName}}</h1>
+
+<!-- <app-body [collapsed]="isSideNavCollapsed" [screenWidth]="screenWidth"></app-body> -->
