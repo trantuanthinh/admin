@@ -12,7 +12,8 @@ import { RouterOutlet } from "@angular/router";
 export class HeaderComponent {
     @Input() collapsed = false;
     @Input() screenWidth = 0;
-    @Input() labelName = "";
+
+    @Input() labelName = "Home";
 
     getHeadClass(): string {
         let styleClass = "";

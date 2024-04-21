@@ -31,20 +31,13 @@ interface SideNavToggle {
     templateUrl: "./admin.component.html",
     styleUrl: "./admin.component.scss",
 })
-export class AdminComponent implements OnChanges {
+export class AdminComponent {
     title = "sidenav";
 
-    @Input() labelName!: string;
     currentTitle = "Home";
 
     isSideNavCollapsed = false;
     screenWidth = 0;
-
-    ngOnChanges(changes: SimpleChanges): void {
-        this.currentTitle = this.labelName;
-        console.log(this.labelName + "1");
-        console.log(this.currentTitle + "2");
-    }
 
     update($event: string) {
         this.currentTitle = $event;
