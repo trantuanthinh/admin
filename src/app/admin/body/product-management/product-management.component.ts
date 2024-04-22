@@ -1,12 +1,11 @@
-import { Component, Input, ViewChild } from "@angular/core";
-import { MatPaginator, MatPaginatorModule } from "@angular/material/paginator";
+import { Component, ViewChild } from "@angular/core";
 import { MatCardModule } from "@angular/material/card";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
+import { MatPaginator, MatPaginatorModule } from "@angular/material/paginator";
 import { MatSort, MatSortModule } from "@angular/material/sort";
 import { MatTableDataSource, MatTableModule } from "@angular/material/table";
-
-import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { TableComponent } from "../../../control/table/table.component";
 
 export interface UserData {
     id: string;
@@ -25,6 +24,7 @@ export interface UserData {
         MatPaginatorModule,
         MatCardModule,
         MatTableModule,
+        TableComponent,
         MatFormFieldModule,
         MatInputModule,
         MatSortModule,
