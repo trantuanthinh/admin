@@ -18,6 +18,9 @@ CREATE TABLE IF NOT EXISTS `admins` (
   PRIMARY KEY (`ad_id`)
 );
 INSERT INTO `admins` (`user_name`, `password`, `first_name`, `last_name`, `phone`, `email`) VALUES ('admin', 'admin', 'ad', 'min', '123', 'admin@gmail.com');
+INSERT  INTO `admins` (`user_name`, `password`, `first_name`, `last_name`, `phone`, `email`) VALUES ('Thinh', 'admin', 'Thinh', 'Tran', '234', 'tran.tuan.thinh.0125@gmail.com');
+INSERT  INTO `admins` (`user_name`, `password`, `first_name`, `last_name`, `phone`, `email`) VALUES ('Nguyen', 'admin', 'Nguyen', 'Nguyen', '345', 'nguyen.nguyen.cit22@gmail.com');
+INSERT  INTO `admins` (`user_name`, `password`, `first_name`, `last_name`, `phone`, `email`) VALUES ('My', 'admin', 'My', 'Tran', '456', 'my.tran.cit22@gmail.com');
 
 -- 2.init table customers: DONE
 CREATE TABLE IF NOT EXISTS `customers` (
@@ -35,6 +38,10 @@ CREATE TABLE IF NOT EXISTS `customers` (
 );
 INSERT INTO `customers` (`first_name`, `last_name`, `phone`, `email`, `address`, `gender`, `dateOfBirth`)
 VALUES ('Trần Tuấn', 'Thịnh', '0123456789', 'thinh.tran.cit20@eiu.edu.vn', 'Bình Dương', 'male', '2002-05-11');
+INSERT INTO `customers` (`first_name`, `last_name`, `phone`, `email`, `address`, `gender`, `dateOfBirth`)
+VALUES ('Nguyen Minh', 'Nguyen', '234567891', 'nguyen.nguyen.cit22@gmail.com', 'Bình Dương', 'female', '2002-01-01');
+INSERT INTO `customers` (`first_name`, `last_name`, `phone`, `email`, `address`, `gender`, `dateOfBirth`)
+VALUES ('Trần Tuấn', 'Thịnh', '345678912', 'my.tran.cit22@gmail.com', 'Bình Dương', 'female', '2000-09-09');
 
 -- 3.init table decors: DONE
 CREATE TABLE IF NOT EXISTS `decors` (
@@ -102,6 +109,9 @@ CREATE TABLE IF NOT EXISTS `decor_details` (
   PRIMARY KEY (`decor_detail_id`),
   FOREIGN KEY (`decor_id`) REFERENCES `decors`(`decor_id`)
 );
+INSERT INTO `decor_details` (`decor_id`, `unit_price`, `quantity`, `total_price`) VALUES (1, 50.00, 2, 100.00);
+INSERT INTO `decor_details` (`decor_id`, `unit_price`, `quantity`, `total_price`) VALUES (2, 30.00, 3, 90.00);
+INSERT INTO `decor_details` (`decor_id`, `unit_price`, `quantity`, `total_price`) VALUES (3, 40.00, 1, 40.00);
 
 -- 9.init table products: DONE
 CREATE TABLE IF NOT EXISTS `products` (
@@ -123,8 +133,15 @@ CREATE TABLE IF NOT EXISTS `products` (
   FOREIGN KEY (`size_id`) REFERENCES `sizes`(`size_id`),
   FOREIGN KEY (`flavour_id`) REFERENCES `flavours`(`flavour_id`)
 );
-INSERT INTO `products` (`name`, `image`, `price`, `email`, `address`, `gender`, `dateOfBirth`)
-VALUES ('Trần Tuấn', 'Thịnh', '0123456789', 'thinh.tran.cit20@eiu.edu.vn', 'Bình Dương', 'male', '2002-05-11');
+-- INSERT INTO `products` (`name`, `image`, `price`, `email`, `address`, `gender`, `dateOfBirth`)
+-- VALUES ('Trần Tuấn', 'Thịnh', '0123456789', 'thinh.tran.cit20@eiu.edu.vn', 'Bình Dương', 'male', '2002-05-11');
+INSERT INTO `products` (`decor_detail_id`, `category_id`, `shape_id`, `size_id`, `flavour_id`, `name`, `image`, `price`)
+VALUES (1, 1, 1, 1, 1, 'Cake', 'cake.jpg', 25.00);
+INSERT INTO `products` (`decor_detail_id`, `category_id`, `shape_id`, `size_id`, `flavour_id`, `name`, `image`, `price`)
+VALUES (2, 2, 2, 2, 2, 'Cookie', 'cookie.jpg', 10.00);
+INSERT INTO `products` (`decor_detail_id`, `category_id`, `shape_id`, `size_id`, `flavour_id`, `name`, `image`, `price`)
+VALUES (3, 3, 3, 3, 3, 'Macaron', 'macarone.jpg', 35.00);
+
 
 -- 10.init table des_products: DONE
 CREATE TABLE IF NOT EXISTS `des_products` (
@@ -147,6 +164,13 @@ CREATE TABLE IF NOT EXISTS `des_products` (
   FOREIGN KEY (`size_id`) REFERENCES `sizes`(`size_id`),
   FOREIGN KEY (`flavour_id`) REFERENCES `flavours`(`flavour_id`)
 );
+INSERT INTO `des_products` (`cus_id`, `decor_detail_id`, `category_id`, `shape_id`, `size_id`, `flavour_id`, `name`, `price`)
+VALUES (1, 1, 1, 1, 1, 1, 'Cake', 25.00);
+INSERT INTO `des_products` (`cus_id`, `decor_detail_id`, `category_id`, `shape_id`, `size_id`, `flavour_id`, `name`, `price`)
+VALUES (2, 2, 2, 2, 2, 2, 'Cookie', 10.00);
+INSERT INTO `des_products` (`cus_id`, `decor_detail_id`, `category_id`, `shape_id`, `size_id`, `flavour_id`, `name`, `price`)
+VALUES (3, 3, 3, 3, 3, 3, 'Macaron', 35.00);
+
 
 -- 11.init table order_details: DONE
 CREATE TABLE IF NOT EXISTS `order_details` (
@@ -159,6 +183,12 @@ CREATE TABLE IF NOT EXISTS `order_details` (
   FOREIGN KEY (`prod_id`) REFERENCES `products`(`prod_id`),
   FOREIGN KEY (`des_prod_id`) REFERENCES `des_products`(`des_prod_id`)
 );
+INSERT INTO `order_details` (`order_detail_id`, `prod_id`, `prod_quantity`, `des_prod_id`, `des_prod_quantity`)
+VALUES (1, 1, 2, 2, 3);
+INSERT INTO `order_details` (`order_detail_id`, `prod_id`, `prod_quantity`, `des_prod_id`, `des_prod_quantity`)
+VALUES (2, 1, 3, 1, 1);
+INSERT INTO `order_details` (`order_detail_id`, `prod_id`, `prod_quantity`, `des_prod_id`, `des_prod_quantity`)
+VALUES (3, 2, 3, 2, 2);
 
 -- 12.init table orders: DONE
 CREATE TABLE IF NOT EXISTS `orders` (
@@ -174,6 +204,13 @@ CREATE TABLE IF NOT EXISTS `orders` (
   FOREIGN KEY (`cus_id`) REFERENCES `customers`(`cus_id`),
   FOREIGN KEY (`order_detail_id`) REFERENCES `order_details`(`order_detail_id`)
 );
+INSERT INTO `orders` (`order_detail_id`, `cus_id`, `delivery_status`, `total_unit`, `total_price`)
+VALUES (1, 1, 'Pending', 2, 50.00);
+INSERT INTO `orders` (`order_detail_id`, `cus_id`, `delivery_status`, `total_unit`, `total_price`)
+VALUES (2, 2, 'Shipped', 1, 35.00);
+INSERT INTO `orders` (`order_detail_id`, `cus_id`, `delivery_status`, `total_unit`, `total_price`)
+VALUES (3, 3, 'Delivered', 3, 30.00);
+
 
 -- 13.init table inventories: DONE
 CREATE TABLE IF NOT EXISTS `inventories` (
@@ -183,3 +220,10 @@ CREATE TABLE IF NOT EXISTS `inventories` (
   PRIMARY KEY (`inventory_id`),
   FOREIGN KEY (`prod_id`) REFERENCES `products`(`prod_id`)
 );
+INSERT INTO `inventories` (`inventory_id`, `prod_id`, `quantity`)
+VALUES (1, 1, 50);
+INSERT INTO `inventories` (`inventory_id`, `prod_id`, `quantity`)
+VALUES (2, 2, 100);
+INSERT INTO `inventories` (`inventory_id`, `prod_id`, `quantity`)
+VALUES (3, 3, 75);
+
