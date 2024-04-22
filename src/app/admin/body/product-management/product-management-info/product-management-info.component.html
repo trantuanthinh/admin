@@ -1,17 +1,21 @@
-<form [formGroup]="myform" (ngSubmit)="Saveuser()">
+<form class="form" [formGroup]="myform" (ngSubmit)="Saveuser()">
     <h1 mat-dialog-title>{{ inputdata.title }}</h1>
     <div mat-dialog-content>
-        <mat-form-field>
+        <mat-form-field class="inputBox">
             <mat-label>Name</mat-label>
-            <input formControlName="name" matInput />
+            <input
+                formControlName="name"
+                matInput
+                placeholder="Product's Name"
+            />
         </mat-form-field>
-        <mat-form-field>
+        <mat-form-field class="inputBox">
             <mat-label>Email</mat-label>
-            <input matInput formControlName="email" />
+            <input formControlName="email" matInput placeholder="Email" />
         </mat-form-field>
-        <mat-form-field>
+        <mat-form-field class="inputBox">
             <mat-label>Phone</mat-label>
-            <input matInput formControlName="phone" />
+            <input formControlName="phone" matInput placeholder="Phone" />
         </mat-form-field>
         <div>
             <mat-checkbox formControlName="status">Is Active</mat-checkbox>
