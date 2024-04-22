@@ -160,4 +160,8 @@ export class ProductManagementComponent {
             this.dataSource.paginator.firstPage();
         }
     }
+
+    editCustomer(arg0: any) {
+        throw new Error("Method not implemented.");
+    }
 }
