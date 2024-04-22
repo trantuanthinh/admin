@@ -1,12 +1,20 @@
+import { CommonModule } from "@angular/common";
 import { Component, Inject, OnInit } from "@angular/core";
-import { FormBuilder } from "@angular/forms";
+import { FormBuilder, ReactiveFormsModule } from "@angular/forms";
+import { MatCheckboxModule } from "@angular/material/checkbox";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
+import { MatFormFieldModule } from "@angular/material/form-field";
 import { ShareService } from "../../../../shared/share.service";
 
 @Component({
     selector: "app-product-management-info",
     standalone: true,
-    imports: [],
+    imports: [
+        CommonModule,
+        MatFormFieldModule,
+        MatCheckboxModule,
+        ReactiveFormsModule,
+    ],
     templateUrl: "./product-management-info.component.html",
     styleUrl: "./product-management-info.component.scss",
 })
@@ -14,12 +22,14 @@ export class ProductManagementInfoComponent implements OnInit {
     inputdata: any;
     editdata: any;
     closemessage = "closed using directive";
+
     constructor(
         @Inject(MAT_DIALOG_DATA) public data: any,
         private ref: MatDialogRef<ProductManagementInfoComponent>,
         private buildr: FormBuilder,
         private service: ShareService
     ) {}
+
     ngOnInit(): void {
         this.inputdata = this.data;
         if (this.inputdata.code > 0) {

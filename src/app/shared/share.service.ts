@@ -37,7 +37,27 @@ export class ShareService {
 
     //Admins
     getAdmins() {
-        let baseUrl = this.RootEndPointAPI + "/admins";
+        let baseUrl = this.RootEndPointAPI + `/admins`;
         return this.http.get(baseUrl);
+    }
+
+    getAdmin(id: number) {
+        let baseUrl = this.RootEndPointAPI + `/admins/${id}`;
+        return this.http.get(baseUrl);
+    }
+
+    createAdmin(values: any) {
+        let baseUrl = this.RootEndPointAPI + `/admins`;
+        return this.http.post(baseUrl, values);
+    }
+
+    updateAdmin(id: number, values: any) {
+        let baseUrl = this.RootEndPointAPI + `/admins/${id}`;
+        return this.http.put(baseUrl, values);
+    }
+
+    deleteAdmin(id: number) {
+        let baseUrl = this.RootEndPointAPI + `/admins/${id}`;
+        return this.http.delete(baseUrl);
     }
 }

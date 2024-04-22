@@ -1,11 +1,13 @@
 import { Component, ViewChild } from "@angular/core";
 import { MatCardModule } from "@angular/material/card";
+import { MatDialog } from "@angular/material/dialog";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { MatPaginator, MatPaginatorModule } from "@angular/material/paginator";
 import { MatSort, MatSortModule } from "@angular/material/sort";
 import { MatTableDataSource, MatTableModule } from "@angular/material/table";
 import { TableComponent } from "../../../control/table/table.component";
+import { ProductManagementInfoComponent } from "./product-management-info/product-management-info.component";
 
 export interface UserData {
     id: string;
@@ -143,7 +145,7 @@ export class ProductManagementComponent {
         this.dataSource = new MatTableDataSource(products);
     }
 
-    constructor() {
+    constructor(public dialog: MatDialog) {
         this.generateData();
     }
 
@@ -161,7 +163,7 @@ export class ProductManagementComponent {
         }
     }
 
-    editCustomer(arg0: any) {
-        throw new Error("Method not implemented.");
+    editCustomer(item: any) {
+        this.dialog.open(ProductManagementInfoComponent, item);
     }
 }
