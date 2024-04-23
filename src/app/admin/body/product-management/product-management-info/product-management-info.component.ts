@@ -1,9 +1,12 @@
 import { CommonModule } from "@angular/common";
 import { Component, Inject, OnInit } from "@angular/core";
 import { FormBuilder, FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { MatButtonModule } from "@angular/material/button";
+import { MatCardModule } from "@angular/material/card";
 import { MatCheckboxModule } from "@angular/material/checkbox";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatInputModule } from "@angular/material/input";
 import { MatSelectModule } from "@angular/material/select";
 import { take } from "rxjs";
 import { ShareService } from "../../../../shared/share.service";
@@ -18,6 +21,11 @@ import { ShareService } from "../../../../shared/share.service";
         ReactiveFormsModule,
         MatCheckboxModule,
         MatSelectModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+        MatCardModule,
+        FormsModule,
     ],
     templateUrl: "./product-management-info.component.html",
     styleUrl: "./product-management-info.component.scss",
@@ -124,5 +132,9 @@ export class ProductManagementInfoComponent implements OnInit {
         //         status: this.editdata.status,
         //     });
         // });
+    }
+
+    closeDialog() {
+        // this.dialogRef.close(null);
     }
 }

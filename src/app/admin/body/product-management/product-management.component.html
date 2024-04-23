@@ -1,14 +1,12 @@
 <div class="bodyTable">
     <mat-card>
         <mat-card-header>
-
             <input class="search" matInput placeholder="Enter the text" />
         </mat-card-header>
     </mat-card>
     <!-- <button style="margin-left: 60%" mat-raised-button color="primary">
         Add Product (+)
     </button> -->
-
     <table matSort mat-table [dataSource]="dataSource" class="mat-elevation-z8">
         <ng-container matColumnDef="id">
             <th mat-sort-header mat-header-cell *matHeaderCellDef>ID</th>
@@ -43,7 +41,7 @@
         <ng-container matColumnDef="action">
             <th mat-header-cell *matHeaderCellDef>Action</th>
             <td mat-cell *matCellDef="let element">
-                <button (click)="editCustomer()" mat-raised-button color="primary">
+                <button (click)="editCustomer(element)" mat-raised-button color="primary">
                     Edit
                 </button>
                 <div></div>

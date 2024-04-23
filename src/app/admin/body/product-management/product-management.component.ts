@@ -1,5 +1,5 @@
 import { Component, ViewChild } from "@angular/core";
-import { ReactiveFormsModule } from "@angular/forms";
+import { FormGroup, ReactiveFormsModule } from "@angular/forms";
 import { MatCardModule } from "@angular/material/card";
 import { MatDialog } from "@angular/material/dialog";
 import { MatFormFieldModule } from "@angular/material/form-field";
@@ -7,6 +7,7 @@ import { MatInputModule } from "@angular/material/input";
 import { MatPaginator, MatPaginatorModule } from "@angular/material/paginator";
 import { MatSort, MatSortModule } from "@angular/material/sort";
 import { MatTableDataSource, MatTableModule } from "@angular/material/table";
+import { Subject } from "rxjs";
 import { TableComponent } from "../../../control/table/table.component";
 import { ProductManagementInfoComponent } from "./product-management-info/product-management-info.component";
 
@@ -50,6 +51,8 @@ export class ProductManagementComponent {
         "action",
     ];
     dataSource!: MatTableDataSource<UserData>;
+    myform!: FormGroup<any>;
+    public unsubscribe = new Subject<void>();
 
     generateData() {
         const products: UserData[] = [
@@ -165,8 +168,14 @@ export class ProductManagementComponent {
         }
     }
 
-    editCustomer() {
-        // this.dialog.open(ProductManagementInfoComponent, item);
-        this.dialog.open(ProductManagementInfoComponent);
+    editCustomer(item: any) {
+        const dialogRef = this.dialog.open(ProductManagementInfoComponent, {
+            data: item,
+        });
+
+        dialogRef.afterClosed().subscribe((result) => {
+            console.log("The dialog was closed");
+            // this.animal = result;
+        });
     }
 }
