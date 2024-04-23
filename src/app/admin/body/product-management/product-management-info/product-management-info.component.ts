@@ -1,6 +1,12 @@
+import { ScrollingModule } from "@angular/cdk/scrolling";
 import { CommonModule } from "@angular/common";
 import { Component, Inject, OnInit } from "@angular/core";
-import { FormBuilder, FormsModule, ReactiveFormsModule } from "@angular/forms";
+import {
+    FormBuilder,
+    FormControl,
+    FormsModule,
+    ReactiveFormsModule,
+} from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { MatCheckboxModule } from "@angular/material/checkbox";
@@ -26,11 +32,16 @@ import { ShareService } from "../../../../shared/share.service";
         MatButtonModule,
         MatCardModule,
         FormsModule,
+        ScrollingModule,
     ],
     templateUrl: "./product-management-info.component.html",
     styleUrl: "./product-management-info.component.scss",
 })
 export class ProductManagementInfoComponent implements OnInit {
+    category!: FormControl<any>;
+    saveCustomer() {
+        throw new Error("Method not implemented.");
+    }
     inputdata: any;
     editdata: any;
     closemessage = "closed using directive";
@@ -45,10 +56,10 @@ export class ProductManagementInfoComponent implements OnInit {
         private buildr: FormBuilder,
         private shareService: ShareService
     ) {
-        // this.getCategories();
-        // this.getFlavours();
-        // this.getShapes();
-        // this.getSizes();
+        this.getCategories();
+        this.getFlavours();
+        this.getShapes();
+        this.getSizes();
     }
 
     ngOnInit(): void {

@@ -55,11 +55,16 @@ mat-form-field input {
     color: #c42828;
 }
 
-// .mat-50 {
-//     width: 48%;
-//     margin: 1%;
-// }
-
 button {
     margin: 2px;
+}
+
+.viewport {
+    height: 550px;
+    width: 550px;
+    border: 1px solid black;
+}
+
+.example-item {
+    height: 100px;
 }
