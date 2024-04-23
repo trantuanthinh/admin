@@ -1,9 +1,11 @@
 import { CommonModule } from "@angular/common";
 import { Component, Inject, OnInit } from "@angular/core";
-import { FormBuilder, ReactiveFormsModule } from "@angular/forms";
+import { FormBuilder, FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatCheckboxModule } from "@angular/material/checkbox";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatSelectModule } from "@angular/material/select";
+import { take } from "rxjs";
 import { ShareService } from "../../../../shared/share.service";
 
 @Component({
@@ -12,8 +14,10 @@ import { ShareService } from "../../../../shared/share.service";
     imports: [
         CommonModule,
         MatFormFieldModule,
-        MatCheckboxModule,
+        FormsModule,
         ReactiveFormsModule,
+        MatCheckboxModule,
+        MatSelectModule,
     ],
     templateUrl: "./product-management-info.component.html",
     styleUrl: "./product-management-info.component.scss",
@@ -22,31 +26,28 @@ export class ProductManagementInfoComponent implements OnInit {
     inputdata: any;
     editdata: any;
     closemessage = "closed using directive";
+    categoryList: any = [];
+    sizeList: any = [];
+    shapeList: any = [];
+    flavourList: any = [];
 
     constructor(
         @Inject(MAT_DIALOG_DATA) public data: any,
         private ref: MatDialogRef<ProductManagementInfoComponent>,
         private buildr: FormBuilder,
-        private service: ShareService
-    ) {}
-
-    ngOnInit(): void {
-        this.inputdata = this.data;
-        if (this.inputdata.code > 0) {
-            this.setpopupdata(this.inputdata.code);
-        }
+        private shareService: ShareService
+    ) {
+        // this.getCategories();
+        // this.getFlavours();
+        // this.getShapes();
+        // this.getSizes();
     }
 
-    setpopupdata(code: any) {
-        // this.service.GetCustomerbycode(code).subscribe((item) => {
-        //     this.editdata = item;
-        //     this.myform.setValue({
-        //         name: this.editdata.name,
-        //         email: this.editdata.email,
-        //         phone: this.editdata.phone,
-        //         status: this.editdata.status,
-        //     });
-        // });
+    ngOnInit(): void {
+        // this.inputdata = this.data;
+        // if (this.inputdata.code > 0) {
+        //     this.setpopupdata(this.inputdata.code);
+        // }
     }
 
     closepopup() {
@@ -63,6 +64,65 @@ export class ProductManagementInfoComponent implements OnInit {
     Saveuser() {
         // this.service.Savecustomer(this.myform.value).subscribe((res) => {
         //     this.closepopup();
+        // });
+    }
+    getCategories() {
+        this.shareService
+            .getCategories()
+            .pipe(take(1))
+            .subscribe({
+                next: (res: any) => {
+                    this.categoryList = res.data;
+                },
+                error: (error) => console.log("Error: " + error),
+            });
+    }
+
+    getShapes() {
+        this.shareService
+            .getShapes()
+            .pipe(take(1))
+            .subscribe({
+                next: (res: any) => {
+                    this.shapeList = res.data;
+                },
+                error: (error) => console.log("Error: " + error),
+            });
+    }
+
+    getSizes() {
+        this.shareService
+            .getSizes()
+            .pipe(take(1))
+            .subscribe({
+                next: (res: any) => {
+                    this.sizeList = res.data;
+                },
+                error: (error) => console.log("Error: " + error),
+            });
+    }
+
+    getFlavours() {
+        this.shareService
+            .getFlavours()
+            .pipe(take(1))
+            .subscribe({
+                next: (res: any) => {
+                    this.flavourList = res.data;
+                },
+                error: (error) => console.log("Error: " + error),
+            });
+    }
+
+    setpopupdata(code: any) {
+        // this.service.GetCustomerbycode(code).subscribe((item) => {
+        //     this.editdata = item;
+        //     this.myform.setValue({
+        //         name: this.editdata.name,
+        //         email: this.editdata.email,
+        //         phone: this.editdata.phone,
+        //         status: this.editdata.status,
+        //     });
         // });
     }
 }

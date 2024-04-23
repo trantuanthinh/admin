@@ -35,7 +35,7 @@ export class ShareService {
         );
     }
 
-    //Admins
+    //admins
     getAdmins() {
         let baseUrl = this.RootEndPointAPI + `/admins`;
         return this.http.get(baseUrl);
@@ -59,5 +59,29 @@ export class ShareService {
     deleteAdmin(id: number) {
         let baseUrl = this.RootEndPointAPI + `/admins/${id}`;
         return this.http.delete(baseUrl);
+    }
+
+    //sizes
+    getSizes() {
+        let baseUrl = this.RootEndPointAPI + `/sizes`;
+        return this.http.get(baseUrl);
+    }
+
+    //shapes
+    getShapes() {
+        let baseUrl = this.RootEndPointAPI + `/shapes`;
+        return this.http.get(baseUrl);
+    }
+
+    //flavours
+    getFlavours() {
+        let baseUrl = this.RootEndPointAPI + `/flavours`;
+        return this.http.get(baseUrl);
+    }
+
+    //categories
+    getCategories() {
+        let baseUrl = this.RootEndPointAPI + `/categories`;
+        return this.http.get(baseUrl);
     }
 }

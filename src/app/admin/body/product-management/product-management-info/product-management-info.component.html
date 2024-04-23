@@ -1,29 +1,15 @@
-<form class="form" [formGroup]="myform" (ngSubmit)="Saveuser()">
-    <h1 mat-dialog-title>{{ inputdata.title }}</h1>
-    <div mat-dialog-content>
-        <mat-form-field class="inputBox">
-            <mat-label>Name</mat-label>
-            <input
-                formControlName="name"
-                matInput
-                placeholder="Product's Name"
-            />
-        </mat-form-field>
-        <mat-form-field class="inputBox">
-            <mat-label>Email</mat-label>
-            <input formControlName="email" matInput placeholder="Email" />
-        </mat-form-field>
-        <mat-form-field class="inputBox">
-            <mat-label>Phone</mat-label>
-            <input formControlName="phone" matInput placeholder="Phone" />
-        </mat-form-field>
-        <div>
-            <mat-checkbox formControlName="status">Is Active</mat-checkbox>
-        </div>
-    </div>
-    <div mat-dialog-actions>
-        <button mat-raised-button type="submit" color="primary">Save</button>
-        <a (click)="closepopup()" mat-raised-button color="warn">Close</a>
-        <!-- <button mat-raised-button [mat-dialog-close]="closemessage" color="accent">Cancel</button> -->
-    </div>
-</form>
+<mat-form-field>
+    <mat-label>Input</mat-label>
+    <input matInput>
+</mat-form-field>
+<mat-form-field>
+    <mat-label>Select</mat-label>
+    <mat-select>
+        <mat-option value="one">First option</mat-option>
+        <mat-option value="two">Second option</mat-option>
+    </mat-select>
+</mat-form-field>
+<mat-form-field>
+    <mat-label>Textarea</mat-label>
+    <textarea matInput></textarea>
+</mat-form-field>

@@ -1,4 +1,5 @@
 import { Component, ViewChild } from "@angular/core";
+import { ReactiveFormsModule } from "@angular/forms";
 import { MatCardModule } from "@angular/material/card";
 import { MatDialog } from "@angular/material/dialog";
 import { MatFormFieldModule } from "@angular/material/form-field";
@@ -30,6 +31,7 @@ export interface UserData {
         MatFormFieldModule,
         MatInputModule,
         MatSortModule,
+        ReactiveFormsModule,
     ],
     templateUrl: "./product-management.component.html",
     styleUrls: ["./product-management.component.scss"],
@@ -163,7 +165,8 @@ export class ProductManagementComponent {
         }
     }
 
-    editCustomer(item: any) {
-        this.dialog.open(ProductManagementInfoComponent, item);
+    editCustomer() {
+        // this.dialog.open(ProductManagementInfoComponent, item);
+        this.dialog.open(ProductManagementInfoComponent);
     }
 }
