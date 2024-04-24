@@ -67,9 +67,24 @@ button {
 .viewport {
     height: 550px;
     width: 550px;
-    border: 1px solid black;
+    border: 2px solid rgba(225, 225, 225, 2);
 }
 
 .example-item {
     height: 100px;
+}
+cdk-virtual-scroll-viewport{
+    min-width: 100%;
+    background: rgb(247, 247, 201);
+}
+.productHeader{
+    background: rgb(253, 253, 150);
+    padding: 13px 16px 13px;;
+}
+.mat-mdc-card-content:last-child {
+    padding-bottom: 16px;
+    background-color: rgb(244, 244, 210);
+}
+.mdc-text-field--filled:not(.mdc-text-field--disabled){
+    background-color: #dfd379;
 }

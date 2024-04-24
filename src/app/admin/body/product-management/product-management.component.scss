@@ -35,17 +35,6 @@ button {
     display: table-cell;
     font-size: 14px;
     min-width: 13px;
-    // color: rgb(139, 97, 72);
-
-    // margin: 2px;
-    // // width: 30%;
-    // border: none;
-    // outline: none;
-    // border-radius: 2.5px;
-    // background: white;
-    // display: flex;
-    // padding: 2px;
-    // box-shadow: 0 0 10px rgba(0, 0, 0, .1);
 }
 button:hover{
     text-decoration: underline;
@@ -59,10 +48,21 @@ button:hover{
 
 th {
     background-color: rgb(252, 112, 210) !important;
-    color: white;
+    color: #523725;
 }
 
-td {
-    background-color: rgb(49, 49, 49) !important;
-    color: white;
+td{
+    background-color: rgb(255 187 247) !important;
+    color: #83582a;
+}
+mat-paginator{
+    background: rgb(252, 112, 210);
+}
+.mat-sort-header-arrow{
+    color: #523725;
+}
+mat-mdc-paginator-range-actions {
+    display: flex;
+    align-items: center;
+    color: #623737;
 }
