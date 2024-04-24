@@ -6,19 +6,59 @@
 
 table {
     width: 100%;
+    background: transparent;
 }
 
 mat-card {
-    margin: 2%;
+    margin: 1%;
     background: rgb(244, 249, 218);
+    // background: yellow !important;
+    border-radius: 20px;
+    border: 2px solid rgba(255, 255, 255, 2);
+}
+mat-card-header{
+    padding: 10px;
+}
+mat-card-header input{
+    color: rgb(116, 77, 58);
+    background: transparent;
+    width: 100%;
+    height: 100%;
+    font-size: 18px; /* Adjust the font size as needed */
+    padding: 10px;
+    border-radius: 10px;
+    
 }
 
 button {
-    margin: 2px;
+
+    display: table-cell;
+    font-size: 14px;
+    min-width: 13px;
+    // color: rgb(139, 97, 72);
+
+    // margin: 2px;
+    // // width: 30%;
+    // border: none;
+    // outline: none;
+    // border-radius: 2.5px;
+    // background: white;
+    // display: flex;
+    // padding: 2px;
+    // box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+}
+button:hover{
+    text-decoration: underline;
+    color: #d72292;
+}
+
+.action-buttons {
+    display: inline-flex;
+    gap: 10px; /* Adjust the gap between buttons */
 }
 
 th {
-    background-color: rgb(49, 49, 49) !important;
+    background-color: rgb(252, 112, 210) !important;
     color: white;
 }
 

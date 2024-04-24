@@ -17,7 +17,8 @@ export class ShareService {
     }
 
     getAPI_URL() {
-        this.RootEndPointAPI = `http://localhost:${this.PORT}/api`;
+        // this.RootEndPointAPI = `http://localhost:${this.PORT}/api`;
+        this.RootEndPointAPI = `http://10.30.221.82:${this.PORT}/api`;
     }
 
     getAll(url: string): Observable<any> {
