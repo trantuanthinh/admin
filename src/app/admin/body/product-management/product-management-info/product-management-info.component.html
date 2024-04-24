@@ -1,7 +1,7 @@
 <cdk-virtual-scroll-viewport itemSize="200" class="viewport">
     <form [formGroup]="myform" (ngSubmit)="updateProduct()">
         <mat-card>
-            <mat-card-header>
+            <mat-card-header class="productHeader">
                 <h1>Product</h1>
             </mat-card-header>
             <mat-card-content>
@@ -77,3 +77,5 @@
         </mat-card-footer>
     </form>
 </cdk-virtual-scroll-viewport>
+
+--mdc-filled-text-field-container-color: transparent;
