@@ -188,6 +188,30 @@ export class AdminNavbarComponent implements OnInit {
                     code: "dasdassdaw",
                     route: "/admin/products/cakes",
                 },
+                {
+                    type: "link",
+                    label: "awdasda",
+                    code: "dasdassdaw",
+                    route: "/admin/products/cakes",
+                },
+                {
+                    type: "link",
+                    label: "awdasda",
+                    code: "dasdassdaw",
+                    route: "/admin/products/cakes",
+                },
+                {
+                    type: "link",
+                    label: "awdasda",
+                    code: "dasdassdaw",
+                    route: "/admin/products/cakes",
+                },
+                {
+                    type: "link",
+                    label: "awdasda",
+                    code: "dasdassdaw",
+                    route: "/admin/products/cakes",
+                },
             ],
         };
     }

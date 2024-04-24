@@ -10,35 +10,31 @@
     </div>
     <ul class="sidenav-nav">
         <li class="sidenav-nav-item" *ngFor="let data of arrApps">
-            <!-- <div > -->
-            <mat-list-item *ngIf="data.type=='link'" class="sidenav-nav-link" [routerLink]="[data.routeLink]"
+            <mat-list-item *ngIf="data.type == 'link'" class="sidenav-nav-link" [routerLink]="[data.route]"
                 routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="emitTitle(data.label)">
                 <mat-icon class="sidenav-link-icon" [class]="data.icon"></mat-icon>
                 <span class="sidenav-link-text" @fadeInOut *ngIf="collapsed">
                     {{ data.label }}
                 </span>
             </mat-list-item>
-            <div *ngIf="data.type=='group'">
+
+            <div *ngIf="data.type == 'group'">
                 <mat-expansion-panel [expanded]="openedPanel == data.code">
                     <mat-expansion-panel-header>
                         <mat-panel-title>
                             <mat-icon class="sidenav-link-icon" [class]="data?.icon"></mat-icon>
-                            <span>{{data?.label}}</span>
+                            <span>{{ data?.label }}</span>
                         </mat-panel-title>
                     </mat-expansion-panel-header>
-                    <mat-panel-description>
-                        <mat-nav-list>
-                            <ng-template ngFor let-child [ngForOf]="data?.children">
-                                <mat-list-item *ngIf="data.type=='link'" class="sidenav-nav-link"
-                                    [routerLink]="[data.routeLink]" routerLinkActive="active"
-                                    [routerLinkActiveOptions]="{ exact: true }" (click)="emitTitle(data.label)">
-                                    <mat-icon class="sidenav-link-icon" [class]="data.icon"></mat-icon>
-                                    <span class="sidenav-link-text" @fadeInOut *ngIf="collapsed">
-                                        {{ data.label }}
-                                    </span>
-                                </mat-list-item>
-                            </ng-template>
-                        </mat-nav-list>
+                    <mat-panel-description *ngFor="let child of data.children">
+                        <mat-list-item *ngIf="child.type == 'link'" class="sidenav-nav-link"
+                            [routerLink]="[child.route]" routerLinkActive="active"
+                            [routerLinkActiveOptions]="{ exact: true }" (click)="emitTitle(child.label)">
+                            <mat-icon class="sidenav-link-icon" [class]="child.icon"></mat-icon>
+                            <span class="sidenav-link-text" @fadeInOut *ngIf="collapsed">
+                                {{ child.label }}
+                            </span>
+                        </mat-list-item>
                     </mat-panel-description>
                 </mat-expansion-panel>
             </div>
