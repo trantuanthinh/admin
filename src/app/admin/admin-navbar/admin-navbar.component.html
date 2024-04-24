@@ -1,61 +1,3 @@
-<!-- <div class="container">
-
-    <div class="navigation">
-        <ul>
-            <li><a href="#" class="logo">
-
-            </a></li>
-            <li>
-                <button (click)="handleClick()"><img src="assets\cake_logo.png"></button>
-            </li>
-            <li>
-                <a class="options" [routerLink]="['/admin/home']">
-                    <span class="icon">
-                        <i class="fas fa-home"></i>
-                    </span>
-                    <span class="title" *ngIf="show">Home</span>
-                </a>
-            </li> -->
-
-<!-- <li><a class="options" [routerLink]="['/admin/product-management']">
-                    <span class="icon">
-                        <i class="fas fa-birthday-cake"></i>
-                    </span>
-                    <span class="title">Product Management</span>
-                </a></li>
-            <li><a class="options" [routerLink]="['/admin/order-management']">
-                    <span class="icon">
-                        <i class="fas fa-shopping-cart"></i>
-                    </span>
-                    <span class="title">OrderManagement</span>
-                </a></li>
-            <li><a class="options" [routerLink]="['/admin/ingredient-management']">
-                    <span class="icon">
-                        <i class="fas fa-cookie-bite"></i>
-                    </span>
-                    <span class="title">Ingredient
-                        Management</span>
-                </a></li>
-            <li><a class="options" [routerLink]="['/admin/customer-management']">
-                    <span class="icon">
-                        <i class="fas fa-users"></i>
-                    </span>
-                    <span class="title">Customer
-                        Management</span>
-                </a></li> -->
-<!--
-        </ul>
-    </div>
-</div> -->
-
-<!-- <div class="navigation" [class.active]="navigationActive">
-    <app-admin-navbar></app-admin-navbar>
-</div>
-
-<button mat-button class="toggle" (click)="toggleNavigation()">
-    <i class="fas fa-bars"></i>
-</button> -->
-
 <div class="sidenav" [ngClass]="collapsed ? 'sidenav-collapsed' : ''">
     <div class="logo-container">
         <button class="logo" (click)="toggleCollapse()">
@@ -67,59 +9,39 @@
         </button>
     </div>
     <ul class="sidenav-nav">
-        <li class="sidenav-nav-item" *ngFor="let data of navData">
-            <a class="sidenav-nav-link" [routerLink]="[data.routeLink]" routerLinkActive="active"
-                [routerLinkActiveOptions]="{ exact: true }" (click)="emitTitle(data.label)">
-                <i class="sidenav-link-icon" [class]="data.icon"></i>
+        <li class="sidenav-nav-item" *ngFor="let data of arrApps">
+            <!-- <div > -->
+            <mat-list-item *ngIf="data.type=='link'" class="sidenav-nav-link" [routerLink]="[data.routeLink]"
+                routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="emitTitle(data.label)">
+                <mat-icon class="sidenav-link-icon" [class]="data.icon"></mat-icon>
                 <span class="sidenav-link-text" @fadeInOut *ngIf="collapsed">
                     {{ data.label }}
                 </span>
-            </a>
+            </mat-list-item>
+            <div *ngIf="data.type=='group'">
+                <mat-expansion-panel [expanded]="openedPanel == data.code">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <mat-icon class="sidenav-link-icon" [class]="data?.icon"></mat-icon>
+                            <span>{{data?.label}}</span>
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <mat-panel-description>
+                        <mat-nav-list>
+                            <ng-template ngFor let-child [ngForOf]="data?.children">
+                                <mat-list-item *ngIf="data.type=='link'" class="sidenav-nav-link"
+                                    [routerLink]="[data.routeLink]" routerLinkActive="active"
+                                    [routerLinkActiveOptions]="{ exact: true }" (click)="emitTitle(data.label)">
+                                    <mat-icon class="sidenav-link-icon" [class]="data.icon"></mat-icon>
+                                    <span class="sidenav-link-text" @fadeInOut *ngIf="collapsed">
+                                        {{ data.label }}
+                                    </span>
+                                </mat-list-item>
+                            </ng-template>
+                        </mat-nav-list>
+                    </mat-panel-description>
+                </mat-expansion-panel>
+            </div>
         </li>
     </ul>
 </div>
-
-<!-- <div class="admin-navbar" fxLayout="column" fxLayoutAlign="start center">
-
-    <div class="member-container" fxLayout="column" fxLayoutAlign="start center">
-
-        <div class="logo-container full-width mrt-24" fxLayout="row" fxLayoutAlign="center start">
-            <img class="logo" src="assets\logo311.jpg" />
-            <h1>Sweeties</h1>
-        </div>
-
-        <!-- <div class="contact" fxLayout="column" fxLayoutAlign="center center">
-                    <div class="name">3T Cake Management</div>
-                </div> -->
-<!-- </div> -->
-<!-- <mat-accordion multi displayMode="flat">
-
-
-        <ng-container *ngFor="let app of arrApps">
-            <mat-expansion-panel [expanded]="openedPanel == app.code">
-                <mat-expansion-panel-header>
-                    <mat-panel-title style="text-align: center;">
-                        <mat-icon class="app-icon mrr-24" [svgIcon]="app?.icon"></mat-icon>
-                        <span>{{app?.label}}</span>
-                    </mat-panel-title>
-                </mat-expansion-panel-header>
-
-                <mat-panel-description>
-                    <mat-nav-list>
-                        <ng-container *ngFor="let item of app?.children">
-                            <div *ngIf="item.type=='subheading'" class="full-width mrt-12">
-                                <span>{{item?.label}}</span>
-                            </div>
-                            <mat-list-item *ngIf="item.type=='link'" (click)="log([item.route])"
-                                [routerLink]="[item.route]" [routerLinkActive]="['active']"
-                                [routerLinkActiveOptions]="{ exact: true }">
-                                <span>{{item?.label}}</span>
-                            </mat-list-item>
-                        </ng-container>
-                    </mat-nav-list>
-                </mat-panel-description>
-            </mat-expansion-panel>
-        </ng-container>
-    </mat-accordion> -->
-<!-- </div> -->
--->

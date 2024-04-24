@@ -89,6 +89,27 @@ export class ProductManagementInfoComponent implements OnInit {
         // }
     }
 
+    selectedFile: File | null = null;
+
+    onFileSelected(event: any) {
+        console.log(111111);
+        console.log(event);
+
+        if (event.target.files.length > 0) {
+            const file = event.target.file[0];
+            const formData = new FormData();
+            formData.append("file", file);
+        }
+    }
+
+    upload() {
+        if (!this.selectedFile) {
+            console.log("No file selected!");
+            return;
+        }
+        console.log("Uploading file:", this.selectedFile);
+    }
+
     closepopup() {
         this.dialogRef.close("Closed using function");
     }

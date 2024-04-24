@@ -16,7 +16,8 @@ import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { Router, RouterModule } from "@angular/router";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
-import { navbarData } from "./navbar-items.interface";
+import { NavigationItem } from "./navbar-items.interface";
+// import { navbarData } from "./navbar-items.interface";
 
 interface SideNavToggle {
     screenWidth: number;
@@ -52,7 +53,22 @@ export class AdminNavbarComponent implements OnInit {
 
     collapsed = false;
     screenWidth = 0;
-    navData = navbarData;
+    // navData = navbarData;
+    @Input() opened: boolean = true;
+    @Output() onToggle: any = new EventEmitter();
+    public openedPanel: string = "infomations";
+    public arrApps: any[] = [];
+    constructor(public router: Router, private cdr: ChangeDetectorRef) {
+        this.getNavData();
+    }
+
+    getNavData() {
+        this.arrApps.push(this.getHome());
+        this.arrApps.push(this.getProductsManagement());
+        this.arrApps.push(this.getOrdersManagement());
+        this.arrApps.push(this.getIngredientsManagement());
+        this.arrApps.push(this.getCustomersManagement());
+    }
 
     emitTitle(item: string) {
         this.label = item;
@@ -93,25 +109,19 @@ export class AdminNavbarComponent implements OnInit {
         });
     }
 
-    private checkScreenWidth() {
+    checkScreenWidth() {
         if (this.screenWidth <= 768) {
             this.collapsed = false;
             this.emitToggleSideNav();
         }
     }
 
-    private emitToggleSideNav() {
+    emitToggleSideNav() {
         this.onToggleSideNav.emit({
             collapsed: this.collapsed,
             screenWidth: this.screenWidth,
         });
     }
-
-    @Input() opened: boolean = true;
-    @Output() onToggle: any = new EventEmitter();
-    public openedPanel: string = "infomations";
-    public arrApps: any[] = [];
-    constructor(public router: Router, private cdr: ChangeDetectorRef) {}
 
     updateStyleProperty() {
         this.cdr.detectChanges();
@@ -135,97 +145,60 @@ export class AdminNavbarComponent implements OnInit {
         item.favorite = !item.favorite;
     }
 
-    log(url: any) {
-        console.log("url...." + url);
+    getHome(): NavigationItem {
+        return {
+            type: "link",
+            label: "Home",
+            code: "home",
+            icon: "fas fa-home",
+            route: "/admin/home",
+        };
     }
 
-    // getManageInfo(): NavigationItem {
-    // 	return {
-    // 		type: "group",
-    // 		label: "Infomations",
-    // 		code: "infomations",
-    // 		// icon: "ic_article_48dp",
-    // 		children: [
-    // 			{
-    // 				type: "link",
-    // 				label: "Admin",
-    // 				code: "admin",
-    // 				route: "/admin/info/ad",
-    // 				actions: "more-menu",
-    // 			},
-    // 			{
-    // 				type: "link",
-    // 				label: "Customer",
-    // 				code: "customers",
-    // 				route: "/admin/info/customers",
-    // 				actions: "more-menu",
-    // 			},
-    // 		],
-    // 	};
-    // }
+    getProductsManagement(): NavigationItem {
+        return {
+            type: "link",
+            label: "Products Management",
+            code: "productsManagement",
+            icon: "fas fa-birthday-cake",
+            route: "/admin/product-management",
+        };
+    }
 
-    // getManageProducts(): NavigationItem {
-    // 	return {
-    // 		type: "group",
-    // 		label: "Products",
-    // 		code: "products",
-    // 		// icon: "ic_article_48dp",
-    // 		children: [
-    // 			{
-    // 				type: "subheading",
-    // 				label: "Products Management",
-    // 			},
-    // 			{
-    // 				type: "link",
-    // 				label: "Cakes",
-    // 				code: "cakes",
-    // 				route: "/admin/products/cakes",
-    // 				actions: "more-menu",
-    // 			},
-    // 			{
-    // 				type: "link",
-    // 				label: "Macarons",
-    // 				code: "macarons",
-    // 				route: "/admin/products/macarons",
-    // 				actions: "more-menu",
-    // 			},
-    // 			{
-    // 				type: "link",
-    // 				label: "Cookies",
-    // 				code: "cookies",
-    // 				route: "/admin/products/cookies",
-    // 				actions: "more-menu",
-    // 			},
-    // 		],
-    // 	};
-    // }
+    getOrdersManagement(): NavigationItem {
+        return {
+            type: "link",
+            label: "Orders Management",
+            code: "ordersManagement",
+            icon: "fas fa-shopping-cart",
+            route: "/admin/order-management",
+        };
+    }
 
-    // getManageSystem(): NavigationItem {
-    // 	return {
-    // 		type: "group",
-    // 		label: "Systems",
-    // 		code: "systems",
-    // 		// icon: "ic_article_48dp",
-    // 		children: [
-    // 			{
-    // 				type: "subheading",
-    // 				label: "Systems Management",
-    // 			},
-    // 			{
-    // 				type: "link",
-    // 				label: "Settings",
-    // 				code: "settings",
-    // 				route: "/admin/systems/settings",
-    // 				actions: "more-menu",
-    // 			},
-    // 			{
-    // 				type: "link",
-    // 				label: "Theme",
-    // 				code: "Theme",
-    // 				route: "/admin/systems/theme",
-    // 				actions: "more-menu",
-    // 			},
-    // 		],
-    // 	};
-    // }
+    getIngredientsManagement(): NavigationItem {
+        return {
+            type: "group",
+            label: "Ingredients Management",
+            code: "ingredientsManagement",
+            icon: "fas fa-cookie-bite",
+            children: [
+                {
+                    type: "link",
+                    label: "awdasda",
+                    code: "dasdassdaw",
+                    route: "/admin/products/cakes",
+                },
+            ],
+        };
+    }
+
+    getCustomersManagement(): NavigationItem {
+        return {
+            type: "link",
+            label: "Customers Management",
+            code: "customersManagement",
+            icon: "fas fa-users",
+            route: "/admin/customer-management",
+        };
+    }
 }

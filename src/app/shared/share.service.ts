@@ -4,7 +4,7 @@ import {
     HttpHeaders,
 } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable, map, throwError } from "rxjs";
+import { Observable, throwError } from "rxjs";
 import { HttpService } from "./http.service";
 
 @Injectable({
@@ -22,92 +22,94 @@ export class ShareService {
     }
 
     getAPI_URL() {
-        // this.RootEndPointAPI = `http://localhost:${this.PORT}/api`;
-        this.RootEndPointAPI = `http://10.30.221.82:${this.PORT}/api`;
+        this.RootEndPointAPI = `http://localhost:${this.PORT}/api`;
     }
 
     getAll(url: string): Observable<any> {
-        return this.httpService.getItems(url).pipe(
-            map((res) => {
-                let dataJSON = res;
-                // let arrs = dataJSON["value"] as any[];
-                // let total = parseInt(dataJSON["@odata.count"], 10);
-                // return {
-                //     total: total,
-                //     value: arrs,
-                // };
-            })
-            // catchError((error) => this.handleError("getItems", error))
-        );
+        return this.http.get(url, { headers: this.headers });
+    }
+
+    getItem(url: string): Observable<any> {
+        return this.http.get(url, { headers: this.headers });
+    }
+
+    createItem(url: string, item: any): Observable<any> {
+        return this.http.post(url, item, { headers: this.headers });
+    }
+
+    updateItem(url: string, item: any): Observable<any> {
+        return this.http.put(url, item, { headers: this.headers });
+    }
+
+    deleteItem(url: string): Observable<any> {
+        return this.http.delete(url, { headers: this.headers });
     }
 
     //admins
     getAdmins() {
         let baseUrl = this.RootEndPointAPI + `/admins`;
-        return this.http.get(baseUrl);
+        return this.getAll(baseUrl);
     }
 
     getAdmin(id: number) {
         let baseUrl = this.RootEndPointAPI + `/admins/${id}`;
-        return this.http.get(baseUrl);
+        return this.getItem(baseUrl);
     }
 
     createAdmin(item: any) {
         let baseUrl = this.RootEndPointAPI + `/admins`;
-        return this.http.post(baseUrl, item);
+        return this.createItem(baseUrl, item);
     }
 
     updateAdmin(id: number, item: any) {
         let baseUrl = this.RootEndPointAPI + `/admins/${id}`;
-        return this.http.put(baseUrl, item);
+        return this.updateItem(baseUrl, item);
     }
 
     deleteAdmin(id: number) {
         let baseUrl = this.RootEndPointAPI + `/admins/${id}`;
-        return this.http.delete(baseUrl);
+        return this.deleteItem(baseUrl);
     }
 
     //products
     getProducts() {
         let baseUrl = this.RootEndPointAPI + `/products`;
-        return this.http.get(baseUrl);
+        return this.getAll(baseUrl);
     }
 
     createProduct(item: any) {
         let baseUrl = this.RootEndPointAPI + `/products`;
-        console.log(item);
-        return this.http.post(baseUrl, item, { headers: this.headers });
-        // return this.http.post(baseUrl, item);
+        return this.createItem(baseUrl, item);
     }
 
     //sizes
     getSizes() {
         let baseUrl = this.RootEndPointAPI + `/sizes`;
-        return this.http.get(baseUrl);
+        return this.getAll(baseUrl);
     }
 
     //shapes
     getShapes() {
         let baseUrl = this.RootEndPointAPI + `/shapes`;
-        return this.http.get(baseUrl);
+        return this.getAll(baseUrl);
     }
 
     //flavours
     getFlavours() {
         let baseUrl = this.RootEndPointAPI + `/flavours`;
-        return this.http.get(baseUrl);
+        return this.getAll(baseUrl);
     }
 
     //categories
     getCategories() {
         let baseUrl = this.RootEndPointAPI + `/categories`;
-        return this.http.get(baseUrl);
+        return this.getAll(baseUrl);
     }
 
     handleError(methodName: string, errorData: HttpErrorResponse | any) {
         let errorResponse: any = {
-            status: 0,
-            message: "",
+            status: methodName,
+            message: errorData,
         };
         return throwError(() => new Error(errorResponse.message));
     }

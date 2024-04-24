@@ -1,27 +1,45 @@
-export const navbarData = [
-    {
-        routeLink: '/admin/home',
-        icon: 'fas fa-home',
-        label: 'Home'
-    },
-    {
-        routeLink: '/admin/product-management',
-        icon: 'fas fa-birthday-cake',
-        label: 'Products Management'
-    },
-    {
-        routeLink: '/admin/order-management',
-        icon: 'fas fa-shopping-cart',
-        label: 'Order Management'
-    },
-    {
-        routeLink: '/admin/ingredient-management',
-        icon: 'fas fa-cookie-bite',
-        label: 'Ingredient Management'
-    },
-    {
-        routeLink: '/admin/customer-management',
-        icon: 'fas fa-users',
-        label: 'Customer Management'
-    },
-];
+// export const navbarData = [
+//     {
+//         routeLink: "/admin/home",
+//         icon: "fas fa-home",
+//         label: "Home",
+//     },
+//     {
+//         routeLink: "/admin/product-management",
+//         icon: "fas fa-birthday-cake",
+//         label: "Products Management",
+//     },
+//     {
+//         routeLink: "/admin/order-management",
+//         icon: "fas fa-shopping-cart",
+//         label: "Order Management",
+//     },
+//     {
+//         routeLink: "/admin/ingredient-management",
+//         icon: "fas fa-cookie-bite",
+//         label: "Ingredient Management",
+//     },
+//     {
+//         routeLink: "/admin/customer-management",
+//         icon: "fas fa-users",
+//         label: "Customer Management",
+//     },
+// ];
+
+export type NavigationItem = NavigationLink | NavigationGroup;
+
+export interface NavigationGroup {
+    type: "group";
+    code: string;
+    label: string;
+    icon?: string;
+    children: Array<NavigationLink>;
+}
+
+export interface NavigationLink {
+    type: "link";
+    label: string;
+    code: string;
+    route: string | any;
+    icon?: string;
+}
