@@ -18,8 +18,6 @@ export class HttpService {
         let queryStr = "";
         let baseUrl = `${url}`;
         if (queryStr) {
-            console.log(11111111);
-            console.log(queryStr);
             baseUrl = `${url}?${queryStr}`;
         }
         // return this.http.get<HttpResponse<T>>(baseUrl, { headers: headers });
@@ -88,19 +86,15 @@ export class HttpService {
         return this.http.post(url, {}, { headers: headers });
     }
 
-    postRequestBaseUrl(
-        url: string,
-        headers: HttpHeaders,
-        params?: any
-    ): Observable<any> {
-        if (headers === null) {
-            headers = new HttpHeaders();
-            headers = headers.set("Content-Type", "application/json");
-        }
+    postRequestBaseUrl(url: string, params?: any): Observable<any> {
+        // if (headers === null) {
+        //     headers = new HttpHeaders();
+        //     headers = headers.set("Content-Type", "application/json");
+        // }
         if (params !== null && params !== undefined) {
-            return this.http.post(url, params, { headers: headers });
+            return this.http.post(url, params);
         }
-        return this.http.post(url, {}, { headers: headers });
+        return this.http.post(url, {});
     }
 
     uploadFile(url: string, formData: any): Observable<any> {

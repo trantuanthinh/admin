@@ -59,8 +59,7 @@ export class ProductManagementInfoComponent implements OnInit {
 
     constructor(
         @Inject(MAT_DIALOG_DATA) public data: any,
-        private ref: MatDialogRef<ProductManagementInfoComponent>,
-        private buildr: FormBuilder,
+        private dialogRef: MatDialogRef<ProductManagementInfoComponent>,
         private shareService: ShareService,
         private fb: FormBuilder
     ) {
@@ -91,7 +90,7 @@ export class ProductManagementInfoComponent implements OnInit {
     }
 
     closepopup() {
-        this.ref.close("Closed using function");
+        this.dialogRef.close("Closed using function");
     }
 
     SaveUser() {
@@ -100,17 +99,25 @@ export class ProductManagementInfoComponent implements OnInit {
         // });
     }
 
-    saveCustomer() {
+    updateProduct() {
         let valueForm = this.myform.value;
         let dataJSON = {
+            decor_detail_id: 1,
+            category_id: valueForm.category.category_id,
+            shape_id: valueForm.shape.shape_id,
+            size_id: valueForm.size.size_id,
+            flavour_id: valueForm.flavour.flavour_id,
             name: valueForm.name,
-            category: valueForm.category.category_id,
-            shape: valueForm.shape.shape_id,
-            size: valueForm.size.size_id,
-            flavour: valueForm.flavour.flavour_id,
             quantity: valueForm.quantity,
+            image: "cake.jpn",
+            price: 25.2,
         };
-        console.log(dataJSON);
+        this.shareService
+            .createProduct(dataJSON)
+            .pipe(take(1))
+            .subscribe(() => {
+                this.dialogRef.close("OK");
+            });
     }
 
     getCategories() {
@@ -174,6 +181,6 @@ export class ProductManagementInfoComponent implements OnInit {
     }
 
     closeDialog() {
-        // this.dialogRef.close(null);
+        // this.dialogdialogRef.close(null);
     }
 }

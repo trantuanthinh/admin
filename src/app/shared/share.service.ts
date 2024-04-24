@@ -1,6 +1,10 @@
-import { HttpClient } from "@angular/common/http";
+import {
+    HttpClient,
+    HttpErrorResponse,
+    HttpHeaders,
+} from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable, map } from "rxjs";
+import { Observable, map, throwError } from "rxjs";
 import { HttpService } from "./http.service";
 
 @Injectable({
@@ -9,8 +13,9 @@ import { HttpService } from "./http.service";
 export class ShareService {
     // http = inject(HttpClient);
     private PORT: number = 3000;
-    private wifiIPAddress: string | undefined;
     private RootEndPointAPI: string = ``;
+
+    private headers = new HttpHeaders();
 
     constructor(public httpService: HttpService, public http: HttpClient) {
         this.getAPI_URL();
@@ -47,19 +52,32 @@ export class ShareService {
         return this.http.get(baseUrl);
     }
 
-    createAdmin(values: any) {
+    createAdmin(item: any) {
         let baseUrl = this.RootEndPointAPI + `/admins`;
-        return this.http.post(baseUrl, values);
+        return this.http.post(baseUrl, item);
     }
 
-    updateAdmin(id: number, values: any) {
+    updateAdmin(id: number, item: any) {
         let baseUrl = this.RootEndPointAPI + `/admins/${id}`;
-        return this.http.put(baseUrl, values);
+        return this.http.put(baseUrl, item);
     }
 
     deleteAdmin(id: number) {
         let baseUrl = this.RootEndPointAPI + `/admins/${id}`;
         return this.http.delete(baseUrl);
+    }
+
+    //products
+    getProducts() {
+        let baseUrl = this.RootEndPointAPI + `/products`;
+        return this.http.get(baseUrl);
+    }
+
+    createProduct(item: any) {
+        let baseUrl = this.RootEndPointAPI + `/products`;
+        console.log(item);
+        return this.http.post(baseUrl, item, { headers: this.headers });
+        // return this.http.post(baseUrl, item);
     }
 
     //sizes
@@ -84,5 +102,13 @@ export class ShareService {
     getCategories() {
         let baseUrl = this.RootEndPointAPI + `/categories`;
         return this.http.get(baseUrl);
+    }
+
+    handleError(methodName: string, errorData: HttpErrorResponse | any) {
+        let errorResponse: any = {
+            status: 0,
+            message: "",
+        };
+        return throwError(() => new Error(errorResponse.message));
     }
 }
