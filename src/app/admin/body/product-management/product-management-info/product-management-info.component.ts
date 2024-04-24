@@ -1,9 +1,10 @@
 import { ScrollingModule } from "@angular/cdk/scrolling";
-import { CommonModule } from "@angular/common";
-import { Component, Inject, OnInit } from "@angular/core";
+import { CommonModule, TitleCasePipe } from "@angular/common";
+import { Component, Inject, OnInit, TrackByFunction } from "@angular/core";
 import {
     FormBuilder,
     FormControl,
+    FormGroup,
     FormsModule,
     ReactiveFormsModule,
 } from "@angular/forms";
@@ -36,12 +37,18 @@ import { ShareService } from "../../../../shared/share.service";
     ],
     templateUrl: "./product-management-info.component.html",
     styleUrl: "./product-management-info.component.scss",
+    providers: [TitleCasePipe],
 })
 export class ProductManagementInfoComponent implements OnInit {
-    category!: FormControl<any>;
-    saveCustomer() {
-        throw new Error("Method not implemented.");
-    }
+    myform!: FormGroup;
+    name = new FormControl("");
+    category = new FormControl("");
+    shape = new FormControl("");
+    size = new FormControl("");
+    flavour = new FormControl("");
+    quantity = new FormControl("");
+    trackByFn!: TrackByFunction<number>;
+
     inputdata: any;
     editdata: any;
     closemessage = "closed using directive";
@@ -54,12 +61,26 @@ export class ProductManagementInfoComponent implements OnInit {
         @Inject(MAT_DIALOG_DATA) public data: any,
         private ref: MatDialogRef<ProductManagementInfoComponent>,
         private buildr: FormBuilder,
-        private shareService: ShareService
+        private shareService: ShareService,
+        private fb: FormBuilder
     ) {
+        this.myform = this.buildFormGroup();
         this.getCategories();
         this.getFlavours();
         this.getShapes();
         this.getSizes();
+    }
+
+    buildFormGroup() {
+        let entity = {
+            name: this.name,
+            category: this.category,
+            shape: this.shape,
+            size: this.size,
+            flavour: this.flavour,
+            quantity: this.quantity,
+        };
+        return this.fb.group(entity);
     }
 
     ngOnInit(): void {
@@ -73,18 +94,25 @@ export class ProductManagementInfoComponent implements OnInit {
         this.ref.close("Closed using function");
     }
 
-    myform = this.buildr.group({
-        name: this.buildr.control(""),
-        email: this.buildr.control(""),
-        phone: this.buildr.control(""),
-        status: this.buildr.control(true),
-    });
-
-    Saveuser() {
+    SaveUser() {
         // this.service.Savecustomer(this.myform.value).subscribe((res) => {
         //     this.closepopup();
         // });
     }
+
+    saveCustomer() {
+        let valueForm = this.myform.value;
+        let dataJSON = {
+            name: valueForm.name,
+            category: valueForm.category.category_id,
+            shape: valueForm.shape.shape_id,
+            size: valueForm.size.size_id,
+            flavour: valueForm.flavour.flavour_id,
+            quantity: valueForm.quantity,
+        };
+        console.log(dataJSON);
+    }
+
     getCategories() {
         this.shareService
             .getCategories()
@@ -135,13 +163,13 @@ export class ProductManagementInfoComponent implements OnInit {
 
     setpopupdata(code: any) {
         // this.service.GetCustomerbycode(code).subscribe((item) => {
-        //     this.editdata = item;
-        //     this.myform.setValue({
-        //         name: this.editdata.name,
-        //         email: this.editdata.email,
-        //         phone: this.editdata.phone,
-        //         status: this.editdata.status,
-        //     });
+        // this.editdata = item;
+        // this.myform.setValue({
+        //     name: this.editdata.name,
+        //     email: this.editdata.email,
+        //     phone: this.editdata.phone,
+        //     status: this.editdata.status,
+        // });
         // });
     }
 
