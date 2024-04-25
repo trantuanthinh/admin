@@ -50,6 +50,10 @@ export class ShareService {
         let baseUrl = this.RootEndPointAPI + `/admins`;
         return this.getAll(baseUrl);
     }
+    getaAdmins() {
+        let baseUrl = "https://jsonplaceholder.typicode.com/todos/1";
+        return this.getAll(baseUrl);
+    }
 
     getAdmin(id: number) {
         let baseUrl = this.RootEndPointAPI + `/admins/${id}`;

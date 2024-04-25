@@ -167,10 +167,12 @@ export class ProductManagementInfoComponent implements OnInit {
 
     getSizes() {
         this.shareService
-            .getSizes()
+            .getaAdmins()
             .pipe(take(1))
             .subscribe({
                 next: (res: any) => {
+                    // console.log(res);
+                    // console.log(res);
                     this.sizeList = res.data;
                 },
                 error: (error) => console.log("Error: " + error),

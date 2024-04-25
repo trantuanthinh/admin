@@ -1,8 +1,9 @@
-.form {
+form {
     background: transparent;
     background-position: center;
-    border: 2px solid rgba(255, 255, 255, .2);
+    border: 2px solid rgba(243, 234, 234, 0.2);
 }
+
 
 .example-additional-selection {
     opacity: 0.75;
@@ -32,7 +33,6 @@ mat-label {
     border-radius: 40px;
 
 }
-
 mat-form-field input {
     width: calc(100% - 16px);
     height: calc(100% - 16px);
@@ -41,9 +41,12 @@ mat-form-field input {
     border: none;
     color: white;
     outline: none;
-    border: 2px solid rgba(255, 255, 255, .2);
+    // border: 2px solid rgba(179, 22, 22, 0.2);
     border-radius: 40px;
     background: transparent;
+}
+.mdc-text-field--filled{
+    background-color: #b88b8b !important;
 }
 
 .mat-mdc-form-field {
@@ -55,9 +58,8 @@ mat-form-field input {
     display: inline;
 }
 
-.mat-mdc-form-field-subscript-wrapper {
-    font-size: 14px;
-    color: #c42828;
+mat-label{
+    color: rgb(134, 98, 59);
 }
 
 button {
@@ -87,4 +89,24 @@ cdk-virtual-scroll-viewport{
 }
 .mdc-text-field--filled:not(.mdc-text-field--disabled){
     background-color: #dfd379;
+}
+mat-card-footer button{
+    background: white;
+    width: 100%;
+    height: 40px;
+    border: none;
+    border-radius: 40px;
+    outline: none;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+    cursor: pointer;
+    color: #927564;
+    font-size: 20px;
+    font-weight: 600;
+}
+mat-card-footer button:hover{
+    background:#E9ADCC;
+}
+/* component.css */
+::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+    background-color: transparent;
 }
