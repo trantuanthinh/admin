@@ -81,13 +81,14 @@
             .sidenav-link-icon {
                 font-size: 22px;
                 width: 2rem;
-                min-width: 2rem;
+                min-width: 0;
                 margin: 0 0.5rem;
                 text-align: center;
             }
 
             .sidenav-link-text {
-                margin-left: 1.5rem;
+                margin-left: 0.5rem;
+                // margin-bottom: 10rem;
             }
         }
     }
@@ -95,16 +96,45 @@
     .sidenav-nav-item:hover {
         .sidenav-nav-link {
             background-color: #ffa3e3;
-            color: #000;
+            color: #4f351f;
         }
     }
 }
 
 .active {
-    background-color: #fecdfb;
+    background-color: #f5cee1;
 
     .sidenav-link-icon,
     .sidenav-link-text {
-        color: #000;
+        color: #4f351f;
     }
 }
+
+mat-expansion-panel{
+    background: transparent;
+    
+}
+.sidenav-link{
+    color: #967150;
+    margin-left: 1rem;
+}
+.menuTitile{
+    color: #967150;
+    margin-left: 1.7rem;
+    font-size: 15px;
+}
+.fa-cookie-bite{
+    color: #967150;
+}
+mat-expansion-panel-header{
+    padding: 0.7rem;
+}
+mat-panel-title{
+    font-size: 25px;
+}
+::ng-deep .mat-expansion-panel.mat-expansion-indicator::after {
+    padding: 2px !important; /* Change the padding */
+    border-width: 1px !important; /* Change the border-width */
+    
+}
+

@@ -20,12 +20,13 @@
 
             <div *ngIf="data.type == 'group'">
                 <mat-expansion-panel [expanded]="openedPanel == data.code">
+
                     <mat-expansion-panel-header>
-                        <mat-panel-title>
-                            <mat-icon class="sidenav-link-icon" [class]="data?.icon"></mat-icon>
-                            <span>{{ data?.label }}</span>
+                        <mat-panel-title [class]="data?.icon">
+                            <span class="menuTitile">{{ data?.label }}</span>
                         </mat-panel-title>
                     </mat-expansion-panel-header>
+
                     <mat-panel-description *ngFor="let child of data.children">
                         <mat-list-item *ngIf="child.type == 'link'" class="sidenav-nav-link"
                             [routerLink]="[child.route]" routerLinkActive="active"

@@ -6,7 +6,7 @@
     top: 0;
     transition: all .5s ease;
     background: #fffef4;
-    padding: 1rem 1.5rem 0 1.5rem;
+    padding: 0.5rem;
 }
 .head-trimmed {
     width: calc(100% - 16.5625rem);
@@ -16,4 +16,8 @@
 .body-md-screen {
     width: calc(100% - 5rem);
     margin-left: 5rem;
+}
+.search-container h1{
+    font-weight: bold;
+    font-size: 120%;
 }

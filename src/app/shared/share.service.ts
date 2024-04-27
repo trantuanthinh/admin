@@ -71,6 +71,16 @@ export class ShareService {
         return this.deleteItem(baseUrl);
     }
 
+    //orders
+    getOrders() {
+        let baseUrl = this.RootEndPointAPI + `/orders`;
+        return this.getAll(baseUrl);
+    }
+    createOrders(item: any) {
+        let baseUrl = this.RootEndPointAPI + `/orders`;
+        return this.createItem(baseUrl, item);
+    }
+
     //products
     getProducts() {
         let baseUrl = this.RootEndPointAPI + `/products`;
