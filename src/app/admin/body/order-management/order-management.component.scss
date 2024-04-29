@@ -1,0 +1,75 @@
+.bodyTable {
+    background: rgb(240, 240, 203);
+    margin-top: 5%;
+    padding: 1rem;
+}
+
+table {
+    width: 100%;
+    background: transparent;
+}
+
+mat-card {
+    margin: 1%;
+    background: rgb(244, 249, 218);
+    // background: yellow !important;
+    border-radius: 20px;
+    border: 2px solid rgba(255, 255, 255, 2);
+}
+mat-card-header{
+    padding: 10px;
+}
+mat-card-header i{
+    color: #523725;
+    background: transparent;
+    font-size: 18px; /* Adjust the font size as needed */
+    padding: 10px;
+    border-radius: 10px;
+}
+mat-card-header input{
+    color: rgb(116, 77, 58);
+    background: transparent;
+    width: 100%;
+    height: 100%;
+    font-size: 18px; /* Adjust the font size as needed */
+    padding: 10px;
+    border-radius: 10px;
+    
+}
+
+button {
+
+    display: table-cell;
+    font-size: 14px;
+    min-width: 13px;
+}
+button:hover{
+    text-decoration: underline;
+    color: #d72292;
+}
+
+.action-buttons {
+    display: inline-flex;
+    gap: 10px; /* Adjust the gap between buttons */
+}
+
+th {
+    background-color: rgb(252, 112, 210) !important;
+    color: #523725;
+}
+
+td{
+    background-color: rgb(255 187 247) !important;
+    color: #83582a;
+}
+mat-paginator{
+    background: rgb(252, 112, 210);
+}
+.mat-sort-header-arrow{
+    color: #523725;
+}
+mat-mdc-paginator-range-actions {
+    display: flex;
+    align-items: center;
+    color: #623737;
+}

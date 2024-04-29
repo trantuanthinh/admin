@@ -1,3 +1,5 @@
+
+
 .sidenav {
     background: #fafacc;
     transition: all .5s ease;
@@ -132,9 +134,22 @@ mat-expansion-panel-header{
 mat-panel-title{
     font-size: 25px;
 }
-::ng-deep .mat-expansion-panel.mat-expansion-indicator::after {
-    padding: 2px !important; /* Change the padding */
-    border-width: 1px !important; /* Change the border-width */
+
+::ng-deep .mat-expansion-panel .mat-expansion-panel-body {
+    padding: 0px;
+}
+
+::ng-deep .mat-expansion-indicator::after {
+    content: none !important;
+}
+
+mat-panel-description{
     
+    mat-list-item{
+        display: flex;
+        margin: 0.2rem;
+        margin-left: 2rem;
+        width: 100%;
+    }
 }
 

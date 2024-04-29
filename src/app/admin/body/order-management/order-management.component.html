@@ -1,0 +1,67 @@
+<div class="bodyTable">
+    <mat-card>
+        <mat-card-header>
+            <i class="fas fa-search"></i>
+            <input matInput placeholder="Search" />
+        </mat-card-header>
+    </mat-card>
+    <!-- <button style="margin-left: 60%" mat-raised-button color="primary">
+        Add Product (+)
+    </button> -->
+    <table matSort mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+        <ng-container matColumnDef="id">
+            <th mat-sort-header mat-header-cell *matHeaderCellDef>ID</th>
+            <td mat-cell *matCellDef="let element">{{ element.prod_id }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="name">
+            <th mat-sort-header mat-header-cell *matHeaderCellDef>Name</th>
+            <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="photo">
+            <th mat-sort-header mat-header-cell *matHeaderCellDef>Photo</th>
+            <td mat-cell *matCellDef="let element">{{ element.image }}
+                <!-- <img src="../../../../assets/Bear-Cake.webp" alt=""> -->
+                <img src="../../../../assets/Yellow-Macaron.jpg" alt="">
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="cost">
+            <th mat-sort-header mat-header-cell *matHeaderCellDef>Cost</th>
+            <td mat-cell *matCellDef="let element">{{ element.price }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="quantity">
+            <th mat-sort-header mat-header-cell *matHeaderCellDef>Quantity</th>
+            <td mat-cell *matCellDef="let element">{{ element.quantity }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="status">
+            <th mat-sort-header mat-header-cell *matHeaderCellDef>Status</th>
+            <td mat-cell *matCellDef="let element">{{ element.status }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef>Action</th>
+            <td mat-cell *matCellDef="let element">
+                <div class="action-buttons">
+                    <button (click)="editCustomer(element)" mat-raised-button color="primary">
+                        Edit
+                    </button>
+                    <button mat-raised-button color="warn">Delete</button>
+                    <button mat-raised-button color="primary">Detail</button>
+                </div>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+
+    <mat-card-footer>
+        <mat-paginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
+    </mat-card-footer>
+</div>
+
+<!-- <se-table></se-table> -->
