@@ -17,7 +17,6 @@ import { MatToolbarModule } from "@angular/material/toolbar";
 import { Router, RouterModule } from "@angular/router";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 import { NavigationItem } from "./navbar-items.interface";
-// import { navbarData } from "./navbar-items.interface";
 
 interface SideNavToggle {
     screenWidth: number;
@@ -186,6 +185,7 @@ export class AdminNavbarComponent implements OnInit {
                     type: "link",
                     label: "awdasda",
                     code: "dasdassdaw",
+                    icon: "fas fa-cookie-bite",
                     route: "/admin/products/cakes",
                 },
                 {

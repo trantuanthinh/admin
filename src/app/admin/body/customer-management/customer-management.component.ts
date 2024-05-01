@@ -63,7 +63,6 @@ export class CustomerManagementComponent implements OnInit {
             .subscribe({
                 next: (res: any) => {
                     this.dataSource = new MatTableDataSource(res.data);
-                    // this.dataSource = res.data;
                 },
                 error: (error) => console.log("Error: " + error),
             });
@@ -91,7 +90,6 @@ export class CustomerManagementComponent implements OnInit {
 
         dialogRef.afterClosed().subscribe((result) => {
             console.log("The dialog was closed");
-            // this.animal = result;
         });
     }
 }
