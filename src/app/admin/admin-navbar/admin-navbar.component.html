@@ -9,10 +9,10 @@
         </button>
     </div>
 
-    <ul class="sidenav-nav">
-        <li class="sidenav-nav-item" *ngFor="let data of arrApps">
+    <mat-nav-list class="sidenav-nav">
+        <ng-container *ngFor="let data of arrApps">
             <ng-container *ngIf="data.type == 'link'">
-                <mat-list-item class="sidenav-nav-link" [routerLink]="[data.route]" routerLinkActive="active"
+                <mat-list-item class="sidenav-nav-item" [routerLink]="[data.route]" routerLinkActive="active"
                     [routerLinkActiveOptions]="{ exact: true }" (click)="emitTitle(data.label)">
                     <mat-icon class="sidenav-link-icon" [class]="data.icon"></mat-icon>
                     <span class="sidenav-link-text" @fadeInOut *ngIf="collapsed">
@@ -22,14 +22,14 @@
             </ng-container>
 
             <ng-container *ngIf="data.type == 'group'">
-                <mat-expansion-panel [expanded]="openedPanel == data.code">
+                <mat-expansion-panel class="sidenav-nav-item" [expanded]="openedPanel == data.code">
                     <mat-expansion-panel-header>
                         <mat-panel-title [class]="data?.icon">
                             <span class="menuTitle">{{ data?.label }}</span>
                         </mat-panel-title>
                     </mat-expansion-panel-header>
 
-                    <mat-panel-description class="sidenav-nav-item" *ngFor="let child of data.children">
+                    <mat-panel-description *ngFor="let child of data.children">
                         <mat-list-item class="sidenav-nav-link" [routerLink]="[child.route]" routerLinkActive="active"
                             [routerLinkActiveOptions]="{ exact: true }" (click)="emitTitle(child.label)">
                             <mat-icon class="sidenav-link-icon" [class]="child.icon"></mat-icon>
@@ -40,6 +40,7 @@
                     </mat-panel-description>
                 </mat-expansion-panel>
             </ng-container>
-        </li>
-    </ul>
+        </ng-container>
+    </mat-nav-list>
+
 </div>

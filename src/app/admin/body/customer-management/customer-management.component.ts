@@ -56,6 +56,7 @@ export class CustomerManagementComponent implements OnInit {
     constructor(public dialog: MatDialog, private shareService: ShareService) {
         this.getData();
     }
+
     getData() {
         this.shareService
             .getCustomers()
@@ -77,7 +78,6 @@ export class CustomerManagementComponent implements OnInit {
     applyFilter(event: Event) {
         const filterValue = (event.target as HTMLInputElement).value;
         this.dataSource.filter = filterValue.trim().toLowerCase();
-
         if (this.dataSource.paginator) {
             this.dataSource.paginator.firstPage();
         }
@@ -87,7 +87,6 @@ export class CustomerManagementComponent implements OnInit {
         const dialogRef = this.dialog.open(CustomerManagementComponent, {
             data: item,
         });
-
         dialogRef.afterClosed().subscribe((result) => {
             console.log("The dialog was closed");
         });

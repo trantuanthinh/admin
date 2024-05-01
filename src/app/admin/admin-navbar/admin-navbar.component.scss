@@ -92,13 +92,11 @@
             }
         }
     }
+}
 
-    .sidenav-nav-item:hover {
-        .sidenav-nav-link {
-            background-color: #ffa3e3;
-            color: #4f351f;
-        }
-    }
+.sidenav-nav-link:hover {
+    background-color: #ffa3e3;
+    color: #4f351f;
 }
 
 // .active {
