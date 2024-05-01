@@ -13,14 +13,14 @@
             <td mat-cell *matCellDef="let element">{{ element.prod_id }}</td>
         </ng-container>
 
-        <ng-container matColumnDef="name">
+        <ng-container class="name" matColumnDef="name">
             <th mat-sort-header mat-header-cell *matHeaderCellDef>Name</th>
-            <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+            <td mat-cell *matCellDef="let element" class="bold">{{ element.name }}</td>
         </ng-container>
 
-        <ng-container matColumnDef="photo">
+        <ng-container class="photo" matColumnDef="photo">
             <th mat-sort-header mat-header-cell *matHeaderCellDef>Photo</th>
-            <td mat-cell *matCellDef="let element">{{ element.image }}
+            <td mat-cell *matCellDef="let element" class="smallerPhoto">{{ element.image }}
                 <!-- <img src="../../../../assets/Bear-Cake.webp" alt=""> -->
                 <img src="../../../../assets/Yellow-Macaron.jpg" alt="">
             </td>
