@@ -14,9 +14,9 @@ import { ShareService } from "../../../shared/share.service";
 export interface UserData {
     id: string;
     name: string;
-    photo: string;
-    cost: number;
-    quantity: string;
+    nameCake: string;
+    phone: number;
+    orderDate: string;
     status: string;
     action: string;
 }
@@ -44,9 +44,9 @@ export class OrderManagementComponent implements OnInit {
     displayedColumns: string[] = [
         "id",
         "name",
-        "photo",
-        "cost",
-        "quantity",
+        "nameCake",
+        "phone",
+        "orderDate",
         "status",
         "action",
     ];
@@ -58,101 +58,8 @@ export class OrderManagementComponent implements OnInit {
     }
 
     getData() {
-        // const products: UserData[] = [
-        //     {
-        //         id: "1",
-        //         name: "John Doe",
-        //         photo: "a",
-        //         cost: 1111,
-        //         quantity: "a",
-        //         status: "a",
-        //         action: "a",
-        //     },
-        //     {
-        //         id: "1",
-        //         name: "John Doe",
-        //         photo: "a",
-        //         cost: 1111,
-        //         quantity: "a",
-        //         status: "a",
-        //         action: "a",
-        //     },
-        //     {
-        //         id: "1",
-        //         name: "John Doe",
-        //         photo: "a",
-        //         cost: 1111,
-        //         quantity: "a",
-        //         status: "a",
-        //         action: "a",
-        //     },
-        //     {
-        //         id: "1",
-        //         name: "John Doe",
-        //         photo: "a",
-        //         cost: 1111,
-        //         quantity: "a",
-        //         status: "a",
-        //         action: "a",
-        //     },
-        //     {
-        //         id: "1",
-        //         name: "John Doe",
-        //         photo: "a",
-        //         cost: 1111,
-        //         quantity: "a",
-        //         status: "a",
-        //         action: "a",
-        //     },
-        //     {
-        //         id: "1",
-        //         name: "John Doe",
-        //         photo: "a",
-        //         cost: 1111,
-        //         quantity: "a",
-        //         status: "a",
-        //         action: "a",
-        //     },
-        //     {
-        //         id: "1",
-        //         name: "John Doe",
-        //         photo: "a",
-        //         cost: 1111,
-        //         quantity: "a",
-        //         status: "a",
-        //         action: "a",
-        //     },
-        //     {
-        //         id: "1",
-        //         name: "John Doe",
-        //         photo: "a",
-        //         cost: 1111,
-        //         quantity: "a",
-        //         status: "a",
-        //         action: "a",
-        //     },
-        //     {
-        //         id: "1",
-        //         name: "John Doe",
-        //         photo: "a",
-        //         cost: 1111,
-        //         quantity: "a",
-        //         status: "a",
-        //         action: "a",
-        //     },
-        //     {
-        //         id: "123123",
-        //         name: "John Doe",
-        //         photo: "a",
-        //         cost: 1111,
-        //         quantity: "a",
-        //         status: "a",
-        //         action: "a",
-        //     },
-        // ];
-        // this.dataSource = new MatTableDataSource(products);
         this.shareService
-            .getProducts()
+            .getOrders()
             .pipe(take(1))
             .subscribe({
                 next: (res: any) => {
