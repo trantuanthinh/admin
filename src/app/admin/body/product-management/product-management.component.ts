@@ -59,7 +59,7 @@ export class ProductManagementComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.getData();
+        // this.getData();
     }
 
     getData() {

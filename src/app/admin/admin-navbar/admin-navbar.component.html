@@ -12,13 +12,15 @@
     <mat-nav-list class="sidenav-nav">
         <ng-container *ngFor="let data of arrApps">
             <ng-container *ngIf="data.type == 'link'">
-                <mat-list-item class="sidenav-nav-item" [routerLink]="[data.route]" routerLinkActive="active"
-                    [routerLinkActiveOptions]="{ exact: true }" (click)="emitTitle(data.label)">
-                    <mat-icon class="sidenav-link-icon" [class]="data.icon"></mat-icon>
-                    <span class="sidenav-link-text" @fadeInOut *ngIf="collapsed">
-                        {{ data.label }}
-                    </span>
-                </mat-list-item>
+                <div class="sidenav-nav-link1">
+                    <mat-list-item class="sidenav-nav-item1" [routerLink]="[data.route]" routerLinkActive="active"
+                        [routerLinkActiveOptions]="{ exact: true }" (click)="emitTitle(data.label)">
+                        <mat-icon class="sidenav-link-icon1" [class]="data.icon"></mat-icon>
+                        <span class="sidenav-link-texts1" @fadeInOut *ngIf="collapsed">
+                            {{ data.label }}
+                        </span>
+                    </mat-list-item>
+                </div>
             </ng-container>
 
             <ng-container *ngIf="data.type == 'group'">
@@ -29,9 +31,12 @@
                         </mat-panel-title>
                     </mat-expansion-panel-header>
 
+                    <!-- routerLinkActive="active"
+                    [routerLinkActiveOptions]="{ exact: true }" -->
+
                     <mat-panel-description *ngFor="let child of data.children">
-                        <mat-list-item class="sidenav-nav-link" [routerLink]="[child.route]" routerLinkActive="active"
-                            [routerLinkActiveOptions]="{ exact: true }" (click)="emitTitle(child.label)">
+                        <mat-list-item class="sidenav-nav-link" [routerLink]="[child.route]"
+                            (click)="emitTitle(child.label)">
                             <mat-icon class="sidenav-link-icon" [class]="child.icon"></mat-icon>
                             <span class="sidenav-link-text" @fadeInOut *ngIf="collapsed">
                                 {{ child.label }}
