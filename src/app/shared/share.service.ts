@@ -45,6 +45,12 @@ export class ShareService {
         return this.http.delete(url, { headers: this.headers });
     }
 
+    //getPhoto
+    getPhoto(photoName: string): string {
+        let baseUrl = this.RootEndPointAPI + `/photo/${photoName}`;
+        return baseUrl;
+    }
+
     //admins
     getAdmins() {
         let baseUrl = this.RootEndPointAPI + `/admins`;

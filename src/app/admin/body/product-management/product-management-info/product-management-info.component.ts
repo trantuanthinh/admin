@@ -1,5 +1,6 @@
 import { ScrollingModule } from "@angular/cdk/scrolling";
 import { CommonModule, TitleCasePipe } from "@angular/common";
+import { HttpClient } from "@angular/common/http";
 import { Component, Inject, OnInit, TrackByFunction } from "@angular/core";
 import {
     FormBuilder,
@@ -61,7 +62,8 @@ export class ProductManagementInfoComponent implements OnInit {
         @Inject(MAT_DIALOG_DATA) public data: any,
         private dialogRef: MatDialogRef<ProductManagementInfoComponent>,
         private shareService: ShareService,
-        private fb: FormBuilder
+        private fb: FormBuilder,
+        private http: HttpClient
     ) {
         this.myform = this.buildFormGroup();
         this.getCategories();
@@ -92,13 +94,13 @@ export class ProductManagementInfoComponent implements OnInit {
     selectedFile: File | null = null;
 
     onFileSelected(event: any) {
-        console.log(111111);
         console.log(event);
 
         if (event.target.files.length > 0) {
             const file = event.target.file[0];
             const formData = new FormData();
             formData.append("file", file);
+            console.log(formData);
         }
     }
 

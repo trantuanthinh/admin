@@ -13,6 +13,7 @@ import { ShareService } from "../shared/share.service";
 export class TestComponent implements OnInit {
     http = inject(HttpClient);
     data: any = [];
+    src: string = "";
 
     constructor(private shareService: ShareService) {}
 
@@ -21,14 +22,11 @@ export class TestComponent implements OnInit {
     }
 
     getCategories() {
-        this.shareService.getAdmins().subscribe((response: any) => {
-            this.data = response.data;
-            console.log(this.data);
-        });
+        this.src = this.shareService.getPhoto("logo.jpg");
+        console.log(this.src);
     }
 
     click() {
         this.getCategories();
-        // console.log(this.data);
     }
 }
