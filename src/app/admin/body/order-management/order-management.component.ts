@@ -10,6 +10,10 @@ import { MatTableDataSource, MatTableModule } from "@angular/material/table";
 import { take } from "rxjs";
 import { TableComponent } from "../../../control/table/table.component";
 import { ShareService } from "../../../shared/share.service";
+import { MatSlideToggleModule } from "@angular/material/slide-toggle";
+import { MatTooltipModule } from "@angular/material/tooltip";
+import { OrdersManagementInforComponent } from "./orders-management-infor/orders-management-infor.component";
+import { ThemePalette } from "@angular/material/core";
 // import { ProductManagementInfoComponent } from "./product-management-info/product-management-info.component";
 export interface UserData {
     id: string;
@@ -17,6 +21,8 @@ export interface UserData {
     nameCake: string;
     phone: number;
     orderDate: string;
+    receiveDate: string;
+    quantity: string;
     status: string;
     action: string;
 }
@@ -25,6 +31,7 @@ export interface UserData {
     selector: "app-order-management",
     standalone: true,
     imports: [
+        MatTooltipModule,
         MatPaginatorModule,
         MatCardModule,
         MatTableModule,
@@ -33,11 +40,15 @@ export interface UserData {
         MatInputModule,
         MatSortModule,
         ReactiveFormsModule,
+        MatSlideToggleModule,
     ],
     templateUrl: "./order-management.component.html",
     styleUrl: "./order-management.component.scss",
 })
 export class OrderManagementComponent implements OnInit {
+    color: ThemePalette = "accent";
+    checked = false;
+    disabled = false;
     ngOnInit(): void {}
     @ViewChild(MatPaginator) paginator!: MatPaginator;
     @ViewChild(MatSort) sort!: MatSort;
@@ -47,6 +58,8 @@ export class OrderManagementComponent implements OnInit {
         "nameCake",
         "phone",
         "orderDate",
+        "receiveDate",
+        "quantity",
         "status",
         "action",
     ];
@@ -58,6 +71,20 @@ export class OrderManagementComponent implements OnInit {
     }
 
     getData() {
+        const products: UserData[] = [
+            {
+                id: "1",
+                name: "John Doe",
+                nameCake: "b",
+                phone: 1111,
+                receiveDate: "1",
+                orderDate: "",
+                quantity: "a",
+                status: "a",
+                action: "a",
+            },
+        ];
+        this.dataSource = new MatTableDataSource(products);
         this.shareService
             .getOrders()
             .pipe(take(1))
@@ -87,13 +114,11 @@ export class OrderManagementComponent implements OnInit {
     }
 
     editCustomer(item: any) {
-        const dialogRef = this.dialog.open(OrderManagementComponent, {
-            data: item,
-        });
-
-        dialogRef.afterClosed().subscribe((result) => {
-            console.log("The dialog was closed");
-            // this.animal = result;
-        });
+        // const dialogRef = this.dialog.open(OrdersManagementInforComponent, {
+        //     data: item,
+        // });
+        // dialogRef.afterClosed().subscribe((result) => {
+        //     console.log("The dialog was closed");
+        // });
     }
 }
