@@ -12,7 +12,7 @@
     <mat-nav-list class="sidenav-nav">
         <ng-container *ngFor="let data of arrApps">
             <ng-container *ngIf="data.type == 'link'">
-                <div class="sidenav-nav-link1">
+                <div class="sidenav-nav-linkk">
                     <mat-list-item class="sidenav-nav-item1" [routerLink]="[data.route]" routerLinkActive="active"
                         [routerLinkActiveOptions]="{ exact: true }" (click)="emitTitle(data.label)">
                         <mat-icon class="sidenav-link-icon1" [class]="data.icon"></mat-icon>
