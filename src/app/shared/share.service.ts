@@ -45,10 +45,19 @@ export class ShareService {
         return this.http.delete(url, { headers: this.headers });
     }
 
-    //getPhoto
-    getPhoto(photoName: string): string {
+    //getProdPhoto
+    getPhoto(photoName: string) {
         let baseUrl = this.RootEndPointAPI + `/photo/${photoName}`;
         return baseUrl;
+    }
+
+    //uploadProdPhoto
+    uploadProdPhoto(file: File): Observable<any> {
+        let baseUrl = this.RootEndPointAPI + `/prod_photo`;
+        const formData: FormData = new FormData();
+        formData.append("photo", file, file.name);
+        console.log("ffffff: " + file);
+        return this.http.post(baseUrl, file, { headers: this.headers });
     }
 
     //admins

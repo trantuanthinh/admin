@@ -48,6 +48,7 @@ export class ProductManagementInfoComponent implements OnInit {
     size = new FormControl("");
     flavour = new FormControl("");
     quantity = new FormControl("");
+    photo = new FormControl("");
     trackByFn!: TrackByFunction<number>;
 
     inputdata: any;
@@ -57,6 +58,10 @@ export class ProductManagementInfoComponent implements OnInit {
     sizeList: any = [];
     shapeList: any = [];
     flavourList: any = [];
+
+    message!: any;
+    preview!: any;
+    currentFile!: any;
 
     constructor(
         @Inject(MAT_DIALOG_DATA) public data: any,
@@ -94,13 +99,26 @@ export class ProductManagementInfoComponent implements OnInit {
     selectedFile: File | null = null;
 
     onFileSelected(event: any) {
-        console.log(event);
+        this.message = "";
+        this.preview = "";
+        const selectedFiles = event.target.files;
 
-        if (event.target.files.length > 0) {
-            const file = event.target.file[0];
-            const formData = new FormData();
-            formData.append("file", file);
-            console.log(formData);
+        if (selectedFiles) {
+            const file: File | null = selectedFiles.item(0);
+
+            if (file) {
+                this.preview = "";
+                this.currentFile = file;
+
+                const reader = new FileReader();
+
+                reader.onload = (e: any) => {
+                    console.log(e.target.result);
+                    this.preview = e.target.result;
+                };
+
+                reader.readAsDataURL(this.currentFile);
+            }
         }
     }
 
@@ -109,6 +127,7 @@ export class ProductManagementInfoComponent implements OnInit {
             console.log("No file selected!");
             return;
         }
+        this.shareService.uploadProdPhoto(this.currentFile).pipe(take(1));
         console.log("Uploading file:", this.selectedFile);
     }
 
@@ -124,6 +143,7 @@ export class ProductManagementInfoComponent implements OnInit {
 
     updateProduct() {
         let valueForm = this.myform.value;
+        console.log(valueForm);
         let dataJSON = {
             decor_detail_id: 1,
             category_id: valueForm.category.category_id,
@@ -135,12 +155,12 @@ export class ProductManagementInfoComponent implements OnInit {
             image: "cake.jpn",
             price: 25.2,
         };
-        this.shareService
-            .createProduct(dataJSON)
-            .pipe(take(1))
-            .subscribe(() => {
-                this.dialogRef.close("OK");
-            });
+        // this.shareService
+        //     .createProduct(dataJSON)
+        //     .pipe(take(1))
+        //     .subscribe(() => {
+        //         this.dialogRef.close("OK");
+        //     });
     }
 
     getCategories() {
