@@ -63,99 +63,99 @@ export class ProductManagementComponent implements OnInit {
     }
 
     getData() {
-        const products: UserData[] = [
-            {
-                id: "1",
-                name: "John Doe",
-                photo: "a",
-                cost: 1111,
-                quantity: "a",
-                status: "a",
-                action: "a",
-            },
-            {
-                id: "1",
-                name: "John Doe",
-                photo: "a",
-                cost: 1111,
-                quantity: "a",
-                status: "a",
-                action: "a",
-            },
-            {
-                id: "1",
-                name: "John Doe",
-                photo: "a",
-                cost: 1111,
-                quantity: "a",
-                status: "a",
-                action: "a",
-            },
-            {
-                id: "1",
-                name: "John Doe",
-                photo: "a",
-                cost: 1111,
-                quantity: "a",
-                status: "a",
-                action: "a",
-            },
-            {
-                id: "1",
-                name: "John Doe",
-                photo: "a",
-                cost: 1111,
-                quantity: "a",
-                status: "a",
-                action: "a",
-            },
-            {
-                id: "1",
-                name: "John Doe",
-                photo: "a",
-                cost: 1111,
-                quantity: "a",
-                status: "a",
-                action: "a",
-            },
-            {
-                id: "1",
-                name: "John Doe",
-                photo: "a",
-                cost: 1111,
-                quantity: "a",
-                status: "a",
-                action: "a",
-            },
-            {
-                id: "1",
-                name: "John Doe",
-                photo: "a",
-                cost: 1111,
-                quantity: "a",
-                status: "a",
-                action: "a",
-            },
-            {
-                id: "1",
-                name: "John Doe",
-                photo: "a",
-                cost: 1111,
-                quantity: "a",
-                status: "a",
-                action: "a",
-            },
-            {
-                id: "123123",
-                name: "John Doe",
-                photo: "a",
-                cost: 1111,
-                quantity: "a",
-                status: "a",
-                action: "a",
-            },
-        ];
-        this.dataSource = new MatTableDataSource(products);
+        // const products: UserData[] = [
+        //     {
+        //         id: "1",
+        //         name: "John Doe",
+        //         photo: "a",
+        //         cost: 1111,
+        //         quantity: "a",
+        //         status: "a",
+        //         action: "a",
+        //     },
+        //     {
+        //         id: "1",
+        //         name: "John Doe",
+        //         photo: "a",
+        //         cost: 1111,
+        //         quantity: "a",
+        //         status: "a",
+        //         action: "a",
+        //     },
+        //     {
+        //         id: "1",
+        //         name: "John Doe",
+        //         photo: "a",
+        //         cost: 1111,
+        //         quantity: "a",
+        //         status: "a",
+        //         action: "a",
+        //     },
+        //     {
+        //         id: "1",
+        //         name: "John Doe",
+        //         photo: "a",
+        //         cost: 1111,
+        //         quantity: "a",
+        //         status: "a",
+        //         action: "a",
+        //     },
+        //     {
+        //         id: "1",
+        //         name: "John Doe",
+        //         photo: "a",
+        //         cost: 1111,
+        //         quantity: "a",
+        //         status: "a",
+        //         action: "a",
+        //     },
+        //     {
+        //         id: "1",
+        //         name: "John Doe",
+        //         photo: "a",
+        //         cost: 1111,
+        //         quantity: "a",
+        //         status: "a",
+        //         action: "a",
+        //     },
+        //     {
+        //         id: "1",
+        //         name: "John Doe",
+        //         photo: "a",
+        //         cost: 1111,
+        //         quantity: "a",
+        //         status: "a",
+        //         action: "a",
+        //     },
+        //     {
+        //         id: "1",
+        //         name: "John Doe",
+        //         photo: "a",
+        //         cost: 1111,
+        //         quantity: "a",
+        //         status: "a",
+        //         action: "a",
+        //     },
+        //     {
+        //         id: "1",
+        //         name: "John Doe",
+        //         photo: "a",
+        //         cost: 1111,
+        //         quantity: "a",
+        //         status: "a",
+        //         action: "a",
+        //     },
+        //     {
+        //         id: "123123",
+        //         name: "John Doe",
+        //         photo: "a",
+        //         cost: 1111,
+        //         quantity: "a",
+        //         status: "a",
+        //         action: "a",
+        //     },
+        // ];
+        // this.dataSource = new MatTableDataSource(products);
         this.shareService
             .getProducts()
             .pipe(take(1))
@@ -183,15 +183,21 @@ export class ProductManagementComponent implements OnInit {
             this.dataSource.paginator.firstPage();
         }
     }
+    addCustomer() {
+        const dialogRef = this.dialog.open(ProductManagementInfoComponent, {
+            data: null,
+        });
+        dialogRef.afterClosed().subscribe((result) => {
+            console.log("The dialog was closed");
+        });
+    }
 
     editCustomer(item: any) {
         const dialogRef = this.dialog.open(ProductManagementInfoComponent, {
             data: item,
         });
-
         dialogRef.afterClosed().subscribe((result) => {
             console.log("The dialog was closed");
-            // this.animal = result;
         });
     }
 }

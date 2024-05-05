@@ -54,10 +54,12 @@ export class ShareService {
     //uploadProdPhoto
     uploadProdPhoto(file: File): Observable<any> {
         let baseUrl = this.RootEndPointAPI + `/prod_photo`;
+        // const formData: FormData = new FormData();
+        // formData.append("file", file);
+        // return this.http.post(baseUrl, file, { headers: this.headers });
         const formData: FormData = new FormData();
-        formData.append("photo", file, file.name);
-        console.log("ffffff: " + file);
-        return this.http.post(baseUrl, file, { headers: this.headers });
+        formData.append("file", file);
+        return this.http.post(baseUrl, formData, { headers: this.headers });
     }
 
     //admins
@@ -115,6 +117,11 @@ export class ShareService {
     createProduct(item: any) {
         let baseUrl = this.RootEndPointAPI + `/products`;
         return this.createItem(baseUrl, item);
+    }
+
+    updateProduct(item: any, id: any) {
+        let baseUrl = this.RootEndPointAPI + `/products/${id}`;
+        return this.updateItem(baseUrl, item);
     }
 
     //sizes

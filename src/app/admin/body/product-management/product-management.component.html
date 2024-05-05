@@ -4,9 +4,11 @@
             <input matInput placeholder="Enter the text" />
         </mat-card-header>
     </mat-card>
-    <!-- <button style="margin-left: 60%" mat-raised-button color="primary">
+
+    <button (click)="addCustomer()" style="margin-left: 60%" mat-raised-button color="primary">
         Add Product (+)
-    </button> -->
+    </button>
+
     <table matSort mat-table [dataSource]="dataSource" class="mat-elevation-z8">
         <ng-container matColumnDef="id">
             <th mat-sort-header mat-header-cell *matHeaderCellDef>ID</th>

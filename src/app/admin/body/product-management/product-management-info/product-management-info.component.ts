@@ -43,6 +43,7 @@ import { ShareService } from "../../../../shared/share.service";
 export class ProductManagementInfoComponent implements OnInit {
     myform!: FormGroup;
     name = new FormControl("");
+    unitPrice = new FormControl("");
     category = new FormControl("");
     shape = new FormControl("");
     size = new FormControl("");
@@ -62,6 +63,7 @@ export class ProductManagementInfoComponent implements OnInit {
     message!: any;
     preview!: any;
     currentFile!: any;
+    fileName!: any;
 
     constructor(
         @Inject(MAT_DIALOG_DATA) public data: any,
@@ -70,6 +72,7 @@ export class ProductManagementInfoComponent implements OnInit {
         private fb: FormBuilder,
         private http: HttpClient
     ) {
+        console.log(data);
         this.myform = this.buildFormGroup();
         this.getCategories();
         this.getFlavours();
@@ -78,14 +81,25 @@ export class ProductManagementInfoComponent implements OnInit {
     }
 
     buildFormGroup() {
+        this.name = new FormControl(this.data?.name || "");
         let entity = {
-            name: this.name,
-            category: this.category,
-            shape: this.shape,
-            size: this.size,
-            flavour: this.flavour,
-            quantity: this.quantity,
+            name: this?.name,
+            category: this?.category,
+            shape: this?.shape,
+            size: this?.size,
+            flavour: this?.flavour,
+            quantity: this?.quantity,
+            price: this?.unitPrice,
         };
+        // let entity = {
+        //     name: [item?.name || ""],
+        //     category: [item?.category || ""],
+        //     shape: [item?.shape || ""],
+        //     size: [item?.size || ""],
+        //     flavour: [item?.flavour || ""],
+        //     quantity: [item?.quantity || ""],
+        //     price: [item?.price || ""],
+        // };
         return this.fb.group(entity);
     }
 
@@ -96,71 +110,70 @@ export class ProductManagementInfoComponent implements OnInit {
         // }
     }
 
-    selectedFile: File | null = null;
-
     onFileSelected(event: any) {
         this.message = "";
         this.preview = "";
         const selectedFiles = event.target.files;
-
         if (selectedFiles) {
-            const file: File | null = selectedFiles.item(0);
-
+            const file: File | null = selectedFiles[0];
             if (file) {
                 this.preview = "";
                 this.currentFile = file;
-
+                this.fileName = this.currentFile.name;
                 const reader = new FileReader();
-
                 reader.onload = (e: any) => {
-                    console.log(e.target.result);
                     this.preview = e.target.result;
                 };
-
                 reader.readAsDataURL(this.currentFile);
             }
         }
     }
 
     upload() {
-        if (!this.selectedFile) {
+        if (!this.currentFile) {
             console.log("No file selected!");
             return;
+        } else {
+            this.shareService
+                .uploadProdPhoto(this.currentFile)
+                .pipe(take(1))
+                .subscribe(() => {});
         }
-        this.shareService.uploadProdPhoto(this.currentFile).pipe(take(1));
-        console.log("Uploading file:", this.selectedFile);
     }
 
     closepopup() {
         this.dialogRef.close("Closed using function");
     }
 
-    SaveUser() {
-        // this.service.Savecustomer(this.myform.value).subscribe((res) => {
-        //     this.closepopup();
-        // });
-    }
-
     updateProduct() {
+        this.upload();
         let valueForm = this.myform.value;
-        console.log(valueForm);
         let dataJSON = {
-            decor_detail_id: 1,
             category_id: valueForm.category.category_id,
             shape_id: valueForm.shape.shape_id,
             size_id: valueForm.size.size_id,
             flavour_id: valueForm.flavour.flavour_id,
             name: valueForm.name,
             quantity: valueForm.quantity,
-            image: "cake.jpn",
-            price: 25.2,
+            image: this.fileName,
+            price: valueForm.unitPrice,
+            status: "active",
         };
-        // this.shareService
-        //     .createProduct(dataJSON)
-        //     .pipe(take(1))
-        //     .subscribe(() => {
-        //         this.dialogRef.close("OK");
-        //     });
+        if (this.data == null) {
+            this.shareService
+                .createProduct(dataJSON)
+                .pipe(take(1))
+                .subscribe(() => {
+                    this.dialogRef.close("OK");
+                });
+        } else {
+            this.shareService
+                .updateProduct(dataJSON, this.data.prod_id)
+                .pipe(take(1))
+                .subscribe(() => {
+                    this.dialogRef.close("OK");
+                });
+        }
     }
 
     getCategories() {
