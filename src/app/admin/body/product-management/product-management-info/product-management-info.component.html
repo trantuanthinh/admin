@@ -61,14 +61,7 @@
 
                 <mat-form-field>
                     <mat-label>Quantity</mat-label>
-                    <mat-select [formControl]="quantity">
-                        <ng-container *ngFor="
-                                let item of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-                                trackBy: trackByFn
-                            ">
-                            <mat-option [value]="item">{{ item }}</mat-option>
-                        </ng-container>
-                    </mat-select>
+                    <input matInput [formControl]="quantity">
                 </mat-form-field>
 
                 <!-- <mat-form-field> -->

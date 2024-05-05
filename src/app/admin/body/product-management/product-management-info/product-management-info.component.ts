@@ -8,6 +8,7 @@ import {
     FormGroup,
     FormsModule,
     ReactiveFormsModule,
+    Validators,
 } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
@@ -17,6 +18,7 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { MatSelectModule } from "@angular/material/select";
 import { take } from "rxjs";
+import { CustomValidator } from "../../../../shared/CustomValidator";
 import { ShareService } from "../../../../shared/share.service";
 
 @Component({
@@ -41,17 +43,6 @@ import { ShareService } from "../../../../shared/share.service";
     providers: [TitleCasePipe],
 })
 export class ProductManagementInfoComponent implements OnInit {
-    myform!: FormGroup;
-    name = new FormControl("");
-    unitPrice = new FormControl("");
-    category = new FormControl("");
-    shape = new FormControl("");
-    size = new FormControl("");
-    flavour = new FormControl("");
-    quantity = new FormControl("");
-    photo = new FormControl("");
-    trackByFn!: TrackByFunction<number>;
-
     inputdata: any;
     editdata: any;
     closemessage = "closed using directive";
@@ -59,6 +50,24 @@ export class ProductManagementInfoComponent implements OnInit {
     sizeList: any = [];
     shapeList: any = [];
     flavourList: any = [];
+
+    myform!: FormGroup;
+    name = new FormControl(this.data?.name || "", [Validators.required]);
+    unitPrice = new FormControl("", [
+        Validators.required,
+        CustomValidator.numeric,
+    ]);
+    category = new FormControl("", [Validators.required]);
+    shape = new FormControl("", [Validators.required]);
+    size = new FormControl("", [Validators.required]);
+    flavour = new FormControl("", [Validators.required]);
+    quantity = new FormControl(this.data?.quantity || "", [
+        Validators.required,
+        CustomValidator.numeric,
+    ]);
+
+    photo = new FormControl("", [Validators.required]);
+    trackByFn!: TrackByFunction<number>;
 
     message!: any;
     preview!: any;
@@ -73,15 +82,34 @@ export class ProductManagementInfoComponent implements OnInit {
         private http: HttpClient
     ) {
         console.log(data);
-        this.myform = this.buildFormGroup();
         this.getCategories();
         this.getFlavours();
         this.getShapes();
         this.getSizes();
+        this.myform = this.buildFormGroup();
+        let defaultCategory: any = this.categoryList[0];
+        console.log(defaultCategory);
+        let selectedCategories: any;
+
+        // = this.categoryList.filter(
+        //     (item: any) => item.category_id == this.data.category_id
+        // );
+        // for (const item of this.categoryList) {
+        //     if (item.category_id === this.data.category_id) {
+        //         selectedCategories = item;
+        //         console.log(item);
+        //         break;
+        //     }
+        // }
+        console.log(111111111);
+        // console.log(selectedCategories);
+
+        // this.category = new FormControl(selectedCategory.type, [
+        //     Validators.required,
+        // ]);
     }
 
     buildFormGroup() {
-        this.name = new FormControl(this.data?.name || "");
         let entity = {
             name: this?.name,
             category: this?.category,
@@ -103,12 +131,7 @@ export class ProductManagementInfoComponent implements OnInit {
         return this.fb.group(entity);
     }
 
-    ngOnInit(): void {
-        // this.inputdata = this.data;
-        // if (this.inputdata.code > 0) {
-        //     this.setpopupdata(this.inputdata.code);
-        // }
-    }
+    ngOnInit(): void {}
 
     onFileSelected(event: any) {
         this.message = "";
@@ -183,6 +206,7 @@ export class ProductManagementInfoComponent implements OnInit {
             .subscribe({
                 next: (res: any) => {
                     this.categoryList = res.data;
+                    console.log(res.data);
                 },
                 error: (error) => console.log("Error: " + error),
             });
@@ -222,18 +246,6 @@ export class ProductManagementInfoComponent implements OnInit {
                 },
                 error: (error) => console.log("Error: " + error),
             });
-    }
-
-    setpopupdata(code: any) {
-        // this.service.GetCustomerbycode(code).subscribe((item) => {
-        // this.editdata = item;
-        // this.myform.setValue({
-        //     name: this.editdata.name,
-        //     email: this.editdata.email,
-        //     phone: this.editdata.phone,
-        //     status: this.editdata.status,
-        // });
-        // });
     }
 
     closeDialog() {
