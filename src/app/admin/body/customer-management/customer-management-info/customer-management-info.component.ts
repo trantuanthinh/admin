@@ -43,11 +43,10 @@ export class CustomerManagementInfoComponent {
     ngOnInit(): void {}
     myform!: FormGroup;
     customerName = new FormControl("");
-    cakeName = new FormControl("");
-    phoneOrder = new FormControl("");
-    orderDate = new FormControl("");
-    receivedDate = new FormControl("");
-    quantity = new FormControl("");
+    phone = new FormControl("");
+    email = new FormControl("");
+    gender = new FormControl("");
+    birthday = new FormControl("");
     photo = new FormControl("");
     trackByFn!: TrackByFunction<number>;
 
@@ -80,11 +79,10 @@ export class CustomerManagementInfoComponent {
     buildFormGroup() {
         let entity = {
             name: this.customerName,
-            cakeName: this.cakeName,
-            phoneOrder: this.phoneOrder,
-            orderDate: this.orderDate,
-            receivedDate: this.receivedDate,
-            quantity: this.quantity,
+            phone: this.phone,
+            email: this.email,
+            gender: this.gender,
+            birthday: this.birthday,
         };
         return this.fb.group(entity);
     }
