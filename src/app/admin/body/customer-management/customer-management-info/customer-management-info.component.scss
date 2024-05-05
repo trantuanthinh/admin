@@ -111,12 +111,15 @@ mat-card-footer button:hover{
     background-color: transparent;
 }
 .images{
-    display: contents;
-    margin: 2rem;
-    margin-right: 3rem;
+    display: grid;
+    // margin: 2.5rem;
+    // margin-left: 1.5rem;
+    .lb{
+        margin-bottom: 1rem;
+    }
     .chooseFile{
-        margin-top: 0.5rem;
-        margin-left: 1.5rem;
+        // margin-top: 0.5rem;
+        // margin-left: 1rem;
         background-color: transparent;
         border: 2px solid #927564;
         border-radius: 2rem;
@@ -124,11 +127,14 @@ mat-card-footer button:hover{
     }
     .btn{
         background-color: #faf9f4;
-        margin-left: 2rem;
-        padding: 4px;
+        // margin-left: 1rem;
+        padding: 3px;
         color: #927564;
         font-weight: bold;
         border: 2px solid #927564;
         border-radius: 2rem;
     }
+}
+.btn:hover {
+    background-color: #E9ADCC; /* Change to the desired background color */
 }
