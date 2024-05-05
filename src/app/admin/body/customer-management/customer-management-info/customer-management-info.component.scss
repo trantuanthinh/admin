@@ -110,3 +110,25 @@ mat-card-footer button:hover{
 ::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled) {
     background-color: transparent;
 }
+.images{
+    display: contents;
+    margin: 2rem;
+    margin-right: 3rem;
+    .chooseFile{
+        margin-top: 0.5rem;
+        margin-left: 1.5rem;
+        background-color: transparent;
+        border: 2px solid #927564;
+        border-radius: 2rem;
+        color: #927564;
+    }
+    .btn{
+        background-color: #faf9f4;
+        margin-left: 2rem;
+        padding: 4px;
+        color: #927564;
+        font-weight: bold;
+        border: 2px solid #927564;
+        border-radius: 2rem;
+    }
+}

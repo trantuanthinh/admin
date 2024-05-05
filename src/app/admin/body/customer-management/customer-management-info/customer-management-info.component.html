@@ -56,9 +56,11 @@
                 </mat-form-field>
 
                 <!-- <mat-form-field> -->
-                <mat-label>Images</mat-label>
-                <input type="file" (change)="onFileSelected($event)">
-                <button (click)="upload()">Upload</button>
+                <div class="images">
+                    <mat-label style="text-decoration: underline;">Images</mat-label>
+                    <input class="chooseFile" type="file" (change)="onFileSelected($event)">
+                    <button class="btn" (click)="upload()">Upload</button>
+                </div>
                 <!-- </mat-form-field> -->
             </mat-card-content>
         </mat-card>
