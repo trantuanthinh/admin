@@ -78,10 +78,9 @@ export class OrdersManagementInforComponent implements OnInit {
         this.getShapes();
         this.getSizes();
     }
-    collapsed: boolean = false;
 
     close() {
-        this.dialogRef.close(); // Set collapsed to true to close the form
+        this.dialogRef.close();
     }
 
     buildFormGroup() {

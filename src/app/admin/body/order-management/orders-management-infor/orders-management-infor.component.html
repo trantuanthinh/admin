@@ -1,7 +1,7 @@
 <cdk-virtual-scroll-viewport itemSize="200" class="viewport">
     <form [formGroup]="myform" (ngSubmit)="updateProduct()">
 
-        <button type="button" [@rotate] *ngIf="collapsed" (click)="close()">
+        <button type="button" (click)="close()">
             <i class="fas fa-window-close"></i>
         </button>
 
