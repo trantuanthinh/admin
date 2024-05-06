@@ -1,5 +1,10 @@
 <cdk-virtual-scroll-viewport itemSize="200" class="viewport">
     <form [formGroup]="myform" (ngSubmit)="updateProduct()">
+
+        <button type="button" [@rotate] *ngIf="collapsed" (click)="close()">
+            <i class="fas fa-window-close"></i>
+        </button>
+
         <mat-card>
             <mat-card-header class="productHeader">
                 <h1>Order Details</h1>

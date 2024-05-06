@@ -7,6 +7,9 @@ import { OrderManagementComponent } from "./order-management/order-management.co
 import { IngredientManagementComponent } from "./ingredient-management/ingredient-management.component";
 import { CustomerManagementComponent } from "./customer-management/customer-management.component";
 
+//check-----------------------------------------------------------
+import { GetDataComponent } from "./get-data/get-data.component";
+
 const routes: Routes = [
     {
         path: "",
@@ -31,6 +34,11 @@ const routes: Routes = [
             {
                 path: "customer-management",
                 component: CustomerManagementComponent,
+            },
+            //check------------------------
+            {
+                path: "get-data",
+                component: GetDataComponent,
             },
 
             { path: "**", redirectTo: "home", pathMatch: "full" },

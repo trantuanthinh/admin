@@ -1,9 +1,13 @@
+
 form {
-    background: transparent;
+    background: beige;
     background-position: center;
     border: 2px solid rgba(243, 234, 234, 0.2);
 }
 
+.fa-window-close:before {
+    color: #927564;
+}
 
 .example-additional-selection {
     opacity: 0.75;

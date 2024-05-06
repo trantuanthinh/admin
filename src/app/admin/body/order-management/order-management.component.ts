@@ -12,6 +12,7 @@ import { MatTableDataSource, MatTableModule } from "@angular/material/table";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { take } from "rxjs";
 import { ShareService } from "../../../shared/share.service";
+import { OrdersManagementInforComponent } from "./orders-management-infor/orders-management-infor.component";
 // import { ProductManagementInfoComponent } from "./product-management-info/product-management-info.component";
 export interface UserData {
     id: string;
@@ -111,11 +112,11 @@ export class OrderManagementComponent implements OnInit {
     }
 
     editCustomer(item: any) {
-        // const dialogRef = this.dialog.open(OrdersManagementInforComponent, {
-        //     data: item,
-        // });
-        // dialogRef.afterClosed().subscribe((result) => {
-        //     console.log("The dialog was closed");
-        // });
+        const dialogRef = this.dialog.open(OrdersManagementInforComponent, {
+            data: item,
+        });
+        dialogRef.afterClosed().subscribe((result) => {
+            console.log("The dialog was closed");
+        });
     }
 }

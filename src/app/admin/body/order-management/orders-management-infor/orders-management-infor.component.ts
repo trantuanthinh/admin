@@ -16,12 +16,13 @@ import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { MatSelectModule } from "@angular/material/select";
-import { take } from "rxjs";
+import { publish, take } from "rxjs";
 import { ShareService } from "../../../../shared/share.service";
 
 @Component({
     selector: "app-orders-management-infor",
     standalone: true,
+
     imports: [
         CommonModule,
         MatFormFieldModule,
@@ -76,6 +77,11 @@ export class OrdersManagementInforComponent implements OnInit {
         this.getFlavours();
         this.getShapes();
         this.getSizes();
+    }
+    collapsed: boolean = false;
+
+    close() {
+        this.dialogRef.close(); // Set collapsed to true to close the form
     }
 
     buildFormGroup() {
