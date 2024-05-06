@@ -27,6 +27,8 @@ export class ConfirmDialogComponent {
     confirmMessage: any;
     submitBtn: any;
     cancelBtn: any;
+    public actionSubmit: string = "ok";
+    public actionCancel: string = "cancel";
 
     constructor(
         @Optional() @Inject(MAT_DIALOG_DATA) public dialogData: any,
@@ -36,5 +38,9 @@ export class ConfirmDialogComponent {
         this.confirmMessage = dialogData.confirmMessage;
         this.submitBtn = dialogData.submitBtn;
         this.cancelBtn = dialogData.cancelBtn;
+    }
+
+    confirm(action: string) {
+        this.dialogRef.close({ action: action });
     }
 }

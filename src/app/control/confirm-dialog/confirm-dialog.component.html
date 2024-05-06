@@ -3,6 +3,6 @@
     <h4>{{ confirmMessage }}</h4>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-    <button mat-button mat-dialog-close>{{cancelBtn}}</button>
-    <button mat-button mat-dialog-close cdkFocusInitial>{{submitBtn}}</button>
+    <button mat-button mat-dialog-close (click)="confirm(actionCancel)">{{cancelBtn}}</button>
+    <button mat-button mat-dialog-close (click)="confirm(actionSubmit)" cdkFocusInitial>{{submitBtn}}</button>
 </mat-dialog-actions>

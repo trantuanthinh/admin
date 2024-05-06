@@ -4,7 +4,7 @@ import {
     HttpHeaders,
 } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable, throwError } from "rxjs";
+import { Observable, catchError, throwError } from "rxjs";
 import { HttpService } from "./http.service";
 
 @Injectable({
@@ -26,23 +26,43 @@ export class ShareService {
     }
 
     getAll(url: string): Observable<any> {
-        return this.http.get(url, { headers: this.headers });
+        return this.http
+            .get(url, { headers: this.headers })
+            .pipe(
+                catchError((error) => this.handleError("API Error: ", error))
+            );
     }
 
     getItem(url: string): Observable<any> {
-        return this.http.get(url, { headers: this.headers });
+        return this.http
+            .get(url, { headers: this.headers })
+            .pipe(
+                catchError((error) => this.handleError("API Error: ", error))
+            );
     }
 
     createItem(url: string, item: any): Observable<any> {
-        return this.http.post(url, item, { headers: this.headers });
+        return this.http
+            .post(url, item, { headers: this.headers })
+            .pipe(
+                catchError((error) => this.handleError("API Error: ", error))
+            );
     }
 
     updateItem(url: string, item: any): Observable<any> {
-        return this.http.put(url, item, { headers: this.headers });
+        return this.http
+            .put(url, item, { headers: this.headers })
+            .pipe(
+                catchError((error) => this.handleError("API Error: ", error))
+            );
     }
 
     deleteItem(url: string): Observable<any> {
-        return this.http.delete(url, { headers: this.headers });
+        return this.http
+            .delete(url, { headers: this.headers })
+            .pipe(
+                catchError((error) => this.handleError("API Error: ", error))
+            );
     }
 
     //getProdPhoto
@@ -56,7 +76,11 @@ export class ShareService {
         let baseUrl = this.RootEndPointAPI + `/prod_photo`;
         const formData: FormData = new FormData();
         formData.append("file", file);
-        return this.http.post(baseUrl, formData, { headers: this.headers });
+        return this.http
+            .post(baseUrl, formData, { headers: this.headers })
+            .pipe(
+                catchError((error) => this.handleError("API Error: ", error))
+            );
     }
 
     //getDecorPhoto

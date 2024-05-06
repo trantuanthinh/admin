@@ -1,13 +1,16 @@
+import { CommonModule, TitleCasePipe } from "@angular/common";
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { FormGroup, ReactiveFormsModule } from "@angular/forms";
 import { MatCardModule } from "@angular/material/card";
+import { ThemePalette } from "@angular/material/core";
 import { MatDialog } from "@angular/material/dialog";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { MatPaginator, MatPaginatorModule } from "@angular/material/paginator";
+import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 import { MatSort, MatSortModule } from "@angular/material/sort";
 import { MatTableDataSource, MatTableModule } from "@angular/material/table";
-import { take } from "rxjs";
+import { Observable, take } from "rxjs";
 import { ConfirmDialogComponent } from "../../../control/confirm-dialog/confirm-dialog.component";
 import { ShareService } from "../../../shared/share.service";
 import { ProductManagementInfoComponent } from "./product-management-info/product-management-info.component";
@@ -26,22 +29,28 @@ export interface UserData {
     selector: "app-product-management",
     standalone: true,
     imports: [
+        CommonModule,
         MatPaginatorModule,
         MatCardModule,
         MatTableModule,
         MatFormFieldModule,
+        MatSlideToggleModule,
         MatInputModule,
         MatSortModule,
         ReactiveFormsModule,
     ],
+    providers: [TitleCasePipe],
     templateUrl: "./product-management.component.html",
     styleUrls: ["./product-management.component.scss"],
 })
 export class ProductManagementComponent implements OnInit {
     @ViewChild(MatPaginator) paginator!: MatPaginator;
     @ViewChild(MatSort) sort!: MatSort;
-
+    color: ThemePalette = "accent";
+    checked = true;
+    disabled = false;
     displayedColumns: string[] = [
+        "order",
         "id",
         "name",
         "photo",
@@ -228,41 +237,65 @@ export class ProductManagementComponent implements OnInit {
                 confirmMessage: "Do you want to delete?",
             },
         };
-        this.showDialogConfirm(config);
-        // this.showDialogConfirm(config)
-        //     .pipe(take(1))
-        //     .subscribe({
-        //         next: (resConfirm: any) => {
-        //             console.log("aaaa: " + resConfirm);
-        //             if (resConfirm && resConfirm.action == "ok") {
-        //                 // this.shareService
-        //                 //     .deleteProduct(item.id)
-        //                 //     .pipe(take(1))
-        //                 //     .subscribe(() => {
-        //                 //         console.log("Deleted Succesfull");
-        //                 //     });
-        //             }
-        //         },
-        //     });
+        +this.showDialogConfirm(config)
+            .pipe(take(1))
+            .subscribe({
+                next: (resConfirm: any) => {
+                    if (resConfirm && resConfirm.action == "ok") {
+                        this.shareService
+                            .deleteProduct(item.prod_id)
+                            .pipe(take(1))
+                            .subscribe(() => {
+                                console.log("Deleted Succesful");
+                                this.getData();
+                            });
+                    }
+                },
+            });
     }
 
     showDialogConfirm(config: any) {
-        // return new Observable((obs) => {
-        //     // config.disableClose = true;
-        //     // config.panelClass = "dialog-form-sm";
-        //     // config.maxWidth = "80vw";
-        //     // config.autoFocus = false;
-        //     let dialogRef = this.dialog.open(ConfirmDialogComponent, config);
-        //     dialogRef.afterClosed().subscribe({
-        //         next: (res: any) => {
-        //             obs.next(res);
-        //             obs.complete();
-        //         },
-        //     });
-        // });
-        let dialogRef = this.dialog.open(ConfirmDialogComponent, config);
-        dialogRef.afterClosed().subscribe((result) => {
-            console.log(`Dialog result: ${result}`);
+        return new Observable((obs) => {
+            config.disableClose = true;
+            config.panelClass = "dialog-form-sm";
+            config.maxWidth = "80vw";
+            config.autoFocus = false;
+            let dialogRef = this.dialog.open(ConfirmDialogComponent, config);
+            dialogRef.afterClosed().subscribe({
+                next: (res: any) => {
+                    obs.next(res);
+                    obs.complete();
+                },
+            });
         });
     }
+
+    changeStatus(item: any) {
+        console.log(item);
+        if (item.status === "active") {
+            item.status = "inactive";
+        } else {
+            item.status = "active";
+        }
+        let dataJSON = {
+            category_id: item.category_id,
+            shape_id: item.shape_id,
+            size_id: item.size_id,
+            flavour_id: item.flavour_id,
+            name: item.name,
+            quantity: item.quantity,
+            image: item.image,
+            price: item.price,
+            status: item.status,
+        };
+        this.shareService
+            .updateProduct(dataJSON, item.prod_id)
+            .pipe(take(1))
+            .subscribe(() => {
+                console.log("Updated Successfull");
+                // this.dialogRef.close("OK");
+            });
+    }
+
+    submitProduct(item: any) {}
 }
