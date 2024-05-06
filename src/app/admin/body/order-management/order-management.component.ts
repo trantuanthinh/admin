@@ -1,19 +1,17 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { FormGroup, ReactiveFormsModule } from "@angular/forms";
 import { MatCardModule } from "@angular/material/card";
+import { ThemePalette } from "@angular/material/core";
 import { MatDialog } from "@angular/material/dialog";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { MatPaginator, MatPaginatorModule } from "@angular/material/paginator";
+import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 import { MatSort, MatSortModule } from "@angular/material/sort";
 import { MatTableDataSource, MatTableModule } from "@angular/material/table";
-import { take } from "rxjs";
-import { TableComponent } from "../../../control/table/table.component";
-import { ShareService } from "../../../shared/share.service";
-import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 import { MatTooltipModule } from "@angular/material/tooltip";
-import { OrdersManagementInforComponent } from "./orders-management-infor/orders-management-infor.component";
-import { ThemePalette } from "@angular/material/core";
+import { take } from "rxjs";
+import { ShareService } from "../../../shared/share.service";
 // import { ProductManagementInfoComponent } from "./product-management-info/product-management-info.component";
 export interface UserData {
     id: string;
@@ -35,7 +33,6 @@ export interface UserData {
         MatPaginatorModule,
         MatCardModule,
         MatTableModule,
-        TableComponent,
         MatFormFieldModule,
         MatInputModule,
         MatSortModule,

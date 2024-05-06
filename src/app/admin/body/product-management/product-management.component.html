@@ -5,7 +5,7 @@
         </mat-card-header>
     </mat-card>
 
-    <button (click)="addCustomer()" style="margin-left: 60%" mat-raised-button color="primary">
+    <button (click)="addProduct()" style="margin-left: 60%" mat-raised-button color="primary">
         Add Product (+)
     </button>
 
@@ -23,8 +23,7 @@
         <ng-container class="photo" matColumnDef="photo">
             <th mat-sort-header mat-header-cell *matHeaderCellDef>Photo</th>
             <td mat-cell *matCellDef="let element" class="smallerPhoto">{{ element.image }}
-                <!-- <img src="../../../../assets/Bear-Cake.webp" alt=""> -->
-                <img src="../../../../assets/Yellow-Macaron.jpg" alt="">
+                <img [src]="element.src" alt="">
             </td>
         </ng-container>
 
@@ -47,10 +46,10 @@
             <th mat-header-cell *matHeaderCellDef>Action</th>
             <td mat-cell *matCellDef="let element">
                 <div class="action-buttons">
-                    <button (click)="editCustomer(element)" mat-raised-button color="primary">
+                    <button (click)="updateProduct(element)" mat-raised-button color="primary">
                         Edit
                     </button>
-                    <button mat-raised-button color="warn">Delete</button>
+                    <button (click)="deleteProduct(element)" mat-raised-button color="warn">Delete</button>
                     <button mat-raised-button color="primary">Detail</button>
                 </div>
             </td>

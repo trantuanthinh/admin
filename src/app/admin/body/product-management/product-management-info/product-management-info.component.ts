@@ -1,10 +1,15 @@
 import { ScrollingModule } from "@angular/cdk/scrolling";
 import { CommonModule, TitleCasePipe } from "@angular/common";
 import { HttpClient } from "@angular/common/http";
-import { Component, Inject, OnInit, TrackByFunction } from "@angular/core";
+import {
+    Component,
+    Inject,
+    OnInit,
+    Optional,
+    TrackByFunction,
+} from "@angular/core";
 import {
     FormBuilder,
-    FormControl,
     FormGroup,
     FormsModule,
     ReactiveFormsModule,
@@ -43,30 +48,15 @@ import { ShareService } from "../../../../shared/share.service";
     providers: [TitleCasePipe],
 })
 export class ProductManagementInfoComponent implements OnInit {
-    inputdata: any;
-    editdata: any;
-    closemessage = "closed using directive";
-    categoryList: any = [];
-    sizeList: any = [];
-    shapeList: any = [];
-    flavourList: any = [];
+    public target: string = "";
 
-    myform!: FormGroup;
-    name = new FormControl(this.data?.name || "", [Validators.required]);
-    unitPrice = new FormControl("", [
-        Validators.required,
-        CustomValidator.numeric,
-    ]);
-    category = new FormControl("", [Validators.required]);
-    shape = new FormControl("", [Validators.required]);
-    size = new FormControl("", [Validators.required]);
-    flavour = new FormControl("", [Validators.required]);
-    quantity = new FormControl(this.data?.quantity || "", [
-        Validators.required,
-        CustomValidator.numeric,
-    ]);
+    categoryList: any[] = [];
+    sizeList: any[] = [];
+    shapeList: any[] = [];
+    flavourList: any[] = [];
 
-    photo = new FormControl("", [Validators.required]);
+    myform: FormGroup;
+
     trackByFn!: TrackByFunction<number>;
 
     message!: any;
@@ -75,60 +65,57 @@ export class ProductManagementInfoComponent implements OnInit {
     fileName!: any;
 
     constructor(
-        @Inject(MAT_DIALOG_DATA) public data: any,
+        @Optional() @Inject(MAT_DIALOG_DATA) public dialogData: any,
         private dialogRef: MatDialogRef<ProductManagementInfoComponent>,
         private shareService: ShareService,
         private fb: FormBuilder,
         private http: HttpClient
     ) {
-        console.log(data);
+        this.target = this.dialogData.target;
+        console.log(dialogData);
         this.getCategories();
         this.getFlavours();
         this.getShapes();
         this.getSizes();
+
         this.myform = this.buildFormGroup();
-        let defaultCategory: any = this.categoryList[0];
-        console.log(defaultCategory);
-        let selectedCategories: any;
-
-        // = this.categoryList.filter(
-        //     (item: any) => item.category_id == this.data.category_id
-        // );
-        // for (const item of this.categoryList) {
-        //     if (item.category_id === this.data.category_id) {
-        //         selectedCategories = item;
-        //         console.log(item);
-        //         break;
-        //     }
-        // }
-        console.log(111111111);
-        // console.log(selectedCategories);
-
-        // this.category = new FormControl(selectedCategory.type, [
-        //     Validators.required,
-        // ]);
     }
 
     buildFormGroup() {
-        let entity = {
-            name: this?.name,
-            category: this?.category,
-            shape: this?.shape,
-            size: this?.size,
-            flavour: this?.flavour,
-            quantity: this?.quantity,
-            price: this?.unitPrice,
-        };
-        // let entity = {
-        //     name: [item?.name || ""],
-        //     category: [item?.category || ""],
-        //     shape: [item?.shape || ""],
-        //     size: [item?.size || ""],
-        //     flavour: [item?.flavour || ""],
-        //     quantity: [item?.quantity || ""],
-        //     price: [item?.price || ""],
-        // };
-        return this.fb.group(entity);
+        return this.fb.group({
+            name: [
+                this.dialogData ? this.dialogData.item.name : "",
+                [Validators.required],
+            ],
+            category: [
+                this.dialogData ? this.dialogData.item.category_id : "",
+                [Validators.required],
+            ],
+            shape: [
+                this.dialogData ? this.dialogData.item.shape_id : "",
+                [Validators.required],
+            ],
+            size: [
+                this.dialogData ? this.dialogData.item.size_id : "",
+                [Validators.required],
+            ],
+            flavour: [
+                this.dialogData ? this.dialogData.item.flavour_id : "",
+                [Validators.required],
+            ],
+            quantity: [
+                this.dialogData ? this.dialogData.item.quantity : "",
+                [Validators.required],
+            ],
+            price: [
+                this.dialogData ? this.dialogData.item.price : "",
+                [Validators.required, CustomValidator.numeric],
+            ],
+            // photo: [
+            //     this.dialogData ? this.dialogData.item.image : "",
+            //     [Validators.required],
+            // ],
+        });
     }
 
     ngOnInit(): void {}
@@ -168,21 +155,26 @@ export class ProductManagementInfoComponent implements OnInit {
         this.dialogRef.close("Closed using function");
     }
 
-    updateProduct() {
-        this.upload();
-        let valueForm = this.myform.value;
+    submitProduct() {
+        if (this.currentFile) {
+            this.upload();
+        }
+        let valueForm: any;
+        if (this.myform) {
+            valueForm = this.myform.value;
+        }
         let dataJSON = {
-            category_id: valueForm.category.category_id,
-            shape_id: valueForm.shape.shape_id,
-            size_id: valueForm.size.size_id,
-            flavour_id: valueForm.flavour.flavour_id,
+            category_id: valueForm.category,
+            shape_id: valueForm.shape,
+            size_id: valueForm.size,
+            flavour_id: valueForm.flavour,
             name: valueForm.name,
             quantity: valueForm.quantity,
-            image: this.fileName,
-            price: valueForm.unitPrice,
+            image: this.dialogData ? this.dialogData.item.image : this.fileName,
+            price: valueForm.price,
             status: "active",
         };
-        if (this.data == null) {
+        if (this.dialogData == null) {
             this.shareService
                 .createProduct(dataJSON)
                 .pipe(take(1))
@@ -191,7 +183,7 @@ export class ProductManagementInfoComponent implements OnInit {
                 });
         } else {
             this.shareService
-                .updateProduct(dataJSON, this.data.prod_id)
+                .updateProduct(dataJSON, this.dialogData.item.prod_id)
                 .pipe(take(1))
                 .subscribe(() => {
                     this.dialogRef.close("OK");
@@ -205,8 +197,11 @@ export class ProductManagementInfoComponent implements OnInit {
             .pipe(take(1))
             .subscribe({
                 next: (res: any) => {
-                    this.categoryList = res.data;
-                    console.log(res.data);
+                    let dataItems: any[] = [];
+                    if (res && res.data) {
+                        dataItems = res.data;
+                    }
+                    this.categoryList = dataItems;
                 },
                 error: (error) => console.log("Error: " + error),
             });
@@ -218,7 +213,11 @@ export class ProductManagementInfoComponent implements OnInit {
             .pipe(take(1))
             .subscribe({
                 next: (res: any) => {
-                    this.shapeList = res.data;
+                    let dataItems: any[] = [];
+                    if (res && res.data) {
+                        dataItems = res.data;
+                    }
+                    this.shapeList = dataItems;
                 },
                 error: (error) => console.log("Error: " + error),
             });
@@ -230,7 +229,11 @@ export class ProductManagementInfoComponent implements OnInit {
             .pipe(take(1))
             .subscribe({
                 next: (res: any) => {
-                    this.sizeList = res.data;
+                    let dataItems: any[] = [];
+                    if (res && res.data) {
+                        dataItems = res.data;
+                    }
+                    this.sizeList = dataItems;
                 },
                 error: (error) => console.log("Error: " + error),
             });
@@ -242,13 +245,17 @@ export class ProductManagementInfoComponent implements OnInit {
             .pipe(take(1))
             .subscribe({
                 next: (res: any) => {
-                    this.flavourList = res.data;
+                    let dataItems: any[] = [];
+                    if (res && res.data) {
+                        dataItems = res.data;
+                    }
+                    this.flavourList = dataItems;
                 },
                 error: (error) => console.log("Error: " + error),
             });
     }
 
     closeDialog() {
-        // this.dialogdialogRef.close(null);
+        this.dialogRef.close(null);
     }
 }

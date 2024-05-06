@@ -8,7 +8,6 @@ import { MatPaginator, MatPaginatorModule } from "@angular/material/paginator";
 import { MatSort, MatSortModule } from "@angular/material/sort";
 import { MatTableDataSource, MatTableModule } from "@angular/material/table";
 import { take } from "rxjs";
-import { TableComponent } from "../../../control/table/table.component";
 import { ShareService } from "../../../shared/share.service";
 
 export interface UserData {
@@ -28,7 +27,6 @@ export interface UserData {
         MatPaginatorModule,
         MatCardModule,
         MatTableModule,
-        TableComponent,
         MatFormFieldModule,
         MatInputModule,
         MatSortModule,

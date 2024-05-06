@@ -8,7 +8,7 @@ import { MatPaginator, MatPaginatorModule } from "@angular/material/paginator";
 import { MatSort, MatSortModule } from "@angular/material/sort";
 import { MatTableDataSource, MatTableModule } from "@angular/material/table";
 import { take } from "rxjs";
-import { TableComponent } from "../../../control/table/table.component";
+import { ConfirmDialogComponent } from "../../../control/confirm-dialog/confirm-dialog.component";
 import { ShareService } from "../../../shared/share.service";
 import { ProductManagementInfoComponent } from "./product-management-info/product-management-info.component";
 
@@ -29,7 +29,6 @@ export interface UserData {
         MatPaginatorModule,
         MatCardModule,
         MatTableModule,
-        TableComponent,
         MatFormFieldModule,
         MatInputModule,
         MatSortModule,
@@ -161,8 +160,14 @@ export class ProductManagementComponent implements OnInit {
             .pipe(take(1))
             .subscribe({
                 next: (res: any) => {
-                    this.dataSource = new MatTableDataSource(res.data);
-                    // this.dataSource = res.data;
+                    let dataItems: any[] = [];
+                    if (res && res.data) {
+                        dataItems = res.data;
+                    }
+                    for (let item of dataItems) {
+                        item.src = this.shareService.getProdPhoto(item.image);
+                    }
+                    this.dataSource = new MatTableDataSource(dataItems);
                 },
                 error: (error) => console.log("Error: " + error),
             });
@@ -178,26 +183,86 @@ export class ProductManagementComponent implements OnInit {
     applyFilter(event: Event) {
         const filterValue = (event.target as HTMLInputElement).value;
         this.dataSource.filter = filterValue.trim().toLowerCase();
-
         if (this.dataSource.paginator) {
             this.dataSource.paginator.firstPage();
         }
     }
-    addCustomer() {
-        const dialogRef = this.dialog.open(ProductManagementInfoComponent, {
-            data: null,
-        });
+
+    addProduct() {
+        let config: any = {};
+        config.data = {
+            target: "add",
+        };
+        this.openFormDialog(config);
+    }
+
+    updateProduct(item: any) {
+        let config: any = {};
+        config.data = {
+            target: "edit",
+            item: item,
+        };
+        this.openFormDialog(config);
+    }
+
+    openFormDialog(config: any) {
+        config.disableClose = true;
+        config.panelClass = "dialog-form-l";
+        config.maxWidth = "80vw";
+        config.autoFocus = true;
+        let dialogRef = this.dialog.open(
+            ProductManagementInfoComponent,
+            config
+        );
         dialogRef.afterClosed().subscribe((result) => {
             console.log("The dialog was closed");
         });
     }
 
-    editCustomer(item: any) {
-        const dialogRef = this.dialog.open(ProductManagementInfoComponent, {
-            data: item,
-        });
+    deleteProduct(item: any) {
+        let config: any = {
+            data: {
+                title: "Product",
+                submitBtn: "Yes",
+                cancelBtn: "No",
+                confirmMessage: "Do you want to delete?",
+            },
+        };
+        this.showDialogConfirm(config);
+        // this.showDialogConfirm(config)
+        //     .pipe(take(1))
+        //     .subscribe({
+        //         next: (resConfirm: any) => {
+        //             console.log("aaaa: " + resConfirm);
+        //             if (resConfirm && resConfirm.action == "ok") {
+        //                 // this.shareService
+        //                 //     .deleteProduct(item.id)
+        //                 //     .pipe(take(1))
+        //                 //     .subscribe(() => {
+        //                 //         console.log("Deleted Succesfull");
+        //                 //     });
+        //             }
+        //         },
+        //     });
+    }
+
+    showDialogConfirm(config: any) {
+        // return new Observable((obs) => {
+        //     // config.disableClose = true;
+        //     // config.panelClass = "dialog-form-sm";
+        //     // config.maxWidth = "80vw";
+        //     // config.autoFocus = false;
+        //     let dialogRef = this.dialog.open(ConfirmDialogComponent, config);
+        //     dialogRef.afterClosed().subscribe({
+        //         next: (res: any) => {
+        //             obs.next(res);
+        //             obs.complete();
+        //         },
+        //     });
+        // });
+        let dialogRef = this.dialog.open(ConfirmDialogComponent, config);
         dialogRef.afterClosed().subscribe((result) => {
-            console.log("The dialog was closed");
+            console.log(`Dialog result: ${result}`);
         });
     }
 }

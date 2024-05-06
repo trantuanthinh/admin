@@ -8,7 +8,6 @@ import { MatPaginator, MatPaginatorModule } from "@angular/material/paginator";
 import { MatSort, MatSortModule } from "@angular/material/sort";
 import { MatTableDataSource, MatTableModule } from "@angular/material/table";
 import { take } from "rxjs";
-import { TableComponent } from "../../../control/table/table.component";
 import { ShareService } from "../../../shared/share.service";
 import { CustomerManagementInfoComponent } from "./customer-management-info/customer-management-info.component";
 
@@ -29,7 +28,6 @@ export interface UserData {
         MatPaginatorModule,
         MatCardModule,
         MatTableModule,
-        TableComponent,
         MatFormFieldModule,
         MatInputModule,
         MatSortModule,
@@ -44,7 +42,8 @@ export class CustomerManagementComponent implements OnInit {
     @ViewChild(MatSort) sort!: MatSort;
     displayedColumns: string[] = [
         "id",
-        "name",
+        "firstName",
+        "lastName",
         "phone",
         "email",
         "gender",
@@ -59,18 +58,18 @@ export class CustomerManagementComponent implements OnInit {
     }
 
     getData() {
-        const products: UserData[] = [
-            {
-                id: "1",
-                name: "John Doe",
-                phone: "b",
-                email: 1111,
-                gender: "1",
-                birthday: "3",
-                action: "a",
-            },
-        ];
-        this.dataSource = new MatTableDataSource(products);
+        // const products: UserData[] = [
+        //     {
+        //         id: "1",
+        //         name: "John Doe",
+        //         phone: "b",
+        //         email: 1111,
+        //         gender: "1",
+        //         birthday: "3",
+        //         action: "a",
+        //     },
+        // ];
+        // this.dataSource = new MatTableDataSource(products);
         this.shareService
             .getCustomers()
             .pipe(take(1))

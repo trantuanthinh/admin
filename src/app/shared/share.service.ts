@@ -46,20 +46,23 @@ export class ShareService {
     }
 
     //getProdPhoto
-    getPhoto(photoName: string) {
-        let baseUrl = this.RootEndPointAPI + `/photo/${photoName}`;
+    getProdPhoto(photoName: string) {
+        let baseUrl = this.RootEndPointAPI + `/prod_photo/${photoName}`;
         return baseUrl;
     }
 
     //uploadProdPhoto
     uploadProdPhoto(file: File): Observable<any> {
         let baseUrl = this.RootEndPointAPI + `/prod_photo`;
-        // const formData: FormData = new FormData();
-        // formData.append("file", file);
-        // return this.http.post(baseUrl, file, { headers: this.headers });
         const formData: FormData = new FormData();
         formData.append("file", file);
         return this.http.post(baseUrl, formData, { headers: this.headers });
+    }
+
+    //getDecorPhoto
+    getDecorPhoto(photoName: string) {
+        let baseUrl = this.RootEndPointAPI + `/prod_photo/${photoName}`;
+        return baseUrl;
     }
 
     //admins
@@ -68,7 +71,7 @@ export class ShareService {
         return this.getAll(baseUrl);
     }
 
-    getAdmin(id: number) {
+    getAdmin(id: any) {
         let baseUrl = this.RootEndPointAPI + `/admins/${id}`;
         return this.getItem(baseUrl);
     }
@@ -78,12 +81,12 @@ export class ShareService {
         return this.createItem(baseUrl, item);
     }
 
-    updateAdmin(id: number, item: any) {
+    updateAdmin(id: any, item: any) {
         let baseUrl = this.RootEndPointAPI + `/admins/${id}`;
         return this.updateItem(baseUrl, item);
     }
 
-    deleteAdmin(id: number) {
+    deleteAdmin(id: any) {
         let baseUrl = this.RootEndPointAPI + `/admins/${id}`;
         return this.deleteItem(baseUrl);
     }
@@ -103,6 +106,7 @@ export class ShareService {
         let baseUrl = this.RootEndPointAPI + `/customers`;
         return this.getAll(baseUrl);
     }
+
     createCustomers(item: any) {
         let baseUrl = this.RootEndPointAPI + `/customers`;
         return this.createItem(baseUrl, item);
@@ -111,6 +115,11 @@ export class ShareService {
     //products
     getProducts() {
         let baseUrl = this.RootEndPointAPI + `/products`;
+        return this.getAll(baseUrl);
+    }
+
+    getProduct(id: any) {
+        let baseUrl = this.RootEndPointAPI + `/products/${id}`;
         return this.getAll(baseUrl);
     }
 
@@ -124,9 +133,19 @@ export class ShareService {
         return this.updateItem(baseUrl, item);
     }
 
+    deleteProduct(id: any) {
+        let baseUrl = this.RootEndPointAPI + `/products/${id}`;
+        return this.deleteItem(baseUrl);
+    }
+
     //sizes
     getSizes() {
         let baseUrl = this.RootEndPointAPI + `/sizes`;
+        return this.getAll(baseUrl);
+    }
+
+    getSize(id: any) {
+        let baseUrl = this.RootEndPointAPI + `/sizes/${id}`;
         return this.getAll(baseUrl);
     }
 
@@ -136,9 +155,19 @@ export class ShareService {
         return this.getAll(baseUrl);
     }
 
+    getShape(id: any) {
+        let baseUrl = this.RootEndPointAPI + `/shapes/${id}`;
+        return this.getAll(baseUrl);
+    }
+
     //flavours
     getFlavours() {
         let baseUrl = this.RootEndPointAPI + `/flavours`;
+        return this.getAll(baseUrl);
+    }
+
+    getFlavour(id: any) {
+        let baseUrl = this.RootEndPointAPI + `/flavours/${id}`;
         return this.getAll(baseUrl);
     }
 
@@ -148,6 +177,10 @@ export class ShareService {
         return this.getAll(baseUrl);
     }
 
+    getCategory(id: any) {
+        let baseUrl = this.RootEndPointAPI + `/categories/${id}`;
+        return this.getAll(baseUrl);
+    }
     handleError(methodName: string, errorData: HttpErrorResponse | any) {
         let errorResponse: any = {
             status: methodName,
