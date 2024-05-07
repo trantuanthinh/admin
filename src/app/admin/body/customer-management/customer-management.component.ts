@@ -9,7 +9,6 @@ import { MatSort, MatSortModule } from "@angular/material/sort";
 import { MatTableDataSource, MatTableModule } from "@angular/material/table";
 import { take } from "rxjs";
 import { ShareService } from "../../../shared/share.service";
-import { SimpleBaseComponent } from "../../../shared/simple.base.component";
 import { SharePropertyService } from "./../../../shared/share-property.service";
 import { CustomerManagementInfoComponent } from "./customer-management-info/customer-management-info.component";
 
@@ -38,7 +37,8 @@ export interface UserData {
     templateUrl: "./customer-management.component.html",
     styleUrl: "./customer-management.component.scss",
 })
-export class CustomerManagementComponent extends SimpleBaseComponent {
+export class CustomerManagementComponent {
+    offset = 7;
     @ViewChild(MatPaginator) paginator!: MatPaginator;
     @ViewChild(MatSort) sort!: MatSort;
     displayedColumns: string[] = ["id", "firstName", "lastName", "phone", "email", "gender", "birthday", "action"];
@@ -50,7 +50,6 @@ export class CustomerManagementComponent extends SimpleBaseComponent {
         private shareService: ShareService,
         private sharePropertyService: SharePropertyService
     ) {
-        super();
         this.getData();
     }
 
