@@ -1,14 +1,5 @@
 <cdk-virtual-scroll-viewport itemSize="200" class="viewport">
-<<<<<<< HEAD
-    <form [formGroup]="myform" (ngSubmit)="updateProduct()">
-
-        <button type="button" (click)="close()">
-            <i class="fas fa-window-close"></i>
-        </button>
-
-=======
     <form [formGroup]="myform" (ngSubmit)="submitProduct()">
->>>>>>> 18d1948081249eda8715d6059c8c20ba1eaffa32
         <mat-card>
             <mat-card-header class="productHeader">
                 <h1>{{ target | titlecase }} Customer</h1>
@@ -49,18 +40,7 @@
                     <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
-<<<<<<< HEAD
 
-                <!-- <mat-form-field> -->
-                <div class="images">
-                    <mat-label class="lb" style="text-decoration: underline;">Images</mat-label>
-                    <input class="chooseFile" type="file" (change)="onFileSelected($event)">
-                    <button class="btn" (click)="upload()">Upload</button>
-                </div>
-
-                <!-- </mat-form-field> -->
-=======
->>>>>>> 18d1948081249eda8715d6059c8c20ba1eaffa32
             </mat-card-content>
         </mat-card>
         <mat-card-footer>
