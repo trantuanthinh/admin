@@ -2,7 +2,13 @@ import { ScrollingModule } from "@angular/cdk/scrolling";
 import { CommonModule, TitleCasePipe } from "@angular/common";
 import { HttpClient } from "@angular/common/http";
 import { Component, Inject, OnInit, TrackByFunction } from "@angular/core";
-import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule } from "@angular/forms";
+import {
+    FormBuilder,
+    FormControl,
+    FormGroup,
+    FormsModule,
+    ReactiveFormsModule,
+} from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { MatCheckboxModule } from "@angular/material/checkbox";
@@ -12,7 +18,7 @@ import { MatInputModule } from "@angular/material/input";
 import { MatSelectModule } from "@angular/material/select";
 import { take } from "rxjs";
 import { ShareService } from "../../../../shared/share.service";
-
+import { MatSnackBar } from "@angular/material/snack-bar";
 @Component({
     selector: "app-orders-management-infor",
     standalone: true,
@@ -64,7 +70,8 @@ export class OrdersManagementInforComponent implements OnInit {
         private dialogRef: MatDialogRef<OrdersManagementInforComponent>,
         private shareService: ShareService,
         private fb: FormBuilder,
-        private http: HttpClient
+        private http: HttpClient,
+        private _snackBar: MatSnackBar
     ) {
         this.myform = this.buildFormGroup();
         this.getCategories();
@@ -75,6 +82,15 @@ export class OrdersManagementInforComponent implements OnInit {
 
     close() {
         this.dialogRef.close();
+    }
+    openSnackBar() {
+        const successMessage = "Submit success";
+        this._snackBar.open(successMessage, "Close", {
+            duration: 2000,
+            verticalPosition: "bottom",
+            horizontalPosition: "center",
+            panelClass: ["centered-snack-bar"],
+        });
     }
 
     buildFormGroup() {
