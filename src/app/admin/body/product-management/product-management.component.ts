@@ -15,16 +15,6 @@ import { ConfirmDialogComponent } from "../../../control/confirm-dialog/confirm-
 import { ShareService } from "../../../shared/share.service";
 import { ProductManagementInfoComponent } from "./product-management-info/product-management-info.component";
 
-export interface UserData {
-    id: string;
-    name: string;
-    photo: string;
-    cost: number;
-    quantity: string;
-    status: string;
-    action: string;
-}
-
 @Component({
     selector: "app-product-management",
     standalone: true,

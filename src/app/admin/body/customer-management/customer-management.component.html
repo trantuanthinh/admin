@@ -9,6 +9,11 @@
         Add Product (+)
     </button>
     <table matSort mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+        <ng-container matColumnDef="order">
+            <th mat-sort-header mat-header-cell *matHeaderCellDef>Order</th>
+            <td mat-cell *matCellDef="let element; let i = index">{{i+1}}</td>
+        </ng-container>
+
         <ng-container matColumnDef="id">
             <th mat-sort-header mat-header-cell *matHeaderCellDef>ID</th>
             <td mat-cell *matCellDef="let element">{{ element.cus_id }}</td>

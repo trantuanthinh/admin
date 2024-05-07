@@ -16,6 +16,7 @@ import { take } from "rxjs";
 import { CustomValidator } from "../../../../shared/CustomValidator";
 import { SharePropertyService } from "../../../../shared/share-property.service";
 import { ShareService } from "../../../../shared/share.service";
+import { SimpleBaseComponent } from "../../../../shared/simple.base.component";
 
 @Component({
     selector: "app-customer-management-info",
@@ -39,8 +40,7 @@ import { ShareService } from "../../../../shared/share.service";
     templateUrl: "./customer-management-info.component.html",
     styleUrl: "./customer-management-info.component.scss",
 })
-export class CustomerManagementInfoComponent {
-    offset: number = 7;
+export class CustomerManagementInfoComponent extends SimpleBaseComponent {
     target: string = "Add";
     myform!: FormGroup;
     trackByFn!: TrackByFunction<number>;
@@ -52,6 +52,7 @@ export class CustomerManagementInfoComponent {
         private fb: FormBuilder,
         private http: HttpClient
     ) {
+        super();
         this.target = this.dialogData.target;
         this.myform = this.buildFormGroup();
     }
