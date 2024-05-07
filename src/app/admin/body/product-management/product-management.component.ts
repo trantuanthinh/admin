@@ -49,7 +49,16 @@ export class ProductManagementComponent implements OnInit {
     color: ThemePalette = "accent";
     checked = true;
     disabled = false;
-    displayedColumns: string[] = ["order", "id", "name", "photo", "cost", "quantity", "status", "action"];
+    displayedColumns: string[] = [
+        "order",
+        "id",
+        "name",
+        "photo",
+        "cost",
+        "quantity",
+        "status",
+        "action",
+    ];
     dataSource!: MatTableDataSource<any>;
     myform!: FormGroup<any>;
 
@@ -62,99 +71,18 @@ export class ProductManagementComponent implements OnInit {
     }
 
     getData() {
-        // const products: UserData[] = [
-        //     {
-        //         id: "1",
-        //         name: "John Doe",
-        //         photo: "a",
-        //         cost: 1111,
-        //         quantity: "a",
-        //         status: "a",
-        //         action: "a",
-        //     },
-        //     {
-        //         id: "1",
-        //         name: "John Doe",
-        //         photo: "a",
-        //         cost: 1111,
-        //         quantity: "a",
-        //         status: "a",
-        //         action: "a",
-        //     },
-        //     {
-        //         id: "1",
-        //         name: "John Doe",
-        //         photo: "a",
-        //         cost: 1111,
-        //         quantity: "a",
-        //         status: "a",
-        //         action: "a",
-        //     },
-        //     {
-        //         id: "1",
-        //         name: "John Doe",
-        //         photo: "a",
-        //         cost: 1111,
-        //         quantity: "a",
-        //         status: "a",
-        //         action: "a",
-        //     },
-        //     {
-        //         id: "1",
-        //         name: "John Doe",
-        //         photo: "a",
-        //         cost: 1111,
-        //         quantity: "a",
-        //         status: "a",
-        //         action: "a",
-        //     },
-        //     {
-        //         id: "1",
-        //         name: "John Doe",
-        //         photo: "a",
-        //         cost: 1111,
-        //         quantity: "a",
-        //         status: "a",
-        //         action: "a",
-        //     },
-        //     {
-        //         id: "1",
-        //         name: "John Doe",
-        //         photo: "a",
-        //         cost: 1111,
-        //         quantity: "a",
-        //         status: "a",
-        //         action: "a",
-        //     },
-        //     {
-        //         id: "1",
-        //         name: "John Doe",
-        //         photo: "a",
-        //         cost: 1111,
-        //         quantity: "a",
-        //         status: "a",
-        //         action: "a",
-        //     },
-        //     {
-        //         id: "1",
-        //         name: "John Doe",
-        //         photo: "a",
-        //         cost: 1111,
-        //         quantity: "a",
-        //         status: "a",
-        //         action: "a",
-        //     },
-        //     {
-        //         id: "123123",
-        //         name: "John Doe",
-        //         photo: "a",
-        //         cost: 1111,
-        //         quantity: "a",
-        //         status: "a",
-        //         action: "a",
-        //     },
-        // ];
-        // this.dataSource = new MatTableDataSource(products);
+        const products: UserData[] = [
+            {
+                id: "1",
+                name: "John Doe",
+                photo: "a",
+                cost: 25,
+                quantity: "a",
+                status: "a",
+                action: "a",
+            },
+        ];
+        this.dataSource = new MatTableDataSource(products);
         this.shareService
             .getProducts()
             .pipe(take(1))
@@ -165,7 +93,9 @@ export class ProductManagementComponent implements OnInit {
                         dataItems = res.data;
                     }
                     for (let item of dataItems) {
-                        item.src = this.shareService.getProdPhotoURL(item.image);
+                        item.src = this.shareService.getProdPhotoURL(
+                            item.image
+                        );
                     }
                     this.dataSource = new MatTableDataSource(dataItems);
                 },
@@ -210,7 +140,10 @@ export class ProductManagementComponent implements OnInit {
         config.panelClass = "dialog-form-l";
         config.maxWidth = "80vw";
         config.autoFocus = true;
-        let dialogRef = this.dialog.open(ProductManagementInfoComponent, config);
+        let dialogRef = this.dialog.open(
+            ProductManagementInfoComponent,
+            config
+        );
         dialogRef.afterClosed().subscribe((result) => {
             this.getData();
             console.log("The dialog was closed");

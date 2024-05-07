@@ -21,7 +21,10 @@ export class SharePropertyService {
             }
             let arrOffset = offset.split(".");
             if (arrOffset.length > 1) {
-                return parseFloat(arrOffset[0] || 0) + parseFloat(arrOffset[1] || 0) / 60;
+                return (
+                    parseFloat(arrOffset[0] || 0) +
+                    parseFloat(arrOffset[1] || 0) / 60
+                );
             }
             return parseFloat(arrOffset[0] || 0);
         }
