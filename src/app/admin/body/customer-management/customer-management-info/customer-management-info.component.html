@@ -1,64 +1,55 @@
 <cdk-virtual-scroll-viewport itemSize="200" class="viewport">
+<<<<<<< HEAD
     <form [formGroup]="myform" (ngSubmit)="updateProduct()">
 
         <button type="button" (click)="close()">
             <i class="fas fa-window-close"></i>
         </button>
 
+=======
+    <form [formGroup]="myform" (ngSubmit)="submitProduct()">
+>>>>>>> 18d1948081249eda8715d6059c8c20ba1eaffa32
         <mat-card>
             <mat-card-header class="productHeader">
-                <h1>Edit Customer's Information</h1>
+                <h1>{{ target | titlecase }} Customer</h1>
             </mat-card-header>
             <mat-card-content>
                 <mat-form-field>
-                    <mat-label>Customer's Name</mat-label>
-                    <!-- <input matInput [formControl]="name" /> -->
-                    <input matInput>
+                    <mat-label>First Name</mat-label>
+                    <input matInput formControlName="firstName" />
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>Last Name</mat-label>
+                    <input matInput formControlName="lastName" />
                 </mat-form-field>
 
                 <mat-form-field>
                     <mat-label>Phone</mat-label>
-                    <mat-select [formControl]="phone">
-                        @for (item of sizeList; track item) {
-                        <mat-option [value]="item">{{
-                            item.size | titlecase
-                            }}</mat-option>
-                        }
-                    </mat-select>
+                    <input matInput formControlName="phone" />
                 </mat-form-field>
 
                 <mat-form-field>
                     <mat-label>Email</mat-label>
-                    <mat-select [formControl]="email">
-                        @for (item of sizeList; track item) {
-                        <mat-option [value]="item">{{
-                            item.size | titlecase
-                            }}</mat-option>
-                        }
-                    </mat-select>
+                    <input matInput formControlName="email" />
                 </mat-form-field>
 
                 <mat-form-field>
                     <mat-label>Gender</mat-label>
-                    <mat-select [formControl]="gender">
-                        @for (item of shapeList; track item) {
-                        <mat-option [value]="item">{{
-                            item.shape | titlecase
-                            }}</mat-option>
-                        }
+                    <mat-select formControlName="gender">
+                        <mat-option value="male"> Male </mat-option>
+                        <mat-option value="female"> Femail </mat-option>
                     </mat-select>
                 </mat-form-field>
 
                 <mat-form-field>
-                    <mat-label>Birthday</mat-label>
-                    <mat-select [formControl]="birthday">
-                        @for (item of shapeList; track item) {
-                        <mat-option [value]="item">{{
-                            item.shape | titlecase
-                            }}</mat-option>
-                        }
-                    </mat-select>
+                    <mat-label>Date Of Birth</mat-label>
+                    <input matInput [matDatepicker]="picker" formControlName="dob">
+                    <mat-hint>MM/DD/YYYY</mat-hint>
+                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
+<<<<<<< HEAD
 
                 <!-- <mat-form-field> -->
                 <div class="images">
@@ -68,13 +59,15 @@
                 </div>
 
                 <!-- </mat-form-field> -->
+=======
+>>>>>>> 18d1948081249eda8715d6059c8c20ba1eaffa32
             </mat-card-content>
         </mat-card>
         <mat-card-footer>
-            <button type="submit">
-                Save
-            </button>
-            <!-- <a routerLink="/customer" mat-raised-button color="accent">Close</a> -->
+            <div style="display: flex; flex-direction: row;">
+                <button (click)="closepopup()">Close</button>
+                <button type="submit">Save</button>
+            </div>
         </mat-card-footer>
     </form>
 </cdk-virtual-scroll-viewport>

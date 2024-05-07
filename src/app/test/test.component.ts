@@ -22,7 +22,7 @@ export class TestComponent implements OnInit {
     }
 
     getCategories() {
-        this.src = this.shareService.getProdPhoto("logo.jpg");
+        this.src = this.shareService.getProdPhotoURL("logo.jpg");
         console.log(this.src);
     }
 

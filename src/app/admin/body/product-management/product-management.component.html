@@ -10,6 +10,11 @@
     </button>
 
     <table matSort mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+        <ng-container matColumnDef="order">
+            <th mat-sort-header mat-header-cell *matHeaderCellDef>Order</th>
+            <td mat-cell *matCellDef="let element; let i = index">{{i+1}}</td>
+        </ng-container>
+
         <ng-container matColumnDef="id">
             <th mat-sort-header mat-header-cell *matHeaderCellDef>ID</th>
             <td mat-cell *matCellDef="let element">{{ element.prod_id }}</td>
@@ -17,13 +22,14 @@
 
         <ng-container class="name" matColumnDef="name">
             <th mat-sort-header mat-header-cell *matHeaderCellDef>Name</th>
-            <td mat-cell *matCellDef="let element" class="bold">{{ element.name }}</td>
+            <td mat-cell *matCellDef="let element" class="bold">{{ element.name | titlecase }}</td>
         </ng-container>
 
         <ng-container class="photo" matColumnDef="photo">
             <th mat-sort-header mat-header-cell *matHeaderCellDef>Photo</th>
-            <td mat-cell *matCellDef="let element" class="smallerPhoto">{{ element.image }}
+            <td mat-cell *matCellDef="let element" class="smallerPhoto">{{ element.image | titlecase}}
                 <img [src]="element.src" alt="">
+                <!-- <img src="../../../../assets/Bear-Cake.webp" alt=""> -->
             </td>
         </ng-container>
 
@@ -39,7 +45,12 @@
 
         <ng-container matColumnDef="status">
             <th mat-sort-header mat-header-cell *matHeaderCellDef>Status</th>
-            <td mat-cell *matCellDef="let element">{{ element.status }}</td>
+            <td mat-cell *matCellDef="let element">
+                <mat-slide-toggle (change)="changeStatus(element)" class="example-margin" [color]="color"
+                    [checked]="element.status==='active'" [disabled]="disabled" matTooltip="Change Status">
+                </mat-slide-toggle>
+                {{ element.status | titlecase}}
+            </td>
         </ng-container>
 
         <ng-container matColumnDef="action">
@@ -63,5 +74,3 @@
         <mat-paginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
     </mat-card-footer>
 </div>
-
-<!-- <se-table></se-table> -->

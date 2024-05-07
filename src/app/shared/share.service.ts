@@ -1,10 +1,6 @@
-import {
-    HttpClient,
-    HttpErrorResponse,
-    HttpHeaders,
-} from "@angular/common/http";
+import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable, throwError } from "rxjs";
+import { Observable, catchError, throwError } from "rxjs";
 import { HttpService } from "./http.service";
 
 @Injectable({
@@ -26,27 +22,37 @@ export class ShareService {
     }
 
     getAll(url: string): Observable<any> {
-        return this.http.get(url, { headers: this.headers });
+        return this.http
+            .get(url, { headers: this.headers })
+            .pipe(catchError((error) => this.handleError("API Error: ", error)));
     }
 
     getItem(url: string): Observable<any> {
-        return this.http.get(url, { headers: this.headers });
+        return this.http
+            .get(url, { headers: this.headers })
+            .pipe(catchError((error) => this.handleError("API Error: ", error)));
     }
 
     createItem(url: string, item: any): Observable<any> {
-        return this.http.post(url, item, { headers: this.headers });
+        return this.http
+            .post(url, item, { headers: this.headers })
+            .pipe(catchError((error) => this.handleError("API Error: ", error)));
     }
 
     updateItem(url: string, item: any): Observable<any> {
-        return this.http.put(url, item, { headers: this.headers });
+        return this.http
+            .put(url, item, { headers: this.headers })
+            .pipe(catchError((error) => this.handleError("API Error: ", error)));
     }
 
     deleteItem(url: string): Observable<any> {
-        return this.http.delete(url, { headers: this.headers });
+        return this.http
+            .delete(url, { headers: this.headers })
+            .pipe(catchError((error) => this.handleError("API Error: ", error)));
     }
 
-    //getProdPhoto
-    getProdPhoto(photoName: string) {
+    //getProdPhotoURL
+    getProdPhotoURL(photoName: string) {
         let baseUrl = this.RootEndPointAPI + `/prod_photo/${photoName}`;
         return baseUrl;
     }
@@ -56,11 +62,13 @@ export class ShareService {
         let baseUrl = this.RootEndPointAPI + `/prod_photo`;
         const formData: FormData = new FormData();
         formData.append("file", file);
-        return this.http.post(baseUrl, formData, { headers: this.headers });
+        return this.http
+            .post(baseUrl, formData, { headers: this.headers })
+            .pipe(catchError((error) => this.handleError("API Error: ", error)));
     }
 
-    //getDecorPhoto
-    getDecorPhoto(photoName: string) {
+    //getDecorPhotoURL
+    getDecorPhotoURL(photoName: string) {
         let baseUrl = this.RootEndPointAPI + `/prod_photo/${photoName}`;
         return baseUrl;
     }
@@ -107,9 +115,14 @@ export class ShareService {
         return this.getAll(baseUrl);
     }
 
-    createCustomers(item: any) {
+    createCustomer(item: any) {
         let baseUrl = this.RootEndPointAPI + `/customers`;
         return this.createItem(baseUrl, item);
+    }
+
+    updateCustomer(item: any, id: any) {
+        let baseUrl = this.RootEndPointAPI + `/customers/${id}`;
+        return this.updateItem(baseUrl, item);
     }
 
     //products

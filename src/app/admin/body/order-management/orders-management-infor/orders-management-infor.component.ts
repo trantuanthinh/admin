@@ -2,13 +2,7 @@ import { ScrollingModule } from "@angular/cdk/scrolling";
 import { CommonModule, TitleCasePipe } from "@angular/common";
 import { HttpClient } from "@angular/common/http";
 import { Component, Inject, OnInit, TrackByFunction } from "@angular/core";
-import {
-    FormBuilder,
-    FormControl,
-    FormGroup,
-    FormsModule,
-    ReactiveFormsModule,
-} from "@angular/forms";
+import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { MatCheckboxModule } from "@angular/material/checkbox";
@@ -16,7 +10,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { MatSelectModule } from "@angular/material/select";
-import { publish, take } from "rxjs";
+import { take } from "rxjs";
 import { ShareService } from "../../../../shared/share.service";
 
 @Component({
@@ -129,16 +123,6 @@ export class OrdersManagementInforComponent implements OnInit {
         console.log("Uploading file:", this.selectedFile);
     }
 
-    closepopup() {
-        this.dialogRef.close("Closed using function");
-    }
-
-    SaveUser() {
-        // this.service.Savecustomer(this.myform.value).subscribe((res) => {
-        //     this.closepopup();
-        // });
-    }
-
     updateProduct() {
         let valueForm = this.myform.value;
         console.log(valueForm);
@@ -221,7 +205,7 @@ export class OrdersManagementInforComponent implements OnInit {
         // });
     }
 
-    closeDialog() {
-        // this.dialogdialogRef.close(null);
+    closepopup() {
+        this.dialogRef.close("Closed using function");
     }
 }
