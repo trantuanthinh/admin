@@ -1,20 +1,8 @@
 import { ScrollingModule } from "@angular/cdk/scrolling";
 import { CommonModule, TitleCasePipe } from "@angular/common";
 import { HttpClient } from "@angular/common/http";
-import {
-    Component,
-    Inject,
-    OnInit,
-    Optional,
-    TrackByFunction,
-} from "@angular/core";
-import {
-    FormBuilder,
-    FormGroup,
-    FormsModule,
-    ReactiveFormsModule,
-    Validators,
-} from "@angular/forms";
+import { Component, Inject, OnInit, Optional, TrackByFunction } from "@angular/core";
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { MatCheckboxModule } from "@angular/material/checkbox";
@@ -83,32 +71,14 @@ export class ProductManagementInfoComponent implements OnInit {
 
     buildFormGroup() {
         return this.fb.group({
-            name: [
-                this.dialogData ? this.dialogData.item.name : "",
-                [Validators.required],
-            ],
-            category: [
-                this.dialogData ? this.dialogData.item.category_id : "",
-                [Validators.required],
-            ],
-            shape: [
-                this.dialogData ? this.dialogData.item.shape_id : "",
-                [Validators.required],
-            ],
-            size: [
-                this.dialogData ? this.dialogData.item.size_id : "",
-                [Validators.required],
-            ],
-            flavour: [
-                this.dialogData ? this.dialogData.item.flavour_id : "",
-                [Validators.required],
-            ],
-            quantity: [
-                this.dialogData ? this.dialogData.item.quantity : "",
-                [Validators.required],
-            ],
+            name: [this.dialogData.item ? this.dialogData.item.name : "", [Validators.required]],
+            category: [this.dialogData.item ? this.dialogData.item.category_id : "", [Validators.required]],
+            shape: [this.dialogData.item ? this.dialogData.item.shape_id : "", [Validators.required]],
+            size: [this.dialogData.item ? this.dialogData.item.size_id : "", [Validators.required]],
+            flavour: [this.dialogData.item ? this.dialogData.item.flavour_id : "", [Validators.required]],
+            quantity: [this.dialogData.item ? this.dialogData.item.quantity : "", [Validators.required]],
             price: [
-                this.dialogData ? this.dialogData.item.price : "",
+                this.dialogData.item ? this.dialogData.item.price : "",
                 [Validators.required, CustomValidator.numeric],
             ],
             // photo: [
@@ -140,25 +110,19 @@ export class ProductManagementInfoComponent implements OnInit {
     }
 
     upload() {
-        if (!this.currentFile) {
-            console.log("No file selected!");
-            return;
-        } else {
-            this.shareService
-                .uploadProdPhoto(this.currentFile)
-                .pipe(take(1))
-                .subscribe(() => {});
-        }
-    }
-
-    closepopup() {
-        this.dialogRef.close("Closed using function");
+        this.shareService
+            .uploadProdPhoto(this.currentFile)
+            .pipe(take(1))
+            .subscribe(() => {});
     }
 
     submitProduct() {
-        if (this.currentFile) {
+        if (!this.currentFile) {
+            console.log("No file selected!");
+        } else {
             this.upload();
         }
+
         let valueForm: any;
         if (this.myform) {
             valueForm = this.myform.value;
@@ -174,7 +138,7 @@ export class ProductManagementInfoComponent implements OnInit {
             price: valueForm.price,
             status: "active",
         };
-        if (this.dialogData == null) {
+        if (!this.dialogData.item) {
             this.shareService
                 .createProduct(dataJSON)
                 .pipe(take(1))
@@ -255,7 +219,7 @@ export class ProductManagementInfoComponent implements OnInit {
             });
     }
 
-    closeDialog() {
-        this.dialogRef.close(null);
+    closepopup() {
+        this.dialogRef.close("Closed using function");
     }
 }

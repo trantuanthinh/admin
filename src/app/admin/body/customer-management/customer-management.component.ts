@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { Component, ViewChild } from "@angular/core";
 import { FormGroup, ReactiveFormsModule } from "@angular/forms";
 import { MatCardModule } from "@angular/material/card";
 import { MatDialog } from "@angular/material/dialog";
@@ -9,6 +9,7 @@ import { MatSort, MatSortModule } from "@angular/material/sort";
 import { MatTableDataSource, MatTableModule } from "@angular/material/table";
 import { take } from "rxjs";
 import { ShareService } from "../../../shared/share.service";
+import { SharePropertyService } from "./../../../shared/share-property.service";
 import { CustomerManagementInfoComponent } from "./customer-management-info/customer-management-info.component";
 
 export interface UserData {
@@ -36,24 +37,19 @@ export interface UserData {
     templateUrl: "./customer-management.component.html",
     styleUrl: "./customer-management.component.scss",
 })
-export class CustomerManagementComponent implements OnInit {
-    ngOnInit(): void {}
+export class CustomerManagementComponent {
     @ViewChild(MatPaginator) paginator!: MatPaginator;
     @ViewChild(MatSort) sort!: MatSort;
-    displayedColumns: string[] = [
-        "id",
-        "firstName",
-        "lastName",
-        "phone",
-        "email",
-        "gender",
-        "birthday",
-        "action",
-    ];
+    displayedColumns: string[] = ["id", "firstName", "lastName", "phone", "email", "gender", "birthday", "action"];
+    public offset: number = 7;
     dataSource!: MatTableDataSource<any>;
     myform!: FormGroup<any>;
 
-    constructor(public dialog: MatDialog, private shareService: ShareService) {
+    constructor(
+        public dialog: MatDialog,
+        private shareService: ShareService,
+        private sharePropertyService: SharePropertyService
+    ) {
         this.getData();
     }
 
@@ -75,11 +71,52 @@ export class CustomerManagementComponent implements OnInit {
             .pipe(take(1))
             .subscribe({
                 next: (res: any) => {
-                    this.dataSource = new MatTableDataSource(res.data);
+                    let dataItems: any[] = [];
+                    if (res && res.data) {
+                        dataItems = res.data;
+                    }
+                    for (let item of dataItems) {
+                        item._dob = this.sharePropertyService.convertDateStringToMoment(
+                            item.dateOfBirth,
+                            this.offset
+                        );
+                        item.dob = this.sharePropertyService.formatDate(item._dob);
+                    }
+                    this.dataSource = new MatTableDataSource(dataItems);
                 },
                 error: (error) => console.log("Error: " + error),
             });
     }
+
+    addCustomer() {
+        let config: any = {};
+        config.data = {
+            target: "add",
+        };
+        this.openFormDialog(config);
+    }
+
+    updateCustomer(item: any) {
+        let config: any = {};
+        config.data = {
+            target: "edit",
+            item: item,
+        };
+        this.openFormDialog(config);
+    }
+
+    openFormDialog(config: any) {
+        config.disableClose = true;
+        config.panelClass = "dialog-form-l";
+        config.maxWidth = "80vw";
+        config.autoFocus = true;
+        let dialogRef = this.dialog.open(CustomerManagementInfoComponent, config);
+        dialogRef.afterClosed().subscribe((result) => {
+            this.getData();
+            console.log("The dialog was closed");
+        });
+    }
+
     ngAfterViewInit() {
         if (this.dataSource) {
             this.dataSource.paginator = this.paginator;
@@ -93,14 +130,5 @@ export class CustomerManagementComponent implements OnInit {
         if (this.dataSource.paginator) {
             this.dataSource.paginator.firstPage();
         }
-    }
-
-    editCustomer(item: any) {
-        const dialogRef = this.dialog.open(CustomerManagementInfoComponent, {
-            data: item,
-        });
-        dialogRef.afterClosed().subscribe((result) => {
-            console.log("The dialog was closed");
-        });
     }
 }
