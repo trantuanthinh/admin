@@ -56,6 +56,10 @@ export class CustomerManagementInfoComponent {
         this.myform = this.buildFormGroup();
     }
 
+    close() {
+        this.dialogRef.close();
+    }
+
     buildFormGroup() {
         return this.fb.group({
             firstName: [this.dialogData.item ? this.dialogData.item.first_name : "", [Validators.required]],

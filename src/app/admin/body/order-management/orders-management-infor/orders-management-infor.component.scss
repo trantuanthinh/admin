@@ -114,3 +114,31 @@ mat-card-footer button:hover{
 ::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled) {
     background-color: transparent;
 }
+.images{
+    display: grid;
+    // margin: 2.5rem;
+    // margin-left: 1.5rem;
+    .lb{
+        margin-bottom: 1rem;
+    }
+    .chooseFile{
+        // margin-top: 0.5rem;
+        // margin-left: 1rem;
+        background-color: transparent;
+        border: 2px solid #927564;
+        border-radius: 2rem;
+        color: #927564;
+    }
+    .btn{
+        background-color: #faf9f4;
+        // margin-left: 1rem;
+        padding: 3px;
+        color: #927564;
+        font-weight: bold;
+        border: 2px solid #927564;
+        border-radius: 2rem;
+    }
+}
+.btn:hover {
+    background-color: #E9ADCC; /* Change to the desired background color */
+}
