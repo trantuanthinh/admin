@@ -76,6 +76,10 @@ export class CustomerManagementInfoComponent {
         this.getSizes();
     }
 
+    close() {
+        this.dialogRef.close();
+    }
+
     buildFormGroup() {
         let entity = {
             name: this.customerName,
