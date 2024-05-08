@@ -7,10 +7,12 @@ import { MatInputModule } from "@angular/material/input";
 import { MatPaginator, MatPaginatorModule } from "@angular/material/paginator";
 import { MatSort, MatSortModule } from "@angular/material/sort";
 import { MatTableDataSource, MatTableModule } from "@angular/material/table";
-import { take } from "rxjs";
+import { Observable, take } from "rxjs";
 import { ShareService } from "../../../shared/share.service";
 import { SharePropertyService } from "./../../../shared/share-property.service";
 import { CustomerManagementInfoComponent } from "./customer-management-info/customer-management-info.component";
+import { MatSnackBar } from "@angular/material/snack-bar";
+import { ConfirmDialogComponent } from "../../../control/confirm-dialog/confirm-dialog.component";
 
 export interface UserData {
     id: string;
@@ -41,14 +43,24 @@ export class CustomerManagementComponent {
     offset = 7;
     @ViewChild(MatPaginator) paginator!: MatPaginator;
     @ViewChild(MatSort) sort!: MatSort;
-    displayedColumns: string[] = ["id", "firstName", "lastName", "phone", "email", "gender", "birthday", "action"];
+    displayedColumns: string[] = [
+        "id",
+        "firstName",
+        "lastName",
+        "phone",
+        "email",
+        "gender",
+        "birthday",
+        "action",
+    ];
     dataSource!: MatTableDataSource<any>;
     myform!: FormGroup<any>;
 
     constructor(
         public dialog: MatDialog,
         private shareService: ShareService,
-        private sharePropertyService: SharePropertyService
+        private sharePropertyService: SharePropertyService,
+        private _snackBar: MatSnackBar
     ) {
         this.getData();
     }
@@ -76,11 +88,14 @@ export class CustomerManagementComponent {
                         dataItems = res.data;
                     }
                     for (let item of dataItems) {
-                        item._dob = this.sharePropertyService.convertDateStringToMoment(
-                            item.dateOfBirth,
-                            this.offset
+                        item._dob =
+                            this.sharePropertyService.convertDateStringToMoment(
+                                item.dateOfBirth,
+                                this.offset
+                            );
+                        item.dob = this.sharePropertyService.formatDate(
+                            item._dob
                         );
-                        item.dob = this.sharePropertyService.formatDate(item._dob);
                     }
                     this.dataSource = new MatTableDataSource(dataItems);
                 },
@@ -95,7 +110,57 @@ export class CustomerManagementComponent {
         };
         this.openFormDialog(config);
     }
+    deleteProduct(item: any) {
+        let config: any = {
+            data: {
+                title: "Customer",
+                submitBtn: "Yes",
+                cancelBtn: "No",
+                confirmMessage: "Do you want to delete?",
+            },
+        };
+        this.showDialogConfirm(config)
+            .pipe(take(1))
+            .subscribe({
+                next: (resConfirm: any) => {
+                    if (resConfirm && resConfirm.action == "ok") {
+                        this.shareService
+                            .deleteCustomer(item.cus_id)
+                            .pipe(take(1))
+                            .subscribe(() => {
+                                this.openSnackBar();
+                                this.getData();
+                            });
+                    }
+                },
+            });
+    }
 
+    showDialogConfirm(config: any) {
+        return new Observable((obs) => {
+            config.disableClose = true;
+            config.panelClass = "dialog-form-sm";
+            config.maxWidth = "80vw";
+            config.autoFocus = false;
+            let dialogRef = this.dialog.open(ConfirmDialogComponent, config);
+            dialogRef.afterClosed().subscribe({
+                next: (res: any) => {
+                    obs.next(res);
+                    obs.complete();
+                },
+            });
+        });
+    }
+
+    openSnackBar() {
+        const successMessage = "Deleted Successful";
+        this._snackBar.open(successMessage, "Close", {
+            duration: 2000,
+            verticalPosition: "bottom",
+            horizontalPosition: "center",
+            panelClass: ["centered-snack-bar"],
+        });
+    }
     updateCustomer(item: any) {
         let config: any = {};
         config.data = {
@@ -110,7 +175,10 @@ export class CustomerManagementComponent {
         config.panelClass = "dialog-form-l";
         config.maxWidth = "80vw";
         config.autoFocus = true;
-        let dialogRef = this.dialog.open(CustomerManagementInfoComponent, config);
+        let dialogRef = this.dialog.open(
+            CustomerManagementInfoComponent,
+            config
+        );
         dialogRef.afterClosed().subscribe((result) => {
             this.getData();
             console.log("The dialog was closed");

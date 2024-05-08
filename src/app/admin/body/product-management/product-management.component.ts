@@ -14,6 +14,7 @@ import { Observable, take } from "rxjs";
 import { ConfirmDialogComponent } from "../../../control/confirm-dialog/confirm-dialog.component";
 import { ShareService } from "../../../shared/share.service";
 import { ProductManagementInfoComponent } from "./product-management-info/product-management-info.component";
+import { MatSnackBar } from "@angular/material/snack-bar";
 
 export interface UserData {
     id: string;
@@ -62,7 +63,11 @@ export class ProductManagementComponent implements OnInit {
     dataSource!: MatTableDataSource<any>;
     myform!: FormGroup<any>;
 
-    constructor(public dialog: MatDialog, private shareService: ShareService) {
+    constructor(
+        public dialog: MatDialog,
+        private shareService: ShareService,
+        private _snackBar: MatSnackBar
+    ) {
         this.getData();
     }
 
@@ -159,7 +164,7 @@ export class ProductManagementComponent implements OnInit {
                 confirmMessage: "Do you want to delete?",
             },
         };
-        +this.showDialogConfirm(config)
+        this.showDialogConfirm(config)
             .pipe(take(1))
             .subscribe({
                 next: (resConfirm: any) => {
@@ -168,12 +173,22 @@ export class ProductManagementComponent implements OnInit {
                             .deleteProduct(item.prod_id)
                             .pipe(take(1))
                             .subscribe(() => {
-                                console.log("Deleted Succesful");
+                                this.openSnackBar();
                                 this.getData();
                             });
                     }
                 },
             });
+    }
+
+    openSnackBar() {
+        const successMessage = "Deleted Successful";
+        this._snackBar.open(successMessage, "Close", {
+            duration: 2000,
+            verticalPosition: "bottom",
+            horizontalPosition: "center",
+            panelClass: ["centered-snack-bar"],
+        });
     }
 
     showDialogConfirm(config: any) {

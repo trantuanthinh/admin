@@ -3,16 +3,30 @@
     margin-left: 5rem;
     z-index: 1;
     position: fixed;
+    display: flex;
     top: 0;
     transition: all .5s ease;
     background: #fffef4;
     padding: 0.5rem;
+
+    .head-content-left{
+        color: #927564;
+        font-weight: bold;
+        font-size: 120%;
+    }
+    .head-content {
+        display: flex; 
+        align-items: center; 
+
+        .normal-search{
+            margin-left: 65rem;
+        }
+    }
 }
 .head-trimmed {
     width: calc(100% - 16.5625rem);
     margin-left: 16.5625rem;
 }
-
 .body-md-screen {
     width: calc(100% - 5rem);
     margin-left: 5rem;

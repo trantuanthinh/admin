@@ -1,8 +1,20 @@
 import { ScrollingModule } from "@angular/cdk/scrolling";
 import { CommonModule, TitleCasePipe } from "@angular/common";
 import { HttpClient } from "@angular/common/http";
-import { Component, Inject, OnInit, Optional, TrackByFunction } from "@angular/core";
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
+import {
+    Component,
+    Inject,
+    OnInit,
+    Optional,
+    TrackByFunction,
+} from "@angular/core";
+import {
+    FormBuilder,
+    FormGroup,
+    FormsModule,
+    ReactiveFormsModule,
+    Validators,
+} from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { MatCheckboxModule } from "@angular/material/checkbox";
@@ -13,6 +25,7 @@ import { MatSelectModule } from "@angular/material/select";
 import { take } from "rxjs";
 import { CustomValidator } from "../../../../shared/CustomValidator";
 import { ShareService } from "../../../../shared/share.service";
+import { MatSnackBar } from "@angular/material/snack-bar";
 
 @Component({
     selector: "app-product-management-info",
@@ -57,7 +70,8 @@ export class ProductManagementInfoComponent implements OnInit {
         private dialogRef: MatDialogRef<ProductManagementInfoComponent>,
         private shareService: ShareService,
         private fb: FormBuilder,
-        private http: HttpClient
+        private http: HttpClient,
+        private _snackBar: MatSnackBar
     ) {
         this.target = this.dialogData.target;
         console.log(dialogData);
@@ -74,12 +88,30 @@ export class ProductManagementInfoComponent implements OnInit {
     }
     buildFormGroup() {
         return this.fb.group({
-            name: [this.dialogData.item ? this.dialogData.item.name : "", [Validators.required]],
-            category: [this.dialogData.item ? this.dialogData.item.category_id : "", [Validators.required]],
-            shape: [this.dialogData.item ? this.dialogData.item.shape_id : "", [Validators.required]],
-            size: [this.dialogData.item ? this.dialogData.item.size_id : "", [Validators.required]],
-            flavour: [this.dialogData.item ? this.dialogData.item.flavour_id : "", [Validators.required]],
-            quantity: [this.dialogData.item ? this.dialogData.item.quantity : "", [Validators.required]],
+            name: [
+                this.dialogData.item ? this.dialogData.item.name : "",
+                [Validators.required],
+            ],
+            category: [
+                this.dialogData.item ? this.dialogData.item.category_id : "",
+                [Validators.required],
+            ],
+            shape: [
+                this.dialogData.item ? this.dialogData.item.shape_id : "",
+                [Validators.required],
+            ],
+            size: [
+                this.dialogData.item ? this.dialogData.item.size_id : "",
+                [Validators.required],
+            ],
+            flavour: [
+                this.dialogData.item ? this.dialogData.item.flavour_id : "",
+                [Validators.required],
+            ],
+            quantity: [
+                this.dialogData.item ? this.dialogData.item.quantity : "",
+                [Validators.required],
+            ],
             price: [
                 this.dialogData.item ? this.dialogData.item.price : "",
                 [Validators.required, CustomValidator.numeric],
@@ -119,6 +151,16 @@ export class ProductManagementInfoComponent implements OnInit {
             .subscribe(() => {});
     }
 
+    openSnackBar(message: string) {
+        const successMessage = message;
+        this._snackBar.open(successMessage, "Close", {
+            duration: 2000,
+            verticalPosition: "bottom",
+            horizontalPosition: "center",
+            panelClass: ["centered-snack-bar"],
+        });
+    }
+
     submitProduct() {
         if (!this.currentFile) {
             console.log("No file selected!");
@@ -146,6 +188,7 @@ export class ProductManagementInfoComponent implements OnInit {
                 .createProduct(dataJSON)
                 .pipe(take(1))
                 .subscribe(() => {
+                    this.openSnackBar("Created Successful");
                     this.dialogRef.close("OK");
                 });
         } else {
@@ -153,6 +196,7 @@ export class ProductManagementInfoComponent implements OnInit {
                 .updateProduct(dataJSON, this.dialogData.item.prod_id)
                 .pipe(take(1))
                 .subscribe(() => {
+                    this.openSnackBar("Updated Successful");
                     this.dialogRef.close("OK");
                 });
         }

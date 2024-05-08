@@ -2,7 +2,13 @@ import { ScrollingModule } from "@angular/cdk/scrolling";
 import { CommonModule } from "@angular/common";
 import { HttpClient } from "@angular/common/http";
 import { Component, Inject, Optional, TrackByFunction } from "@angular/core";
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
+import {
+    FormBuilder,
+    FormGroup,
+    FormsModule,
+    ReactiveFormsModule,
+    Validators,
+} from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { MatCheckboxModule } from "@angular/material/checkbox";
@@ -16,6 +22,7 @@ import { take } from "rxjs";
 import { CustomValidator } from "../../../../shared/CustomValidator";
 import { SharePropertyService } from "../../../../shared/share-property.service";
 import { ShareService } from "../../../../shared/share.service";
+import { MatSnackBar } from "@angular/material/snack-bar";
 
 @Component({
     selector: "app-customer-management-info",
@@ -50,7 +57,8 @@ export class CustomerManagementInfoComponent {
         private shareService: ShareService,
         private sharePropertyService: SharePropertyService,
         private fb: FormBuilder,
-        private http: HttpClient
+        private http: HttpClient,
+        private _snackBar: MatSnackBar
     ) {
         this.target = this.dialogData.target;
         this.myform = this.buildFormGroup();
@@ -62,9 +70,18 @@ export class CustomerManagementInfoComponent {
 
     buildFormGroup() {
         return this.fb.group({
-            firstName: [this.dialogData.item ? this.dialogData.item.first_name : "", [Validators.required]],
-            lastName: [this.dialogData.item ? this.dialogData.item.last_name : "", [Validators.required]],
-            address: [this.dialogData.item ? this.dialogData.item.address : "", [Validators.required]],
+            firstName: [
+                this.dialogData.item ? this.dialogData.item.first_name : "",
+                [Validators.required],
+            ],
+            lastName: [
+                this.dialogData.item ? this.dialogData.item.last_name : "",
+                [Validators.required],
+            ],
+            address: [
+                this.dialogData.item ? this.dialogData.item.address : "",
+                [Validators.required],
+            ],
             phone: [
                 this.dialogData.item ? this.dialogData.item.phone : "",
                 [Validators.required, CustomValidator.numeric],
@@ -73,14 +90,33 @@ export class CustomerManagementInfoComponent {
                 this.dialogData.item ? this.dialogData.item.email : "",
                 [Validators.required, Validators.email],
             ],
-            gender: [this.dialogData.item ? this.dialogData.item.gender : "", [Validators.required]],
-            dob: [this.dialogData.item ? this.dialogData.item.dateOfBirth : "", [Validators.required]],
+            gender: [
+                this.dialogData.item ? this.dialogData.item.gender : "",
+                [Validators.required],
+            ],
+            dob: [
+                this.dialogData.item ? this.dialogData.item.dateOfBirth : "",
+                [Validators.required],
+            ],
+        });
+    }
+
+    openSnackBar(message: string) {
+        const successMessage = message;
+        this._snackBar.open(successMessage, "Close", {
+            duration: 2000,
+            verticalPosition: "bottom",
+            horizontalPosition: "center",
+            panelClass: ["centered-snack-bar"],
         });
     }
 
     submitProduct() {
         let valueForm = this.myform.value;
-        let temp = this.sharePropertyService.convertDateStringToMoment(valueForm.dob, this.offset);
+        let temp = this.sharePropertyService.convertDateStringToMoment(
+            valueForm.dob,
+            this.offset
+        );
         valueForm.dob = this.sharePropertyService.formatDateMYSQL(temp);
         let dataJSON = {
             first_name: valueForm.firstName,
@@ -96,6 +132,7 @@ export class CustomerManagementInfoComponent {
                 .createCustomer(dataJSON)
                 .pipe(take(1))
                 .subscribe(() => {
+                    this.openSnackBar("Created Successful");
                     this.dialogRef.close("OK");
                 });
         } else {
@@ -103,6 +140,7 @@ export class CustomerManagementInfoComponent {
                 .updateCustomer(dataJSON, this.dialogData.item.cus_id)
                 .pipe(take(1))
                 .subscribe(() => {
+                    this.openSnackBar("Updated Successful");
                     this.dialogRef.close("OK");
                 });
         }

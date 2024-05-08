@@ -1,15 +1,12 @@
 <div class="head" [ngClass]="getHeadClass()">
     <div class="head-content">
         <div class="head-content-left">
-            <div class="search-container">
-                <h1>{{ labelName }}</h1>
-                <!-- <div class="normal-search">
-                    <input type="search"
-                    class="search" name="" id=""
-                    placeholder="Search..."
-                    >
-                </div> -->
-            </div>
+            <h1>{{ labelName }}</h1>
         </div>
+        <div class="search-container">
+            <input type="text" [formControl]="url">
+            <button type="button" (click)="updateURL()">Submit</button>
+        </div>
+
     </div>
 </div>
