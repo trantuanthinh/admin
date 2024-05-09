@@ -153,7 +153,6 @@ export class ShareService {
     //products
     getProducts() {
         let baseUrl = this.RootEndPointAPI + `/products`;
-        console.log(baseUrl);
         return this.getAll(baseUrl);
     }
 
