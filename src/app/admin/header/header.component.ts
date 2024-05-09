@@ -1,14 +1,8 @@
 import { CommonModule } from "@angular/common";
 import { Component, Input } from "@angular/core";
+import { FormBuilder, FormControl, FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { RouterOutlet } from "@angular/router";
-import { AppComponent } from "../../app.component";
-import {
-    FormBuilder,
-    FormControl,
-    FormGroup,
-    FormsModule,
-    ReactiveFormsModule,
-} from "@angular/forms";
+import { ShareService } from "../../shared/share.service";
 
 @Component({
     selector: "app-header",
@@ -22,9 +16,11 @@ export class HeaderComponent {
     @Input() screenWidth = 0;
     @Input() labelName = "Home";
 
-    url = new FormControl("");
+    domain = new FormControl("");
 
-    constructor(private fb: FormBuilder) {}
+    constructor(private fb: FormBuilder, private shareService: ShareService) {
+        this.domain;
+    }
 
     getHeadClass(): string {
         let styleClass = "";
@@ -36,7 +32,7 @@ export class HeaderComponent {
         return styleClass;
     }
 
-    updateURL() {
-        console.log(this.url.value);
+    updateDomain() {
+        this.shareService.setAPIDomain(this.domain.value ? this.domain.value : "");
     }
 }
