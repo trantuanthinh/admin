@@ -8,23 +8,13 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { MatPaginator, MatPaginatorModule } from "@angular/material/paginator";
 import { MatSlideToggleModule } from "@angular/material/slide-toggle";
+import { MatSnackBar } from "@angular/material/snack-bar";
 import { MatSort, MatSortModule } from "@angular/material/sort";
 import { MatTableDataSource, MatTableModule } from "@angular/material/table";
 import { Observable, take } from "rxjs";
 import { ConfirmDialogComponent } from "../../../control/confirm-dialog/confirm-dialog.component";
 import { ShareService } from "../../../shared/share.service";
 import { ProductManagementInfoComponent } from "./product-management-info/product-management-info.component";
-import { MatSnackBar } from "@angular/material/snack-bar";
-
-export interface UserData {
-    id: string;
-    name: string;
-    photo: string;
-    cost: number;
-    quantity: string;
-    status: string;
-    action: string;
-}
 
 @Component({
     selector: "app-product-management",
@@ -50,44 +40,17 @@ export class ProductManagementComponent implements OnInit {
     color: ThemePalette = "accent";
     checked = true;
     disabled = false;
-    displayedColumns: string[] = [
-        "order",
-        "id",
-        "name",
-        "photo",
-        "cost",
-        "quantity",
-        "status",
-        "action",
-    ];
+    displayedColumns: string[] = ["order", "id", "name", "photo", "cost", "quantity", "status", "action"];
     dataSource!: MatTableDataSource<any>;
     myform!: FormGroup<any>;
 
-    constructor(
-        public dialog: MatDialog,
-        private shareService: ShareService,
-        private _snackBar: MatSnackBar
-    ) {
+    constructor(public dialog: MatDialog, private shareService: ShareService, private _snackBar: MatSnackBar) {
         this.getData();
     }
 
-    ngOnInit(): void {
-        // this.getData();
-    }
+    ngOnInit(): void {}
 
     getData() {
-        const products: UserData[] = [
-            {
-                id: "1",
-                name: "John Doe",
-                photo: "a",
-                cost: 25,
-                quantity: "a",
-                status: "a",
-                action: "a",
-            },
-        ];
-        this.dataSource = new MatTableDataSource(products);
         this.shareService
             .getProducts()
             .pipe(take(1))
@@ -98,9 +61,7 @@ export class ProductManagementComponent implements OnInit {
                         dataItems = res.data;
                     }
                     for (let item of dataItems) {
-                        item.src = this.shareService.getProdPhotoURL(
-                            item.image
-                        );
+                        item.src = this.shareService.getProdPhotoURL(item.image);
                     }
                     this.dataSource = new MatTableDataSource(dataItems);
                 },
@@ -145,10 +106,7 @@ export class ProductManagementComponent implements OnInit {
         config.panelClass = "dialog-form-l";
         config.maxWidth = "80vw";
         config.autoFocus = true;
-        let dialogRef = this.dialog.open(
-            ProductManagementInfoComponent,
-            config
-        );
+        let dialogRef = this.dialog.open(ProductManagementInfoComponent, config);
         dialogRef.afterClosed().subscribe((result) => {
             this.getData();
             console.log("The dialog was closed");
@@ -173,22 +131,12 @@ export class ProductManagementComponent implements OnInit {
                             .deleteProduct(item.prod_id)
                             .pipe(take(1))
                             .subscribe(() => {
-                                this.openSnackBar();
+                                this.openSnackBar("Deleted Successful");
                                 this.getData();
                             });
                     }
                 },
             });
-    }
-
-    openSnackBar() {
-        const successMessage = "Deleted Successful";
-        this._snackBar.open(successMessage, "Close", {
-            duration: 2000,
-            verticalPosition: "bottom",
-            horizontalPosition: "center",
-            panelClass: ["centered-snack-bar"],
-        });
     }
 
     showDialogConfirm(config: any) {
@@ -228,10 +176,17 @@ export class ProductManagementComponent implements OnInit {
             .updateProduct(dataJSON, item.prod_id)
             .pipe(take(1))
             .subscribe(() => {
-                console.log("Updated Successfull");
-                // this.dialogRef.close("OK");
+                this.openSnackBar("Updated Successfull");
             });
     }
 
-    submitProduct(item: any) {}
+    openSnackBar(message: string) {
+        const successMessage = message;
+        this._snackBar.open(successMessage, "Close", {
+            duration: 2000,
+            verticalPosition: "bottom",
+            horizontalPosition: "center",
+            panelClass: ["centered-snack-bar"],
+        });
+    }
 }

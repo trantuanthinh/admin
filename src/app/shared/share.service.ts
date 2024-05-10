@@ -1,7 +1,9 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { LocalStorageService } from "ngx-localstorage";
 import { Observable, catchError, throwError } from "rxjs";
 import { HttpService } from "./http.service";
+import { SharePropertyService } from "./share-property.service";
 
 @Injectable({
     providedIn: "root",
@@ -9,22 +11,29 @@ import { HttpService } from "./http.service";
 export class ShareService {
     // http = inject(HttpClient);
     private PORT: number = 3000;
-    private apiDomain: string = "localhost";
+    private apiDomain: any = "localhost";
     private RootEndPointAPI: string = ``;
 
     private headers = new HttpHeaders();
 
-    constructor(public httpService: HttpService, public http: HttpClient) {
+    constructor(
+        public httpService: HttpService,
+        public http: HttpClient,
+        private sharePropertyService: SharePropertyService,
+        private localStorage: LocalStorageService
+    ) {
+        this.setAPIDomain(this.localStorage.get("domain"));
         this.getAPI_URL();
     }
 
-    setAPIDomain(domain: string) {
-        this.apiDomain = domain !== "" ? domain : "localhost";
+    setAPIDomain(domain: any) {
+        if (this.sharePropertyService.isNullOrEmpty(domain)) {
+            this.localStorage.set("domain", "localhost");
+        } else {
+            this.localStorage.set("domain", domain);
+        }
+        this.apiDomain = this.localStorage.get("domain");
         this.getAPI_URL();
-    }
-
-    getAPIDomain() {
-        return this.apiDomain;
     }
 
     getAPI_URL() {
@@ -124,6 +133,7 @@ export class ShareService {
         let baseUrl = this.RootEndPointAPI + `/orders`;
         return this.getAll(baseUrl);
     }
+
     createOrders(item: any) {
         let baseUrl = this.RootEndPointAPI + `/orders`;
         return this.createItem(baseUrl, item);

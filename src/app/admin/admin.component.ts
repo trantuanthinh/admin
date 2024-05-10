@@ -33,9 +33,7 @@ interface SideNavToggle {
 })
 export class AdminComponent {
     title = "sidenav";
-
     currentTitle = "Home";
-
     isSideNavCollapsed = false;
     screenWidth = 0;
 
