@@ -37,15 +37,30 @@ import { ProductManagementInfoComponent } from "./product-management-info/produc
 export class ProductManagementComponent implements OnInit {
     @ViewChild(MatPaginator) paginator!: MatPaginator;
     @ViewChild(MatSort) sort!: MatSort;
+    totalBills = 0;
     color: ThemePalette = "accent";
     checked = true;
     disabled = false;
-    displayedColumns: string[] = ["order", "id", "name", "photo", "cost", "quantity", "status", "action"];
+    displayedColumns: string[] = [
+        "order",
+        "id",
+        "name",
+        "photo",
+        "cost",
+        "quantity",
+        "status",
+        "action",
+    ];
     dataSource!: MatTableDataSource<any>;
     myform!: FormGroup<any>;
 
-    constructor(public dialog: MatDialog, private shareService: ShareService, private _snackBar: MatSnackBar) {
+    constructor(
+        public dialog: MatDialog,
+        private shareService: ShareService,
+        private _snackBar: MatSnackBar
+    ) {
         this.getData();
+        this.calculateTotalBill();
     }
 
     ngOnInit(): void {}
@@ -61,9 +76,35 @@ export class ProductManagementComponent implements OnInit {
                         dataItems = res.data;
                     }
                     for (let item of dataItems) {
-                        item.src = this.shareService.getProdPhotoURL(item.image);
+                        item.src = this.shareService.getProdPhotoURL(
+                            item.image
+                        );
                     }
                     this.dataSource = new MatTableDataSource(dataItems);
+                    this.calculateTotalBill();
+                },
+                error: (error) => console.log("Error: " + error),
+            });
+    }
+
+    calculateTotalBill() {
+        this.shareService
+            .getProducts()
+            .pipe(take(1))
+            .subscribe({
+                next: (res: any) => {
+                    let dataItems: any[] = [];
+                    if (res && res.data) {
+                        dataItems = res.data;
+                    }
+
+                    for (let item of dataItems) {
+                        this.totalBills = dataItems.reduce(
+                            (acc: number, item: any) =>
+                                acc + (parseFloat(item.price) || 0),
+                            0
+                        );
+                    }
                 },
                 error: (error) => console.log("Error: " + error),
             });
@@ -73,6 +114,7 @@ export class ProductManagementComponent implements OnInit {
         if (this.dataSource) {
             this.dataSource.paginator = this.paginator;
             this.dataSource.sort = this.sort;
+            // this.calculateTotalBill();
         }
     }
 
@@ -106,7 +148,10 @@ export class ProductManagementComponent implements OnInit {
         config.panelClass = "dialog-form-l";
         config.maxWidth = "80vw";
         config.autoFocus = true;
-        let dialogRef = this.dialog.open(ProductManagementInfoComponent, config);
+        let dialogRef = this.dialog.open(
+            ProductManagementInfoComponent,
+            config
+        );
         dialogRef.afterClosed().subscribe((result) => {
             this.getData();
             console.log("The dialog was closed");

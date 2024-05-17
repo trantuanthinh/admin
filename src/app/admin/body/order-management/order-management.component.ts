@@ -13,6 +13,7 @@ import { MatTooltipModule } from "@angular/material/tooltip";
 import { take } from "rxjs";
 import { ShareService } from "../../../shared/share.service";
 import { OrdersManagementInforComponent } from "./orders-management-infor/orders-management-infor.component";
+import { HomeComponent } from "../home/home.component";
 // import { ProductManagementInfoComponent } from "./product-management-info/product-management-info.component";
 export interface UserData {
     id: string;
@@ -22,6 +23,7 @@ export interface UserData {
     orderDate: string;
     receiveDate: string;
     quantity: string;
+    bill: string;
     status: string;
     action: string;
 }
@@ -44,6 +46,7 @@ export interface UserData {
     styleUrl: "./order-management.component.scss",
 })
 export class OrderManagementComponent implements OnInit {
+    totalBills = 0;
     color: ThemePalette = "accent";
     checked = false;
     disabled = false;
@@ -58,6 +61,7 @@ export class OrderManagementComponent implements OnInit {
         "orderDate",
         "receiveDate",
         "quantity",
+        "bill",
         "status",
         "action",
     ];
@@ -78,6 +82,19 @@ export class OrderManagementComponent implements OnInit {
                 receiveDate: "1",
                 orderDate: "",
                 quantity: "a",
+                bill: "3",
+                status: "a",
+                action: "a",
+            },
+            {
+                id: "1",
+                name: "John Doe",
+                nameCake: "b",
+                phone: 1111,
+                receiveDate: "1",
+                orderDate: "",
+                quantity: "a",
+                bill: "2",
                 status: "a",
                 action: "a",
             },
@@ -93,6 +110,13 @@ export class OrderManagementComponent implements OnInit {
                 },
                 error: (error) => console.log("Error: " + error),
             });
+    }
+
+    calculateTotalBill() {
+        this.totalBills = this.dataSource.data.reduce(
+            (acc, item) => acc + parseFloat(item.bill),
+            0
+        );
     }
 
     ngAfterViewInit() {

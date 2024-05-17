@@ -9,6 +9,7 @@ import { MatSort, MatSortModule } from "@angular/material/sort";
 import { MatTableDataSource, MatTableModule } from "@angular/material/table";
 import { take } from "rxjs";
 import { ShareService } from "../../../shared/share.service";
+import { CommonModule } from "@angular/common";
 
 export interface UserData {
     id: string;
@@ -31,6 +32,7 @@ export interface UserData {
         MatInputModule,
         MatSortModule,
         ReactiveFormsModule,
+        CommonModule,
     ],
     templateUrl: "./home.component.html",
     styleUrl: "./home.component.scss",
@@ -39,6 +41,7 @@ export class HomeComponent implements OnInit {
     ngOnInit(): void {}
     @ViewChild(MatPaginator) paginator!: MatPaginator;
     @ViewChild(MatSort) sort!: MatSort;
+    totalBills = 0;
     displayedColumns: string[] = [
         "id",
         "name",
@@ -53,90 +56,9 @@ export class HomeComponent implements OnInit {
 
     constructor(public dialog: MatDialog, private shareService: ShareService) {
         this.getData();
+        this.calculateTotalBill();
     }
     getData() {
-        // const products: UserData[] = [
-        //     {
-        //         id: "1",
-        //         name: "John Doe",
-        //         photo: "a",
-        //         cost: 1111,
-        //         quantity: "a",
-        //         status: "a",
-        //         action: "a",
-        //     },
-        //     {
-        //         id: "1",
-        //         name: "John Doe",
-        //         photo: "a",
-        //         cost: 1111,
-        //         quantity: "a",
-        //         status: "a",
-        //         action: "a",
-        //     },
-        //     {
-        //         id: "1",
-        //         name: "John Doe",
-        //         photo: "a",
-        //         cost: 1111,
-        //         quantity: "a",
-        //         status: "a",
-        //         action: "a",
-        //     },
-        //     {
-        //         id: "1",
-        //         name: "John Doe",
-        //         photo: "a",
-        //         cost: 1111,
-        //         quantity: "a",
-        //         status: "a",
-        //         action: "a",
-        //     },
-        //     {
-        //         id: "1",
-        //         name: "John Doe",
-        //         photo: "a",
-        //         cost: 1111,
-        //         quantity: "a",
-        //         status: "a",
-        //         action: "a",
-        //     },
-        //     {
-        //         id: "1",
-        //         name: "John Doe",
-        //         photo: "a",
-        //         cost: 1111,
-        //         quantity: "a",
-        //         status: "a",
-        //         action: "a",
-        //     },
-        //     {
-        //         id: "1",
-        //         name: "John Doe",
-        //         photo: "a",
-        //         cost: 1111,
-        //         quantity: "a",
-        //         status: "a",
-        //         action: "a",
-        //     },
-        //     {
-        //         id: "1",
-        //         name: "John Doe",
-        //         photo: "a",
-        //         cost: 1111,
-        //         quantity: "a",
-        //         status: "a",
-        //         action: "a",
-        //     },
-        //     {
-        //         id: "1",
-        //         name: "John Doe",
-        //         photo: "a",
-        //         cost: 1111,
-        //         quantity: "a",
-        //         status: "a",
-        //         action: "a",
-        //     },
         //     {
         //         id: "123123",
         //         name: "John Doe",
@@ -155,6 +77,29 @@ export class HomeComponent implements OnInit {
                 next: (res: any) => {
                     this.dataSource = new MatTableDataSource(res.data);
                     // this.dataSource = res.data;
+                },
+                error: (error) => console.log("Error: " + error),
+            });
+    }
+
+    calculateTotalBill() {
+        this.shareService
+            .getProducts()
+            .pipe(take(1))
+            .subscribe({
+                next: (res: any) => {
+                    let dataItems: any[] = [];
+                    if (res && res.data) {
+                        dataItems = res.data;
+                    }
+
+                    for (let item of dataItems) {
+                        this.totalBills = dataItems.reduce(
+                            (acc: number, item: any) =>
+                                acc + (parseFloat(item.price) || 0),
+                            0
+                        );
+                    }
                 },
                 error: (error) => console.log("Error: " + error),
             });
