@@ -10,8 +10,10 @@ import { MatTableDataSource, MatTableModule } from "@angular/material/table";
 import { take } from "rxjs";
 import { ShareService } from "../../../shared/share.service";
 import { CommonModule } from "@angular/common";
-
-export interface UserData {
+import { NgModule } from "@angular/core";
+import { BrowserModule } from "@angular/platform-browser";
+import { FormsModule } from "@angular/forms";
+interface UserData {
     id: string;
     name: string;
     photo: string;
@@ -33,6 +35,8 @@ export interface UserData {
         MatSortModule,
         ReactiveFormsModule,
         CommonModule,
+        // BrowserModule,
+        // FormsModule,
     ],
     templateUrl: "./home.component.html",
     styleUrl: "./home.component.scss",
@@ -42,6 +46,9 @@ export class HomeComponent implements OnInit {
     @ViewChild(MatPaginator) paginator!: MatPaginator;
     @ViewChild(MatSort) sort!: MatSort;
     totalBills = 0;
+    totalCost = 0;
+    totalProfit = 0;
+    currentDate: string = "";
     displayedColumns: string[] = [
         "id",
         "name",
@@ -57,6 +64,8 @@ export class HomeComponent implements OnInit {
     constructor(public dialog: MatDialog, private shareService: ShareService) {
         this.getData();
         this.calculateTotalBill();
+        this.setCurrentDate();
+        this.calculateTotalCost();
     }
     getData() {
         //     {
@@ -81,6 +90,16 @@ export class HomeComponent implements OnInit {
                 error: (error) => console.log("Error: " + error),
             });
     }
+    setCurrentDate() {
+        const today = new Date();
+
+        // Format the date to YYYY-MM-DD (required format for input type="date")
+        const dd = String(today.getDate()).padStart(2, "0");
+        const mm = String(today.getMonth() + 1).padStart(2, "0"); // January is 0!
+        const yyyy = today.getFullYear();
+
+        this.currentDate = dd + "-" + mm + "-" + yyyy;
+    }
 
     calculateTotalBill() {
         this.shareService
@@ -92,13 +111,37 @@ export class HomeComponent implements OnInit {
                     if (res && res.data) {
                         dataItems = res.data;
                     }
-
+                    console.log(dataItems);
                     for (let item of dataItems) {
                         this.totalBills = dataItems.reduce(
                             (acc: number, item: any) =>
                                 acc + (parseFloat(item.price) || 0),
                             0
                         );
+                    }
+                },
+                error: (error) => console.log("Error: " + error),
+            });
+    }
+
+    calculateTotalCost() {
+        this.shareService
+            .getProducts()
+            .pipe(take(1))
+            .subscribe({
+                next: (res: any) => {
+                    let dataItems: any[] = [];
+                    if (res && res.data) {
+                        dataItems = res.data;
+                    }
+                    console.log(dataItems);
+                    for (let item of dataItems) {
+                        this.totalCost = dataItems.reduce(
+                            (acc: number, item: any) =>
+                                acc + (parseFloat(item.price) || 0),
+                            0
+                        );
+                        this.totalProfit = this.totalBills - this.totalCost;
                     }
                 },
                 error: (error) => console.log("Error: " + error),

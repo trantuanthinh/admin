@@ -1,25 +1,14 @@
 <main>
     <div class="date">
-        <input type="date">
+        <span>{{ currentDate }}</span>
     </div>
     <div class="insights">
 
         <div class="sales">
             <span class="fas fa-chart-bar"></span>
-
             <div class="middle">
-                <div class="lef">
-                    <h3>Total Sales</h3>
-                    <h1>{{ 'Total Cost: ' + (totalBills | currency:'USD':'symbol':'1.2-2') }}</h1>
-                </div>
-                <div class="progress">
-                    <svg>
-                        <circle cx='38' cy='38' r='36'></circle>
-                    </svg>
-                    <div class="number">
-                        <p>81%</p>
-                    </div>
-                </div>
+                <h3>Revenue</h3>
+                <h1>{{ (totalBills | currency:'USD':'symbol':'1.2-2') }}</h1>
             </div>
             <small class="text-muted">Last 24 Hours</small>
         </div>
@@ -27,9 +16,9 @@
 
             <span class="fas fa-chart-line"></span>
             <div class="middle">
-                <div class="lef">
-                    <h3>Total Expenses</h3>
-                    <h1>$14,160</h1>
+                <h3>Orders</h3>
+                <h1>$14,160</h1>
+                <!-- <div class="lef">
                 </div>
                 <div class="progress">
                     <svg>
@@ -38,7 +27,7 @@
                     <div class="number">
                         <p>62%</p>
                     </div>
-                </div>
+                </div> -->
             </div>
             <small class="text-muted">Last 24 Hours</small>
         </div>
@@ -46,9 +35,9 @@
         <div class="earn">
             <span class="fas fa-chart-pie"></span>
             <div class="middle">
-                <div class="lef">
-                    <h3>Total Earn</h3>
-                    <h1>$10,024</h1>
+                <h3>Profit</h3>
+                <h1>$10,024</h1>
+                <!-- <div class="lef">
                 </div>
                 <div class="progress">
                     <svg>
@@ -57,7 +46,7 @@
                     <div class="number">
                         <p>44%</p>
                     </div>
-                </div>
+                </div> -->
             </div>
             <small class="text-muted">Last 24 Hours</small>
         </div>
