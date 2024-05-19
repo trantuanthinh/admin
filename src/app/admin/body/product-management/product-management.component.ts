@@ -47,6 +47,7 @@ export class ProductManagementComponent implements OnInit {
         "name",
         "photo",
         "cost",
+        "originalCost",
         "quantity",
         "status",
         "action",
@@ -81,6 +82,8 @@ export class ProductManagementComponent implements OnInit {
                         );
                     }
                     this.dataSource = new MatTableDataSource(dataItems);
+                    this.dataSource.paginator = this.paginator;
+                    this.dataSource.sort = this.sort;
                     this.calculateTotalBill();
                 },
                 error: (error) => console.log("Error: " + error),
@@ -97,7 +100,6 @@ export class ProductManagementComponent implements OnInit {
                     if (res && res.data) {
                         dataItems = res.data;
                     }
-
                     for (let item of dataItems) {
                         this.totalBills = dataItems.reduce(
                             (acc: number, item: any) =>

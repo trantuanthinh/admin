@@ -49,15 +49,7 @@ export class HomeComponent implements OnInit {
     totalCost = 0;
     totalProfit = 0;
     currentDate: string = "";
-    displayedColumns: string[] = [
-        "id",
-        "name",
-        "photo",
-        "cost",
-        "quantity",
-        "status",
-        "action",
-    ];
+    displayedColumns: string[] = ["name", "photo", "quantity"];
     dataSource!: MatTableDataSource<any>;
     myform!: FormGroup<any>;
 
@@ -67,37 +59,33 @@ export class HomeComponent implements OnInit {
         this.setCurrentDate();
         this.calculateTotalCost();
     }
+
     getData() {
-        //     {
-        //         id: "123123",
-        //         name: "John Doe",
-        //         photo: "a",
-        //         cost: 1111,
-        //         quantity: "a",
-        //         status: "a",
-        //         action: "a",
-        //     },
-        // ];
-        // this.dataSource = new MatTableDataSource(products);
         this.shareService
             .getProducts()
             .pipe(take(1))
             .subscribe({
                 next: (res: any) => {
-                    this.dataSource = new MatTableDataSource(res.data);
-                    // this.dataSource = res.data;
+                    let dataItems: any[] = [];
+                    if (res && res.data) {
+                        dataItems = res.data;
+                    }
+                    let filteredItems = dataItems.filter(
+                        (item) => item.quantity <= 5
+                    );
+                    this.dataSource = new MatTableDataSource(filteredItems);
+                    this.dataSource.paginator = this.paginator;
+                    this.dataSource.sort = this.sort;
                 },
                 error: (error) => console.log("Error: " + error),
             });
     }
+
     setCurrentDate() {
         const today = new Date();
-
-        // Format the date to YYYY-MM-DD (required format for input type="date")
         const dd = String(today.getDate()).padStart(2, "0");
-        const mm = String(today.getMonth() + 1).padStart(2, "0"); // January is 0!
+        const mm = String(today.getMonth() + 1).padStart(2, "0");
         const yyyy = today.getFullYear();
-
         this.currentDate = dd + "-" + mm + "-" + yyyy;
     }
 
@@ -111,14 +99,11 @@ export class HomeComponent implements OnInit {
                     if (res && res.data) {
                         dataItems = res.data;
                     }
-                    console.log(dataItems);
-                    for (let item of dataItems) {
-                        this.totalBills = dataItems.reduce(
-                            (acc: number, item: any) =>
-                                acc + (parseFloat(item.price) || 0),
-                            0
-                        );
-                    }
+                    this.totalBills = dataItems.reduce(
+                        (acc: number, item: any) =>
+                            acc + (parseFloat(item.price) || 0),
+                        0
+                    );
                 },
                 error: (error) => console.log("Error: " + error),
             });
@@ -134,15 +119,12 @@ export class HomeComponent implements OnInit {
                     if (res && res.data) {
                         dataItems = res.data;
                     }
-                    console.log(dataItems);
-                    for (let item of dataItems) {
-                        this.totalCost = dataItems.reduce(
-                            (acc: number, item: any) =>
-                                acc + (parseFloat(item.price) || 0),
-                            0
-                        );
-                        this.totalProfit = this.totalBills - this.totalCost;
-                    }
+                    this.totalCost = dataItems.reduce(
+                        (acc: number, item: any) =>
+                            acc + (parseFloat(item.price) || 0),
+                        0
+                    );
+                    this.totalProfit = this.totalBills - this.totalCost;
                 },
                 error: (error) => console.log("Error: " + error),
             });

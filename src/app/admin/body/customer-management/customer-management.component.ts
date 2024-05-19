@@ -66,18 +66,6 @@ export class CustomerManagementComponent {
     }
 
     getData() {
-        // const products: UserData[] = [
-        //     {
-        //         id: "1",
-        //         name: "John Doe",
-        //         phone: "b",
-        //         email: 1111,
-        //         gender: "1",
-        //         birthday: "3",
-        //         action: "a",
-        //     },
-        // ];
-        // this.dataSource = new MatTableDataSource(products);
         this.shareService
             .getCustomers()
             .pipe(take(1))
@@ -97,6 +85,8 @@ export class CustomerManagementComponent {
                             item._dob
                         );
                     }
+                    this.dataSource.paginator = this.paginator;
+                    this.dataSource.sort = this.sort;
                     this.dataSource = new MatTableDataSource(dataItems);
                 },
                 error: (error) => console.log("Error: " + error),

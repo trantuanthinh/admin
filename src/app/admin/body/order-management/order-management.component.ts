@@ -73,33 +73,6 @@ export class OrderManagementComponent implements OnInit {
     }
 
     getData() {
-        const products: UserData[] = [
-            {
-                id: "1",
-                name: "John Doe",
-                nameCake: "b",
-                phone: 1111,
-                receiveDate: "1",
-                orderDate: "",
-                quantity: "a",
-                bill: "3",
-                status: "a",
-                action: "a",
-            },
-            {
-                id: "1",
-                name: "John Doe",
-                nameCake: "b",
-                phone: 1111,
-                receiveDate: "1",
-                orderDate: "",
-                quantity: "a",
-                bill: "2",
-                status: "a",
-                action: "a",
-            },
-        ];
-        this.dataSource = new MatTableDataSource(products);
         this.shareService
             .getOrders()
             .pipe(take(1))
@@ -110,6 +83,8 @@ export class OrderManagementComponent implements OnInit {
                 },
                 error: (error) => console.log("Error: " + error),
             });
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
     }
 
     calculateTotalBill() {
