@@ -1,8 +1,5 @@
 <cdk-virtual-scroll-viewport itemSize="200" class="viewport">
     <form [formGroup]="myform" (ngSubmit)="submitProduct()">
-        <button type="button" (click)="close()">
-            <i class="fas fa-window-close"></i>
-        </button>
         <mat-card>
             <mat-card-header class="productHeader">
                 <h1>{{target | titlecase}} Product</h1>
@@ -17,9 +14,7 @@
                     <mat-label>Category</mat-label>
                     <mat-select formControlName="category">
                         @for (item of categoryList; track item) {
-                        <mat-option [value]="item.category_id">{{
-                            item.type | titlecase
-                            }}</mat-option>
+                        <mat-option [value]="item.category_id">{{ item.type | titlecase }}</mat-option>
                         }
                     </mat-select>
                 </mat-form-field>
@@ -28,9 +23,7 @@
                     <mat-label>Size</mat-label>
                     <mat-select formControlName="size">
                         @for (item of sizeList; track item) {
-                        <mat-option [value]="item.size_id">{{
-                            item.size | titlecase
-                            }}</mat-option>
+                        <mat-option [value]="item.size_id">{{ item.size | titlecase }}</mat-option>
                         }
                     </mat-select>
                 </mat-form-field>
@@ -39,9 +32,7 @@
                     <mat-label>Flavour</mat-label>
                     <mat-select formControlName="flavour">
                         @for (item of flavourList; track item) {
-                        <mat-option [value]="item.flavour_id">{{
-                            item.flavour | titlecase
-                            }}</mat-option>
+                        <mat-option [value]="item.flavour_id">{{item.flavour | titlecase}}</mat-option>
                         }
                     </mat-select>
                 </mat-form-field>
@@ -50,9 +41,7 @@
                     <mat-label>Shape</mat-label>
                     <mat-select formControlName="shape">
                         @for (item of shapeList; track item) {
-                        <mat-option [value]="item.shape_id">{{
-                            item.shape | titlecase
-                            }}</mat-option>
+                        <mat-option [value]="item.shape_id">{{item.shape | titlecase}}</mat-option>
                         }
                     </mat-select>
                 </mat-form-field>

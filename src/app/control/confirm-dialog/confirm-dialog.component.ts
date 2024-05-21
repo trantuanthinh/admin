@@ -12,13 +12,7 @@ import {
 @Component({
     selector: "app-confirm-dialog",
     standalone: true,
-    imports: [
-        MatButtonModule,
-        MatDialogActions,
-        MatDialogClose,
-        MatDialogTitle,
-        MatDialogContent,
-    ],
+    imports: [MatButtonModule, MatDialogActions, MatDialogClose, MatDialogTitle, MatDialogContent],
     templateUrl: "./confirm-dialog.component.html",
     styleUrl: "./confirm-dialog.component.scss",
 })

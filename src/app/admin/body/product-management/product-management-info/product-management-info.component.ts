@@ -71,9 +71,6 @@ export class ProductManagementInfoComponent implements OnInit {
         this.myform = this.buildFormGroup();
     }
 
-    close() {
-        this.dialogRef.close();
-    }
     buildFormGroup() {
         return this.fb.group({
             name: [this.dialogData.item ? this.dialogData.item.name : "", [Validators.required]],
