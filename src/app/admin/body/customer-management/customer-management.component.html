@@ -1,9 +1,15 @@
 <div class="bodyTable">
     <mat-card>
-        <mat-card-header>
-            <i class="fas fa-search"></i>
-            <input matInput placeholder="Search" />
+        <mat-card-header class="search-bar-container" cdkOverlayOrigin #overlayPosition="cdkOverlayOrigin">
+            <button mat-icon-button>
+                <mat-icon>search</mat-icon>
+            </button>
+            <input matInput placeholder="Search by Phone Number" (focus)="isOverlayOpen = true"
+                (blur)="isOverlayOpen = false" (input)="applyFilter($event)" />
         </mat-card-header>
+        <ng-template cdkConnectedOverlay [cdkConnectedOverlayOrigin]="overlayPosition"
+            [cdkConnectedOverlayOpen]="isOverlayOpen">
+        </ng-template>
     </mat-card>
     <button (click)="addCustomer()" style="margin-left: 60%" mat-raised-button color="primary">
         Add Customer

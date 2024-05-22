@@ -78,13 +78,16 @@ export class OrderManagementComponent implements OnInit {
             .pipe(take(1))
             .subscribe({
                 next: (res: any) => {
-                    this.dataSource = new MatTableDataSource(res.data);
-                    // this.dataSource = res.data;
+                    let dataItems: any[] = [];
+                    if (res && res.data) {
+                        dataItems = res.data;
+                    }
+                    this.dataSource = new MatTableDataSource(dataItems);
+                    this.dataSource.paginator = this.paginator;
+                    this.dataSource.sort = this.sort;
                 },
                 error: (error) => console.log("Error: " + error),
             });
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
     }
 
     calculateTotalBill() {

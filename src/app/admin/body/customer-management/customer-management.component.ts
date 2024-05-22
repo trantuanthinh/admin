@@ -13,6 +13,10 @@ import { ConfirmDialogComponent } from "../../../control/confirm-dialog/confirm-
 import { ShareService } from "../../../shared/share.service";
 import { SharePropertyService } from "./../../../shared/share-property.service";
 import { CustomerManagementInfoComponent } from "./customer-management-info/customer-management-info.component";
+import { MatToolbar } from "@angular/material/toolbar";
+import { Overlay, OverlayModule } from "@angular/cdk/overlay";
+import { MatIconButton } from "@angular/material/button";
+import { MatIcon } from "@angular/material/icon";
 
 export interface UserData {
     id: string;
@@ -35,6 +39,10 @@ export interface UserData {
         MatInputModule,
         MatSortModule,
         ReactiveFormsModule,
+        MatIconButton,
+        MatIcon,
+        MatToolbar,
+        OverlayModule,
     ],
     templateUrl: "./customer-management.component.html",
     styleUrl: "./customer-management.component.scss",
@@ -43,7 +51,17 @@ export class CustomerManagementComponent {
     offset = 7;
     @ViewChild(MatPaginator) paginator!: MatPaginator;
     @ViewChild(MatSort) sort!: MatSort;
-    displayedColumns: string[] = ["id", "firstName", "lastName", "phone", "email", "gender", "birthday", "action"];
+    isOverlayOpen = false;
+    displayedColumns: string[] = [
+        "id",
+        "firstName",
+        "lastName",
+        "phone",
+        "email",
+        "gender",
+        "birthday",
+        "action",
+    ];
     dataSource!: MatTableDataSource<any>;
     myform!: FormGroup<any>;
 
@@ -67,11 +85,14 @@ export class CustomerManagementComponent {
                         dataItems = res.data;
                     }
                     for (let item of dataItems) {
-                        item._dob = this.sharePropertyService.convertDateStringToMoment(
-                            item.dateOfBirth,
-                            this.offset
+                        item._dob =
+                            this.sharePropertyService.convertDateStringToMoment(
+                                item.dateOfBirth,
+                                this.offset
+                            );
+                        item.dob = this.sharePropertyService.formatDate(
+                            item._dob
                         );
-                        item.dob = this.sharePropertyService.formatDate(item._dob);
                     }
                     this.dataSource = new MatTableDataSource(dataItems);
                     this.dataSource.paginator = this.paginator;
@@ -154,7 +175,10 @@ export class CustomerManagementComponent {
         config.panelClass = "dialog-form-l";
         config.maxWidth = "80vw";
         config.autoFocus = true;
-        let dialogRef = this.dialog.open(CustomerManagementInfoComponent, config);
+        let dialogRef = this.dialog.open(
+            CustomerManagementInfoComponent,
+            config
+        );
         dialogRef.afterClosed().subscribe((result) => {
             this.getData();
             console.log("The dialog was closed");
@@ -173,6 +197,23 @@ export class CustomerManagementComponent {
         this.dataSource.filter = filterValue.trim().toLowerCase();
         if (this.dataSource.paginator) {
             this.dataSource.paginator.firstPage();
+        }
+        if (filterValue.length >= 3) {
+            const searchDigits = filterValue.slice(-3);
+
+            this.dataSource.filterPredicate = (
+                data: UserData,
+                filter: string
+            ) => {
+                return data.phone.trim().endsWith(searchDigits);
+            };
+            this.dataSource.filter = searchDigits;
+
+            if (this.dataSource.filteredData.length > 0) {
+                this.dataSource.paginator = this.paginator;
+                this.dataSource.sort = this.sort;
+                this.dataSource.paginator.firstPage();
+            }
         }
     }
 }

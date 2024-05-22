@@ -34,6 +34,7 @@ import { MatIcon } from "@angular/material/icon";
         ReactiveFormsModule,
         MatIcon,
         MatToolbar,
+        MatIconButton,
         OverlayModule,
     ],
     providers: [TitleCasePipe],
