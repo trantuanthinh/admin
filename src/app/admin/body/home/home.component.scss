@@ -21,14 +21,14 @@ main .date input[type="date"] {
     border: none; /* Remove default border */
 }
 
-/* Insights grid */
+
 main .insights {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1.6rem;
 }
 
-/* Insight card */
+
 main .insights > div {
     background: #ffffff; /* Use a specific background color */
     padding: 1.2rem; /* Use specific padding value */
@@ -38,15 +38,15 @@ main .insights > div {
     transition: all 300ms ease;
 }
 
-/* Remove box shadow on hover */
+
 main .insights > div:hover {
-    box-shadow: none; /* Remove box shadow on hover */
+    box-shadow: none; 
 }
 /* Expense card */
 main .insights > div.expenses {
-    background: #fab0e2; /* Use a specific background color for expenses */
+    background: #fab0e2; 
 }
-/* Styling for spans within divs inside .insights */
+
 main .insights > div span {
     background: #885d3b; 
     padding: 0.5rem;
@@ -149,6 +149,7 @@ mat-card-header i{
     font-size: 18px; /* Adjust the font size as needed */
     padding: 10px;
     border-radius: 10px;
+    margin-top: 0.2rem;
 }
 mat-card-header input{
     color: rgb(116, 77, 58);

@@ -10,9 +10,13 @@ import { MatTableDataSource, MatTableModule } from "@angular/material/table";
 import { take } from "rxjs";
 import { ShareService } from "../../../shared/share.service";
 import { CommonModule } from "@angular/common";
+import { MatIconButton } from "@angular/material/button";
+import { MatIcon } from "@angular/material/icon";
 import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { FormsModule } from "@angular/forms";
+import { MatToolbar } from "@angular/material/toolbar";
+import { Overlay, OverlayModule } from "@angular/cdk/overlay";
 interface UserData {
     id: string;
     name: string;
@@ -35,8 +39,10 @@ interface UserData {
         MatSortModule,
         ReactiveFormsModule,
         CommonModule,
-        // BrowserModule,
-        // FormsModule,
+        MatIconButton,
+        MatIcon,
+        MatToolbar,
+        OverlayModule,
     ],
     templateUrl: "./home.component.html",
     styleUrl: "./home.component.scss",
@@ -51,6 +57,7 @@ export class HomeComponent implements OnInit {
     currentDate: string = "";
     displayedColumns: string[] = ["name", "photo", "quantity"];
     dataSource!: MatTableDataSource<any>;
+    isOverlayOpen = false;
     myform!: FormGroup<any>;
 
     constructor(public dialog: MatDialog, private shareService: ShareService) {
