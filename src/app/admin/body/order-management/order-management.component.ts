@@ -14,19 +14,12 @@ import { take } from "rxjs";
 import { ShareService } from "../../../shared/share.service";
 import { OrdersManagementInforComponent } from "./orders-management-infor/orders-management-infor.component";
 import { HomeComponent } from "../home/home.component";
+import { MatToolbar } from "@angular/material/toolbar";
+import { Overlay, OverlayModule } from "@angular/cdk/overlay";
+import { MatIconButton } from "@angular/material/button";
+import { MatIcon } from "@angular/material/icon";
+import { UserData } from "../customer-management/customer-management.component";
 // import { ProductManagementInfoComponent } from "./product-management-info/product-management-info.component";
-export interface UserData {
-    id: string;
-    name: string;
-    nameCake: string;
-    phone: number;
-    orderDate: string;
-    receiveDate: string;
-    quantity: string;
-    bill: string;
-    status: string;
-    action: string;
-}
 
 @Component({
     selector: "app-order-management",
@@ -41,6 +34,10 @@ export interface UserData {
         MatSortModule,
         ReactiveFormsModule,
         MatSlideToggleModule,
+        MatIconButton,
+        MatIcon,
+        MatToolbar,
+        OverlayModule,
     ],
     templateUrl: "./order-management.component.html",
     styleUrl: "./order-management.component.scss",
@@ -50,6 +47,7 @@ export class OrderManagementComponent implements OnInit {
     color: ThemePalette = "accent";
     checked = false;
     disabled = false;
+    isOverlayOpen = false;
     ngOnInit(): void {}
     @ViewChild(MatPaginator) paginator!: MatPaginator;
     @ViewChild(MatSort) sort!: MatSort;
@@ -59,10 +57,9 @@ export class OrderManagementComponent implements OnInit {
         "nameCake",
         "phone",
         "orderDate",
-        "receiveDate",
+        "deliveryStatus",
         "quantity",
         "bill",
-        "status",
         "action",
     ];
     dataSource!: MatTableDataSource<any>;
@@ -110,6 +107,23 @@ export class OrderManagementComponent implements OnInit {
 
         if (this.dataSource.paginator) {
             this.dataSource.paginator.firstPage();
+        }
+        if (filterValue.length >= 3) {
+            const searchDigits = filterValue.slice(-3);
+
+            this.dataSource.filterPredicate = (
+                data: UserData,
+                filter: string
+            ) => {
+                return data.phone.trim().endsWith(searchDigits);
+            };
+            this.dataSource.filter = searchDigits;
+
+            if (this.dataSource.filteredData.length > 0) {
+                this.dataSource.paginator = this.paginator;
+                this.dataSource.sort = this.sort;
+                this.dataSource.paginator.firstPage();
+            }
         }
     }
 

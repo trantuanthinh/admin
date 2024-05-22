@@ -1,17 +1,20 @@
 <div class="bodyTable">
     <mat-card>
-        <mat-card-header>
-            <i class="fas fa-search"></i>
-            <input matInput placeholder="Search" />
+        <mat-card-header class="search-bar-container" cdkOverlayOrigin #overlayPosition="cdkOverlayOrigin">
+            <button mat-icon-button>
+                <mat-icon>search</mat-icon>
+            </button>
+            <input matInput placeholder="Search by Phone Number" (focus)="isOverlayOpen = true"
+                (blur)="isOverlayOpen = false" (input)="applyFilter($event)" />
         </mat-card-header>
+        <ng-template cdkConnectedOverlay [cdkConnectedOverlayOrigin]="overlayPosition"
+            [cdkConnectedOverlayOpen]="isOverlayOpen">
+        </ng-template>
     </mat-card>
-    <!-- <button style="margin-left: 60%" mat-raised-button color="primary">
-        Add Product
-    </button> -->
     <table matSort mat-table [dataSource]="dataSource" class="mat-elevation-z8">
         <ng-container matColumnDef="id">
             <th mat-sort-header mat-header-cell *matHeaderCellDef>ID</th>
-            <td mat-cell *matCellDef="let element">{{ element.prod_id }}</td>
+            <td mat-cell *matCellDef="let element">{{ element.order_id }}</td>
         </ng-container>
 
         <ng-container matColumnDef="name">
@@ -19,29 +22,14 @@
             <td mat-cell *matCellDef="let element">{{ element.name }}</td>
         </ng-container>
 
-        <ng-container matColumnDef="nameCake">
-            <th mat-sort-header mat-header-cell *matHeaderCellDef>Cake's Name</th>
-            <td mat-cell *matCellDef="let element">{{ element.nameCake }}</td>
-
-            <!-- <td mat-cell *matCellDef="let element">{{ element.image }}
-                <img src="../../../../assets/Bear-Cake.webp" alt="">
-                <img src="../../../../assets/Yellow-Macaron.jpg" alt="">
-            </td> -->
-        </ng-container>
-
         <ng-container matColumnDef="phone">
             <th mat-sort-header mat-header-cell *matHeaderCellDef>Phone Number</th>
             <td mat-cell *matCellDef="let element">{{ element.phone }}</td>
         </ng-container>
 
-        <ng-container matColumnDef="orderDate">
-            <th mat-sort-header mat-header-cell *matHeaderCellDef>Order Date</th>
-            <td mat-cell *matCellDef="let element">{{ element.orderDate }}</td>
-        </ng-container>
-
-        <ng-container matColumnDef="receiveDate">
-            <th mat-sort-header mat-header-cell *matHeaderCellDef>Received Date</th>
-            <td mat-cell *matCellDef="let element">{{ element.receiveDate }}</td>
+        <ng-container matColumnDef="nameCake">
+            <th mat-sort-header mat-header-cell *matHeaderCellDef>Cake's Name</th>
+            <td mat-cell *matCellDef="let element">{{ element.nameCake }}</td>
         </ng-container>
 
         <ng-container matColumnDef="quantity">
@@ -54,17 +42,16 @@
             <td mat-cell *matCellDef="let element">{{ element.bill }}</td>
         </ng-container>
 
-        <ng-container matColumnDef="status">
-            <th mat-sort-header mat-header-cell *matHeaderCellDef>Status</th>
-
-            <td mat-cell *matCellDef="let element">
-                <mat-slide-toggle class="example-margin" [color]="color" [checked]="checked" [disabled]="disabled"
-                    matTooltip="Change Status" aria-label="">
-                </mat-slide-toggle>
-            </td>
-
-
+        <ng-container matColumnDef="orderDate">
+            <th mat-sort-header mat-header-cell *matHeaderCellDef>Order Date</th>
+            <td mat-cell *matCellDef="let element">{{ element.orderDate }}</td>
         </ng-container>
+
+        <ng-container matColumnDef="deliveryStatus">
+            <th mat-sort-header mat-header-cell *matHeaderCellDef>Delivery Status</th>
+            <td mat-cell *matCellDef="let element">{{ element.delivery_status }}</td>
+        </ng-container>
+
 
         <ng-container matColumnDef="action">
             <th mat-header-cell *matHeaderCellDef>Action</th>
