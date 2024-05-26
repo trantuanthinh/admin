@@ -19,6 +19,7 @@ import { Overlay, OverlayModule } from "@angular/cdk/overlay";
 import { MatIconButton } from "@angular/material/button";
 import { MatIcon } from "@angular/material/icon";
 import { UserData } from "../customer-management/customer-management.component";
+import { MatSnackBar } from "@angular/material/snack-bar";
 // import { ProductManagementInfoComponent } from "./product-management-info/product-management-info.component";
 
 @Component({
@@ -60,12 +61,17 @@ export class OrderManagementComponent implements OnInit {
         "deliveryStatus",
         "quantity",
         "bill",
+        "status",
         "action",
     ];
     dataSource!: MatTableDataSource<any>;
     myform!: FormGroup<any>;
 
-    constructor(public dialog: MatDialog, private shareService: ShareService) {
+    constructor(
+        public dialog: MatDialog,
+        private shareService: ShareService,
+        private _snackBar: MatSnackBar
+    ) {
         this.getData();
     }
 
@@ -92,6 +98,41 @@ export class OrderManagementComponent implements OnInit {
             (acc, item) => acc + parseFloat(item.bill),
             0
         );
+    }
+
+    changeStatus(item: any) {
+        if (item.status === "active") {
+            item.status = "inactive";
+        } else {
+            item.status = "active";
+        }
+        let dataJSON = {
+            category_id: item.category_id,
+            shape_id: item.shape_id,
+            size_id: item.size_id,
+            flavour_id: item.flavour_id,
+            name: item.name,
+            quantity: item.quantity,
+            image: item.image,
+            price: item.price,
+            status: item.status,
+        };
+        this.shareService
+            .updateProduct(dataJSON, item.prod_id)
+            .pipe(take(1))
+            .subscribe(() => {
+                this.openSnackBar1("Updated Successfull");
+            });
+    }
+
+    openSnackBar1(message: string) {
+        const successMessage = message;
+        this._snackBar.open(successMessage, "Close", {
+            duration: 2000,
+            verticalPosition: "bottom",
+            horizontalPosition: "center",
+            panelClass: ["centered-snack-bar"],
+        });
     }
 
     ngAfterViewInit() {

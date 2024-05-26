@@ -17,6 +17,12 @@ import { MatToolbar } from "@angular/material/toolbar";
 import { Overlay, OverlayModule } from "@angular/cdk/overlay";
 import { MatIconButton } from "@angular/material/button";
 import { MatIcon } from "@angular/material/icon";
+import { NgModule } from "@angular/core";
+import { BrowserModule } from "@angular/platform-browser";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { MatSlideToggleModule } from "@angular/material/slide-toggle";
+import { ThemePalette } from "@angular/material/core";
+import { CustomerManagementDetailComponent } from "./customer-management-detail/customer-management-detail.component";
 
 export interface UserData {
     id: string;
@@ -43,6 +49,9 @@ export interface UserData {
         MatIcon,
         MatToolbar,
         OverlayModule,
+        // BrowserModule,
+        // BrowserAnimationsModule,
+        // MatSlideToggleModule,
     ],
     templateUrl: "./customer-management.component.html",
     styleUrl: "./customer-management.component.scss",
@@ -52,6 +61,8 @@ export class CustomerManagementComponent {
     @ViewChild(MatPaginator) paginator!: MatPaginator;
     @ViewChild(MatSort) sort!: MatSort;
     isOverlayOpen = false;
+    // color: ThemePalette = "accent";
+    // disabled = false;
     displayedColumns: string[] = [
         "id",
         "firstName",
@@ -60,6 +71,7 @@ export class CustomerManagementComponent {
         "email",
         "gender",
         "birthday",
+        // "status",
         "action",
     ];
     dataSource!: MatTableDataSource<any>;
@@ -161,12 +173,58 @@ export class CustomerManagementComponent {
             panelClass: ["centered-snack-bar"],
         });
     }
+
+    // changeStatus(item: any) {
+    //     if (item.status === "active") {
+    //         item.status = "inactive";
+    //     } else {
+    //         item.status = "active";
+    //     }
+    //     let dataJSON = {
+    //         category_id: item.category_id,
+    //         shape_id: item.shape_id,
+    //         size_id: item.size_id,
+    //         flavour_id: item.flavour_id,
+    //         name: item.name,
+    //         quantity: item.quantity,
+    //         image: item.image,
+    //         price: item.price,
+    //         status: item.status,
+    //     };
+    //     this.shareService
+    //         .updateProduct(dataJSON, item.prod_id)
+    //         .pipe(take(1))
+    //         .subscribe(() => {
+    //             this.openSnackBar1("Updated Successfull");
+    //         });
+    // }
+
+    // openSnackBar1(message: string) {
+    //     const successMessage = message;
+    //     this._snackBar.open(successMessage, "Close", {
+    //         duration: 2000,
+    //         verticalPosition: "bottom",
+    //         horizontalPosition: "center",
+    //         panelClass: ["centered-snack-bar"],
+    //     });
+    // }
     updateCustomer(item: any) {
         let config: any = {};
         config.data = {
             target: "edit",
             item: item,
         };
+        config.component = CustomerManagementInfoComponent; // Specify the component for updating customer
+        this.openFormDialog(config);
+    }
+
+    detailCustomer(item: any) {
+        let config: any = {};
+        config.data = {
+            target: "detail",
+            item: item,
+        };
+        config.component = CustomerManagementDetailComponent; // Specify the component for viewing details
         this.openFormDialog(config);
     }
 
@@ -175,10 +233,11 @@ export class CustomerManagementComponent {
         config.panelClass = "dialog-form-l";
         config.maxWidth = "80vw";
         config.autoFocus = true;
-        let dialogRef = this.dialog.open(
-            CustomerManagementInfoComponent,
-            config
-        );
+        let dialogRef = this.dialog.open(config.component, config);
+        // let dialogRef = this.dialog.open(
+        //     CustomerManagementInfoComponent,
+        //     config
+        // );
         dialogRef.afterClosed().subscribe((result) => {
             this.getData();
             console.log("The dialog was closed");
