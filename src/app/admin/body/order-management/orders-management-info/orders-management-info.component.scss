@@ -1,0 +1,144 @@
+
+form {
+    background: beige;
+    background-position: center;
+    border: 2px solid rgba(243, 234, 234, 0.2);
+}
+
+.fa-window-close:before {
+    color: #927564;
+}
+
+.example-additional-selection {
+    opacity: 0.75;
+    font-size: 0.75em;
+}
+
+mat-card {
+    margin: 2%;
+    text-align: left;
+}
+
+mat-label {
+    font-weight: bold;
+    color: black;
+}
+
+::placeholder {
+    font-size: 0.8em;
+}
+
+.inputBox {
+    // width: 100%;
+    // height: 40px;
+    // margin: 20px 0;
+    // background: aqua;
+    // border: 2px solid rgba(255, 255, 255, .2);
+    border-radius: 40px;
+
+}
+mat-form-field input {
+    width: calc(100% - 16px);
+    height: calc(100% - 16px);
+    padding: 8px;
+    margin: 0;
+    border: none;
+    color: white;
+    outline: none;
+    // border: 2px solid rgba(179, 22, 22, 0.2);
+    border-radius: 40px;
+    background: transparent;
+}
+.mdc-text-field--filled{
+    background-color: #b88b8b !important;
+}
+
+.mat-mdc-form-field {
+    width: 98%;
+    margin: 1%;
+}
+
+.mat-mdc-text-field-wrapper {
+    display: inline;
+}
+
+mat-label{
+    color: rgb(134, 98, 59);
+}
+
+button {
+    margin: 2px;
+}
+
+.viewport {
+    height: 550px;
+    width: 550px;
+    border: 2px solid rgba(225, 225, 225, 2);
+}
+
+.example-item {
+    height: 100px;
+}
+cdk-virtual-scroll-viewport{
+    min-width: 100%;
+    background: rgb(247, 247, 201);
+}
+.productHeader{
+    background: rgb(253, 253, 150);
+    padding: 13px 16px 13px;;
+}
+.mat-mdc-card-content:last-child {
+    padding-bottom: 16px;
+    background-color: rgb(244, 244, 210);
+}
+.mdc-text-field--filled:not(.mdc-text-field--disabled){
+    background-color: #dfd379;
+}
+mat-card-footer button{
+    background: white;
+    width: 100%;
+    height: 40px;
+    border: none;
+    border-radius: 40px;
+    outline: none;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+    cursor: pointer;
+    color: #927564;
+    font-size: 20px;
+    font-weight: 600;
+}
+mat-card-footer button:hover{
+    background:#E9ADCC;
+}
+/* component.css */
+::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+    background-color: transparent;
+}
+.images{
+    display: grid;
+    // margin: 2.5rem;
+    // margin-left: 1.5rem;
+    .lb{
+        margin-bottom: 1rem;
+    }
+    .chooseFile{
+        // margin-top: 0.5rem;
+        // margin-left: 1rem;
+        background-color: transparent;
+        border: 2px solid #927564;
+        border-radius: 2rem;
+        color: #927564;
+    }
+    .btn{
+        background-color: #faf9f4;
+        // margin-left: 1rem;
+        padding: 3px;
+        color: #927564;
+        font-weight: bold;
+        border: 2px solid #927564;
+        border-radius: 2rem;
+    }
+}
+.btn:hover {
+    background-color: #E9ADCC; /* Change to the desired background color */
+}
