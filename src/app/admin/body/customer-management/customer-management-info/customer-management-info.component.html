@@ -1,9 +1,12 @@
+<mat-card-header class="productHeader">
+    <h1 style="font-size: 24px; color: #715f3f;">Customer</h1>
+    <button mat-icon-button (click)="close()">
+        <mat-icon aria-label="Close">close</mat-icon>
+    </button>
+</mat-card-header>
 <cdk-virtual-scroll-viewport itemSize="200" class="viewport">
     <form [formGroup]="myform" (ngSubmit)="submitProduct()">
         <mat-card>
-            <mat-card-header class="productHeader">
-                <h1>{{ target | titlecase }} Customer</h1>
-            </mat-card-header>
             <mat-card-content>
                 <mat-form-field>
                     <mat-label>First Name</mat-label>
@@ -36,7 +39,7 @@
                 <mat-form-field>
                     <mat-label>Date Of Birth</mat-label>
                     <input matInput [matDatepicker]="picker" formControlName="dob">
-                    <mat-hint>MM/DD/YYYY</mat-hint>
+                    <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
                     <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>

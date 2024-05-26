@@ -23,6 +23,7 @@ import { CustomValidator } from "../../../../shared/CustomValidator";
 import { SharePropertyService } from "../../../../shared/share-property.service";
 import { ShareService } from "../../../../shared/share.service";
 import { MatSnackBar } from "@angular/material/snack-bar";
+import { MatIconModule } from "@angular/material/icon";
 
 @Component({
     selector: "app-customer-management-info",
@@ -41,6 +42,7 @@ import { MatSnackBar } from "@angular/material/snack-bar";
         FormsModule,
         ScrollingModule,
         MatDatepickerModule,
+        MatIconModule,
     ],
     providers: [provideNativeDateAdapter()],
     templateUrl: "./customer-management-info.component.html",
@@ -67,7 +69,6 @@ export class CustomerManagementInfoComponent {
     close() {
         this.dialogRef.close();
     }
-
     buildFormGroup() {
         return this.fb.group({
             firstName: [

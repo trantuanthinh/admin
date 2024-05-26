@@ -1,1 +1,63 @@
+<mat-card-header class="productHeader">
+    <h1 style="font-size: 24px; color: #715f3f;">Customer Details</h1>
+    <button mat-icon-button (click)="close()">
+        <mat-icon aria-label="Close">close</mat-icon>
+    </button>
+</mat-card-header>
+<cdk-virtual-scroll-viewport itemSize="200" class="viewport">
+    <form [formGroup]="myform">
+        <mat-card>
+            <mat-card-content>
+                <div class="read-only-field-wrapper">
+                    <mat-label>Full Name</mat-label>
+                    <div class="read-only-field">
+                        {{ myform.get('firstName')?.value }} {{ myform.get('lastName')?.value }}
+                    </div>
+                </div>
 
+                <div class="read-only-field-wrapper">
+                    <mat-label>Phone</mat-label>
+                    <div class="read-only-field">
+                        {{ myform.get('phone')?.value }}
+                    </div>
+                </div>
+
+                <div class="read-only-field-wrapper">
+                    <mat-label>Email</mat-label>
+                    <div class="read-only-field">
+                        {{ myform.get('email')?.value }}
+                    </div>
+                </div>
+
+                <div class="read-only-field-wrapper">
+                    <mat-label>Gender</mat-label>
+                    <div class="read-only-field">
+                        {{ myform.get('gender')?.value }}
+                    </div>
+                </div>
+
+                <div class="read-only-field-wrapper">
+                    <mat-label>Date Of Birth</mat-label>
+                    <div class="read-only-field">
+                        {{ myform.get('dob')?.value | date: 'dd/MM/yyyy' }}
+                    </div>
+                </div>
+
+                <div class="read-only-field-wrapper">
+                    <mat-label>Address</mat-label>
+                    <div class="read-only-field">
+                        {{ myform.get('address')?.value }}
+                    </div>
+                </div>
+
+                <div class="read-only-field-wrapper">
+                    <mat-label>Date of becoming a member</mat-label>
+                    <div class="read-only-field">
+                        {{ myform.get('created_at')?.value | date: 'dd/MM/yyyy' }}
+                    </div>
+                </div>
+
+            </mat-card-content>
+        </mat-card>
+    </form>
+</cdk-virtual-scroll-viewport>

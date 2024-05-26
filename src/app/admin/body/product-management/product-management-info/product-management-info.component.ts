@@ -1,8 +1,20 @@
 import { ScrollingModule } from "@angular/cdk/scrolling";
 import { CommonModule, TitleCasePipe } from "@angular/common";
 import { HttpClient } from "@angular/common/http";
-import { Component, Inject, OnInit, Optional, TrackByFunction } from "@angular/core";
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
+import {
+    Component,
+    Inject,
+    OnInit,
+    Optional,
+    TrackByFunction,
+} from "@angular/core";
+import {
+    FormBuilder,
+    FormGroup,
+    FormsModule,
+    ReactiveFormsModule,
+    Validators,
+} from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { MatCheckboxModule } from "@angular/material/checkbox";
@@ -14,6 +26,7 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import { take } from "rxjs";
 import { CustomValidator } from "../../../../shared/CustomValidator";
 import { ShareService } from "../../../../shared/share.service";
+import { MatIconModule } from "@angular/material/icon";
 
 @Component({
     selector: "app-product-management-info",
@@ -31,6 +44,7 @@ import { ShareService } from "../../../../shared/share.service";
         MatCardModule,
         FormsModule,
         ScrollingModule,
+        MatIconModule,
     ],
     templateUrl: "./product-management-info.component.html",
     styleUrl: "./product-management-info.component.scss",
@@ -71,14 +85,36 @@ export class ProductManagementInfoComponent implements OnInit {
         this.myform = this.buildFormGroup();
     }
 
+    close() {
+        this.dialogRef.close();
+    }
+
     buildFormGroup() {
         return this.fb.group({
-            name: [this.dialogData.item ? this.dialogData.item.name : "", [Validators.required]],
-            category: [this.dialogData.item ? this.dialogData.item.category_id : "", [Validators.required]],
-            shape: [this.dialogData.item ? this.dialogData.item.shape_id : "", [Validators.required]],
-            size: [this.dialogData.item ? this.dialogData.item.size_id : "", [Validators.required]],
-            flavour: [this.dialogData.item ? this.dialogData.item.flavour_id : "", [Validators.required]],
-            quantity: [this.dialogData.item ? this.dialogData.item.quantity : "", [Validators.required]],
+            name: [
+                this.dialogData.item ? this.dialogData.item.name : "",
+                [Validators.required],
+            ],
+            category: [
+                this.dialogData.item ? this.dialogData.item.category_id : "",
+                [Validators.required],
+            ],
+            shape: [
+                this.dialogData.item ? this.dialogData.item.shape_id : "",
+                [Validators.required],
+            ],
+            size: [
+                this.dialogData.item ? this.dialogData.item.size_id : "",
+                [Validators.required],
+            ],
+            flavour: [
+                this.dialogData.item ? this.dialogData.item.flavour_id : "",
+                [Validators.required],
+            ],
+            quantity: [
+                this.dialogData.item ? this.dialogData.item.quantity : "",
+                [Validators.required],
+            ],
             price: [
                 this.dialogData.item ? this.dialogData.item.price : "",
                 [Validators.required, CustomValidator.numeric],
@@ -233,7 +269,7 @@ export class ProductManagementInfoComponent implements OnInit {
             });
     }
 
-    closepopup() {
-        this.dialogRef.close("Closed using function");
-    }
+    // closepopup() {
+    //     this.dialogRef.close("Closed using function");
+    // }
 }
