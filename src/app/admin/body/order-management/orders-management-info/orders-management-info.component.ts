@@ -2,13 +2,7 @@ import { ScrollingModule } from "@angular/cdk/scrolling";
 import { CommonModule, TitleCasePipe } from "@angular/common";
 import { HttpClient } from "@angular/common/http";
 import { Component, Inject, OnInit, TrackByFunction } from "@angular/core";
-import {
-    FormBuilder,
-    FormControl,
-    FormGroup,
-    FormsModule,
-    ReactiveFormsModule,
-} from "@angular/forms";
+import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { MatCheckboxModule } from "@angular/material/checkbox";
@@ -16,11 +10,11 @@ import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { MatSelectModule } from "@angular/material/select";
+import { MatSnackBar } from "@angular/material/snack-bar";
 import { take } from "rxjs";
 import { ShareService } from "../../../../shared/share.service";
-import { MatSnackBar } from "@angular/material/snack-bar";
 @Component({
-    selector: "app-orders-management-infor",
+    selector: "app-orders-management-info",
     standalone: true,
 
     imports: [
@@ -37,8 +31,8 @@ import { MatSnackBar } from "@angular/material/snack-bar";
         FormsModule,
         ScrollingModule,
     ],
-    templateUrl: "./orders-management-infor.component.html",
-    styleUrl: "./orders-management-infor.component.scss",
+    templateUrl: "./orders-management-info.component.html",
+    styleUrl: "./orders-management-info.component.scss",
     providers: [TitleCasePipe],
 })
 export class OrdersManagementInforComponent implements OnInit {

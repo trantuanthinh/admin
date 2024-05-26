@@ -1,19 +1,3 @@
-<!-- <mat-sidenav-container>
-    <mat-sidenav #sidenav [ngStyle.lt-md]="{'width': '100%'}" [ngStyle.gt-sm]="{'width': '200px'}"
-        [fixedInViewport]="true" [mode]="'side'" [position]="'start'" style="background-color: #f5fad8;">
-        <app-admin-navbar></app-admin-navbar>
-    </mat-sidenav> -->
-
-<!-- <div  class="dashboard" >
-        <app-admin-navbar></app-admin-navbar>
-    </div>
-
-    <div class="infor">
-        <router-outlet></router-outlet>
-    </div>
-
-</mat-sidenav-container> -->
-
 <app-admin-navbar (labelName)="update($event)" (onToggleSideNav)="onToggleSideNav($event)"></app-admin-navbar>
 
 <app-header [labelName]="currentTitle" [collapsed]="isSideNavCollapsed" [screenWidth]="screenWidth"></app-header>

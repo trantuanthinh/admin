@@ -1,25 +1,23 @@
+import { OverlayModule } from "@angular/cdk/overlay";
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { FormGroup, ReactiveFormsModule } from "@angular/forms";
+import { MatIconButton } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { ThemePalette } from "@angular/material/core";
 import { MatDialog } from "@angular/material/dialog";
 import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatIcon } from "@angular/material/icon";
 import { MatInputModule } from "@angular/material/input";
 import { MatPaginator, MatPaginatorModule } from "@angular/material/paginator";
 import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 import { MatSort, MatSortModule } from "@angular/material/sort";
 import { MatTableDataSource, MatTableModule } from "@angular/material/table";
+import { MatToolbar } from "@angular/material/toolbar";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { take } from "rxjs";
 import { ShareService } from "../../../shared/share.service";
-import { OrdersManagementInforComponent } from "./orders-management-infor/orders-management-infor.component";
-import { HomeComponent } from "../home/home.component";
-import { MatToolbar } from "@angular/material/toolbar";
-import { Overlay, OverlayModule } from "@angular/cdk/overlay";
-import { MatIconButton } from "@angular/material/button";
-import { MatIcon } from "@angular/material/icon";
 import { UserData } from "../customer-management/customer-management.component";
-// import { ProductManagementInfoComponent } from "./product-management-info/product-management-info.component";
+import { OrdersManagementInforComponent } from "./orders-management-info/orders-management-info.component";
 
 @Component({
     selector: "app-order-management",
@@ -54,12 +52,11 @@ export class OrderManagementComponent implements OnInit {
     displayedColumns: string[] = [
         "id",
         "name",
-        "nameCake",
         "phone",
         "orderDate",
         "deliveryStatus",
         "quantity",
-        "bill",
+        "totalPrice",
         "action",
     ];
     dataSource!: MatTableDataSource<any>;
@@ -88,10 +85,7 @@ export class OrderManagementComponent implements OnInit {
     }
 
     calculateTotalBill() {
-        this.totalBills = this.dataSource.data.reduce(
-            (acc, item) => acc + parseFloat(item.bill),
-            0
-        );
+        this.totalBills = this.dataSource.data.reduce((acc, item) => acc + parseFloat(item.bill), 0);
     }
 
     ngAfterViewInit() {
@@ -111,10 +105,7 @@ export class OrderManagementComponent implements OnInit {
         if (filterValue.length >= 3) {
             const searchDigits = filterValue.slice(-3);
 
-            this.dataSource.filterPredicate = (
-                data: UserData,
-                filter: string
-            ) => {
+            this.dataSource.filterPredicate = (data: UserData, filter: string) => {
                 return data.phone.trim().endsWith(searchDigits);
             };
             this.dataSource.filter = searchDigits;
