@@ -1,14 +1,12 @@
+<mat-card-header class="productHeader">
+    <h1 style="font-size: 24px; color: #715f3f;">Order</h1>
+    <button mat-icon-button (click)="close()">
+        <mat-icon aria-label="Close">close</mat-icon>
+    </button>
+</mat-card-header>
 <cdk-virtual-scroll-viewport itemSize="200" class="viewport">
     <form [formGroup]="myform" (ngSubmit)="updateProduct()">
-
-        <button type="button" (click)="close()">
-            <i class="fas fa-window-close"></i>
-        </button>
-
         <mat-card>
-            <mat-card-header class="productHeader">
-                <h1>Order Details</h1>
-            </mat-card-header>
             <mat-card-content>
                 <mat-form-field>
                     <mat-label>Customer's Name</mat-label>

@@ -2,7 +2,13 @@ import { ScrollingModule } from "@angular/cdk/scrolling";
 import { CommonModule, TitleCasePipe } from "@angular/common";
 import { HttpClient } from "@angular/common/http";
 import { Component, Inject, OnInit, TrackByFunction } from "@angular/core";
-import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule } from "@angular/forms";
+import {
+    FormBuilder,
+    FormControl,
+    FormGroup,
+    FormsModule,
+    ReactiveFormsModule,
+} from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { MatCheckboxModule } from "@angular/material/checkbox";
@@ -13,6 +19,7 @@ import { MatSelectModule } from "@angular/material/select";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { take } from "rxjs";
 import { ShareService } from "../../../../shared/share.service";
+import { MatIconModule } from "@angular/material/icon";
 @Component({
     selector: "app-orders-management-info",
     standalone: true,
@@ -30,6 +37,7 @@ import { ShareService } from "../../../../shared/share.service";
         MatCardModule,
         FormsModule,
         ScrollingModule,
+        MatIconModule,
     ],
     templateUrl: "./orders-management-info.component.html",
     styleUrl: "./orders-management-info.component.scss",

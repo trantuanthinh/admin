@@ -1,3 +1,33 @@
+.productHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 16px;
+}
+
+.header-title {
+    margin: 0;
+    font-size: 32px; /* Increase the font size */
+    font-weight: bold;
+    color: #007bff;
+}
+
+.close-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    transition: transform 0.2s ease;
+}
+
+.close-button:hover {
+    transform: scale(1.1);
+}
+
+.mat-icon {
+    font-size: 24px;
+    color: #5f462b; 
+}
 
 form {
     background: beige;

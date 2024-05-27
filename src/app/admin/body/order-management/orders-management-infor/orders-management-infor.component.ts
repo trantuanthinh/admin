@@ -19,6 +19,7 @@ import { MatSelectModule } from "@angular/material/select";
 import { take } from "rxjs";
 import { ShareService } from "../../../../shared/share.service";
 import { MatSnackBar } from "@angular/material/snack-bar";
+import { MatIconModule } from "@angular/material/icon";
 @Component({
     selector: "app-orders-management-infor",
     standalone: true,
@@ -36,6 +37,7 @@ import { MatSnackBar } from "@angular/material/snack-bar";
         MatCardModule,
         FormsModule,
         ScrollingModule,
+        MatIconModule,
     ],
     templateUrl: "./orders-management-infor.component.html",
     styleUrl: "./orders-management-infor.component.scss",
