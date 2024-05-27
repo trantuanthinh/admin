@@ -60,13 +60,18 @@
                     <input matInput formControlName="quantity">
                 </mat-form-field>
 
-                <mat-label>Images</mat-label>
-                <input required type="file" (change)="onFileSelected($event)">
+                <!-- <mat-label>Images</mat-label>
+                <input required type="file" (change)="onFileSelected($event)"> -->
+
+                <div class="file-upload-container">
+                    <mat-label class="file-upload-label">Images</mat-label>
+                    <input required type="file" (change)="onFileSelected($event)" class="file-upload-input">
+                </div>
+
             </mat-card-content>
         </mat-card>
         <mat-card-footer>
             <div style="display: flex; flex-direction: row;">
-                <!-- <button (click)="closepopup()">Close</button> -->
                 <button type="submit">Save</button>
             </div>
         </mat-card-footer>

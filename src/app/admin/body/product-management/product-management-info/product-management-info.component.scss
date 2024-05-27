@@ -123,6 +123,46 @@ cdk-virtual-scroll-viewport{
 .mdc-text-field--filled:not(.mdc-text-field--disabled){
     background-color: #dfd379;
 }
+.file-upload-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 20px 0;
+}
+
+.file-upload-label {
+    font-size: 16px;
+    color: #885d3b;
+    margin-bottom: 10px;
+}
+
+.file-upload-input {
+    position: relative;
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    color: #885d3b;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.file-upload-input::file-selector-button {
+    border: none;
+    padding: 10px 20px;
+    margin-right: 10px;
+    background-color: #885d3b;
+    color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.file-upload-input::file-selector-button:hover {
+    background-color: #704a2e;
+}
+
 mat-card-footer button{
     background: white;
     width: 100%;

@@ -1,24 +1,23 @@
-/* HTML main */
+
 main {
     background: rgb(240, 240, 203);
     margin-top: 4%;
     padding: 1rem;
 }
 
-/* Date input container */
+
 main .date {
     display: inline-block;
-    background: #f5f5f5; /* Use a specific background color */
-    border-radius: 5px; /* Use a specific border radius */
-    border: 2px solid rgb(111, 87, 55); /* Add border style */
-    padding: 0.5rem 1.6rem;
+    background: transparent; 
+    border-radius: 5px; 
+    border: 2px solid rgb(111, 87, 55); 
+    padding: 0.5rem 1rem;
 }
 
-/* Date input */
 main .date input[type="date"] {
     background: transparent;
-    color: #333; /* Use a specific text color */
-    border: none; /* Remove default border */
+    color: #885d3b;
+    border: none; 
 }
 
 

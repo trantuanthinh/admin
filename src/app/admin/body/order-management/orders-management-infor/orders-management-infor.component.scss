@@ -143,31 +143,61 @@ mat-card-footer button:hover{
 ::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled) {
     background-color: transparent;
 }
-.images{
-    display: grid;
-    // margin: 2.5rem;
-    // margin-left: 1.5rem;
-    .lb{
-        margin-bottom: 1rem;
-    }
-    .chooseFile{
-        // margin-top: 0.5rem;
-        // margin-left: 1rem;
-        background-color: transparent;
-        border: 2px solid #927564;
-        border-radius: 2rem;
-        color: #927564;
-    }
-    .btn{
-        background-color: #faf9f4;
-        // margin-left: 1rem;
-        padding: 3px;
-        color: #927564;
-        font-weight: bold;
-        border: 2px solid #927564;
-        border-radius: 2rem;
-    }
+.images {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 20px 0;
+    width: 100%;
+}
+
+.lb {
+    font-size: 18px;
+    color: #885d3b;
+    margin-bottom: 10px;
+    text-decoration: underline;
+}
+
+.chooseFile {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    color: #885d3b;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-bottom: 10px;
+    position: relative;
+    overflow: hidden;
+}
+
+.chooseFile::file-selector-button {
+    border: none;
+    padding: 10px 20px;
+    margin-right: 10px;
+    background-color: #885d3b;
+    color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.chooseFile::file-selector-button:hover {
+    background-color: #704a2e;
+}
+
+.btn {
+    background-color: #885d3b;
+    color: white;
+    padding: 10px 20px;
+    font-size: 14px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    align-self: flex-end;
 }
 .btn:hover {
-    background-color: #E9ADCC; /* Change to the desired background color */
+    background-color: #E9ADCC; 
 }
