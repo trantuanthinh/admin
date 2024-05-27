@@ -2,6 +2,10 @@
     <div class="date">
         <span>{{ currentDate }}</span>
     </div>
+    <button style="margin-left: 90%" mat-raised-button color="primary">
+        Detailed Report >
+    </button>
+    <!-- (click)="navigateToDetailedReport()" -->
     <div class="insights">
 
         <div class="sales">
@@ -18,16 +22,6 @@
             <div class="middle">
                 <h3>Orders</h3>
                 <h1>$14,160</h1>
-                <!-- <div class="lef">
-                </div>
-                <div class="progress">
-                    <svg>
-                        <circle cx='38' cy='38' r='36'></circle>
-                    </svg>
-                    <div class="number">
-                        <p>62%</p>
-                    </div>
-                </div> -->
             </div>
             <small class="text-muted">Last 24 Hours</small>
         </div>
@@ -37,16 +31,6 @@
             <div class="middle">
                 <h3>Profit</h3>
                 <h1>$10,024</h1>
-                <!-- <div class="lef">
-                </div>
-                <div class="progress">
-                    <svg>
-                        <circle cx='38' cy='38' r='36'></circle>
-                    </svg>
-                    <div class="number">
-                        <p>44%</p>
-                    </div>
-                </div> -->
             </div>
             <small class="text-muted">Last 24 Hours</small>
         </div>
@@ -64,16 +48,21 @@
                 [cdkConnectedOverlayOpen]="isOverlayOpen"></ng-template>
         </mat-card>
         <table matSort mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-            <ng-container matColumnDef="name">
-                <th mat-sort-header mat-header-cell *matHeaderCellDef>Name</th>
-                <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+
+            <ng-container matColumnDef="id">
+                <th mat-sort-header mat-header-cell *matHeaderCellDef>ID</th>
+                <td mat-cell *matCellDef="let element">{{ element.prod_id }}</td>
             </ng-container>
 
-            <ng-container matColumnDef="photo">
+            <ng-container class="name" matColumnDef="name">
+                <th mat-sort-header mat-header-cell *matHeaderCellDef>Name</th>
+                <td mat-cell *matCellDef="let element" class="bold">{{ element.name | titlecase }}</td>
+            </ng-container>
+
+            <ng-container class="photo" matColumnDef="photo">
                 <th mat-sort-header mat-header-cell *matHeaderCellDef>Photo</th>
-                <td mat-cell *matCellDef="let element">{{ element.image }}
-                    <!-- <img src="../../../../assets/Bear-Cake.webp" alt=""> -->
-                    <img src="../../../../assets/Yellow-Macaron.jpg" alt="">
+                <td mat-cell *matCellDef="let element" class="smallerPhoto">
+                    <img [src]="element.src" alt="">
                 </td>
             </ng-container>
 

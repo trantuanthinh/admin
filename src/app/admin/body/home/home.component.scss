@@ -19,7 +19,13 @@ main .date input[type="date"] {
     color: #885d3b;
     border: none; 
 }
-
+.bold {
+    font-weight: bold;
+    font-size: 20px;
+}
+.smallerPhoto {
+    width: 20%;
+}
 
 main .insights {
     display: grid;

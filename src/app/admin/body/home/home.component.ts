@@ -17,6 +17,7 @@ import { BrowserModule } from "@angular/platform-browser";
 import { FormsModule } from "@angular/forms";
 import { MatToolbar } from "@angular/material/toolbar";
 import { Overlay, OverlayModule } from "@angular/cdk/overlay";
+import { Router } from "@angular/router";
 interface UserData {
     id: string;
     name: string;
@@ -26,7 +27,6 @@ interface UserData {
     status: string;
     action: string;
 }
-
 @Component({
     selector: "app-home",
     standalone: true,
@@ -55,7 +55,7 @@ export class HomeComponent implements OnInit {
     totalCost = 0;
     totalProfit = 0;
     currentDate: string = "";
-    displayedColumns: string[] = ["name", "photo", "quantity"];
+    displayedColumns: string[] = ["id", "name", "photo", "quantity"];
     dataSource!: MatTableDataSource<any>;
     isOverlayOpen = false;
     myform!: FormGroup<any>;
@@ -80,6 +80,11 @@ export class HomeComponent implements OnInit {
                     let filteredItems = dataItems.filter(
                         (item) => item.quantity <= 5
                     );
+                    for (let item of dataItems) {
+                        item.src = this.shareService.getProdPhotoURL(
+                            item.image
+                        );
+                    }
                     this.dataSource = new MatTableDataSource(filteredItems);
                     this.dataSource.paginator = this.paginator;
                     this.dataSource.sort = this.sort;

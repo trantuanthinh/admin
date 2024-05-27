@@ -9,6 +9,7 @@ import { CustomerManagementComponent } from "./customer-management/customer-mana
 
 //check-----------------------------------------------------------
 import { GetDataComponent } from "./get-data/get-data.component";
+import { DetailedReportComponent } from "./home/detailed-report/detailed-report.component";
 
 const routes: Routes = [
     {
