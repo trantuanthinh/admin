@@ -12,7 +12,7 @@ import { MatTableDataSource, MatTableModule } from "@angular/material/table";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { take } from "rxjs";
 import { ShareService } from "../../../shared/share.service";
-import { OrdersManagementInforComponent } from "./orders-management-infor/orders-management-infor.component";
+import { OrdersManagementInfoComponent } from "./orders-management-info/orders-management-info.component";
 import { HomeComponent } from "../home/home.component";
 import { MatToolbar } from "@angular/material/toolbar";
 import { Overlay, OverlayModule } from "@angular/cdk/overlay";
@@ -20,6 +20,10 @@ import { MatIconButton } from "@angular/material/button";
 import { MatIcon } from "@angular/material/icon";
 import { UserData } from "../customer-management/customer-management.component";
 import { MatSnackBar } from "@angular/material/snack-bar";
+import { BrowserModule } from "@angular/platform-browser";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { CommonModule } from "@angular/common";
+import { CustomerManagementDetailComponent } from "./orders-management-detail/orders-management-detail.component";
 // import { ProductManagementInfoComponent } from "./product-management-info/product-management-info.component";
 
 @Component({
@@ -39,6 +43,7 @@ import { MatSnackBar } from "@angular/material/snack-bar";
         MatIcon,
         MatToolbar,
         OverlayModule,
+        CommonModule,
     ],
     templateUrl: "./order-management.component.html",
     styleUrl: "./order-management.component.scss",
@@ -55,7 +60,6 @@ export class OrderManagementComponent implements OnInit {
     displayedColumns: string[] = [
         "id",
         "name",
-        "nameCake",
         "phone",
         "orderDate",
         "deliveryStatus",
@@ -82,6 +86,7 @@ export class OrderManagementComponent implements OnInit {
             .subscribe({
                 next: (res: any) => {
                     let dataItems: any[] = [];
+                    console.log(res);
                     if (res && res.data) {
                         dataItems = res.data;
                     }
@@ -101,24 +106,21 @@ export class OrderManagementComponent implements OnInit {
     }
 
     changeStatus(item: any) {
-        if (item.status === "active") {
-            item.status = "inactive";
+        if (item.active_status === "active") {
+            item.active_status = "inactive";
         } else {
-            item.status = "active";
+            item.active_status = "active";
         }
         let dataJSON = {
-            category_id: item.category_id,
-            shape_id: item.shape_id,
-            size_id: item.size_id,
-            flavour_id: item.flavour_id,
-            name: item.name,
-            quantity: item.quantity,
-            image: item.image,
-            price: item.price,
-            status: item.status,
+            cus_id: item.cus_id,
+            delivery_status: item.delivery_status,
+            active_status: item.active_status,
+            total_unit: item.total_unit,
+            total_origin_price: item.total_origin_price,
+            quanttotal_priceity: item.total_price,
         };
         this.shareService
-            .updateProduct(dataJSON, item.prod_id)
+            .updateOrder(dataJSON, item.order_id)
             .pipe(take(1))
             .subscribe(() => {
                 this.openSnackBar1("Updated Successfull");
@@ -135,6 +137,30 @@ export class OrderManagementComponent implements OnInit {
         });
     }
 
+    detailOrders(item: any) {
+        let config: any = {};
+        config.data = {
+            target: "detail",
+            item: item,
+        };
+        config.component = CustomerManagementDetailComponent; // Specify the component for viewing details
+        this.openFormDialog(config);
+    }
+    openFormDialog(config: any) {
+        config.disableClose = true;
+        config.panelClass = "dialog-form-l";
+        config.maxWidth = "80vw";
+        config.autoFocus = true;
+        let dialogRef = this.dialog.open(config.component, config);
+        // let dialogRef = this.dialog.open(
+        //     CustomerManagementInfoComponent,
+        //     config
+        // );
+        dialogRef.afterClosed().subscribe((result) => {
+            this.getData();
+            console.log("The dialog was closed");
+        });
+    }
     ngAfterViewInit() {
         if (this.dataSource) {
             this.dataSource.paginator = this.paginator;
@@ -169,7 +195,7 @@ export class OrderManagementComponent implements OnInit {
     }
 
     editCustomer(item: any) {
-        const dialogRef = this.dialog.open(OrdersManagementInforComponent, {
+        const dialogRef = this.dialog.open(OrdersManagementInfoComponent, {
             data: item,
         });
         dialogRef.afterClosed().subscribe((result) => {

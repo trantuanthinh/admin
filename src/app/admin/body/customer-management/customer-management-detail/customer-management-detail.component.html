@@ -4,8 +4,8 @@
         <mat-icon aria-label="Close">close</mat-icon>
     </button>
 </mat-card-header>
-<cdk-virtual-scroll-viewport itemSize="200" class="viewport">
-    <form [formGroup]="myform">
+<form [formGroup]="myform">
+    <cdk-virtual-scroll-viewport itemSize="200" class="viewport">
         <mat-card>
             <mat-card-content>
                 <div class="read-only-field-wrapper">
@@ -59,5 +59,5 @@
 
             </mat-card-content>
         </mat-card>
-    </form>
-</cdk-virtual-scroll-viewport>
+    </cdk-virtual-scroll-viewport>
+</form>

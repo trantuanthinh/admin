@@ -43,7 +43,7 @@ import { MatIconModule } from "@angular/material/icon";
     styleUrl: "./orders-management-info.component.scss",
     providers: [TitleCasePipe],
 })
-export class OrdersManagementInforComponent implements OnInit {
+export class OrdersManagementInfoComponent implements OnInit {
     ngOnInit(): void {}
     myform!: FormGroup;
     customerName = new FormControl("");
@@ -69,7 +69,7 @@ export class OrdersManagementInforComponent implements OnInit {
 
     constructor(
         @Inject(MAT_DIALOG_DATA) public data: any,
-        private dialogRef: MatDialogRef<OrdersManagementInforComponent>,
+        private dialogRef: MatDialogRef<OrdersManagementInfoComponent>,
         private shareService: ShareService,
         private fb: FormBuilder,
         private http: HttpClient,

@@ -1,0 +1,127 @@
+<mat-card-header class="productHeader">
+    <h1 style="font-size: 24px; color: #715f3f;">Order Details</h1>
+    <button mat-icon-button (click)="close()">
+        <mat-icon aria-label="Close">close</mat-icon>
+    </button>
+</mat-card-header>
+<cdk-virtual-scroll-viewport itemSize="200" class="viewport">
+    <form [formGroup]="myform">
+        <mat-card>
+            <mat-card-content>
+
+                <div class="read-only-field-wrapper">
+                    <mat-label>Customer's Id</mat-label>
+                    <div class="read-only-field">
+                        {{ myform.get('id')?.value }}
+                    </div>
+                </div>
+
+                <div class="read-only-field-wrapper">
+                    <mat-label>Full Name</mat-label>
+                    <div class="read-only-field">
+                        {{ myform.get('firstName')?.value }} {{ myform.get('lastName')?.value }}
+                    </div>
+                </div>
+
+                <div class="read-only-field-wrapper">
+                    <mat-label>Phone</mat-label>
+                    <div class="read-only-field">
+                        {{ myform.get('phone')?.value }}
+                    </div>
+                </div>
+
+                <div class="read-only-field-wrapper">
+                    <mat-label>Email</mat-label>
+                    <div class="read-only-field">
+                        {{ myform.get('email')?.value }}
+                    </div>
+                </div>
+
+                <div class="read-only-field-wrapper">
+                    <mat-label>Address</mat-label>
+                    <div class="read-only-field">
+                        {{ myform.get('address')?.value }}
+                    </div>
+                </div>
+
+                <div class="read-only-field-wrapper">
+                    <mat-label>Order Date</mat-label>
+                    <div class="read-only-field">
+                        {{ myform.get('created_at')?.value | date: 'dd/MM/yyyy' }}
+                    </div>
+                </div>
+
+                <div class="read-only-field-wrapper">
+                    <mat-label>Delivery Status</mat-label>
+                    <div class="read-only-field">
+                        {{ myform.get('deliveryStatus')?.value }}
+                    </div>
+                </div>
+
+
+                <div class="read-only-field-wrapper">
+                    <mat-label>Bill</mat-label>
+                    <div class="read-only-field">
+                        {{ myform.get('bill')?.value }}
+                    </div>
+                </div>
+
+                <div class="read-only-field-wrapper">
+                    <mat-label>Status</mat-label>
+                    <div class="read-only-field">
+                        {{ myform.get('status')?.value }}
+                    </div>
+                </div>
+
+                <div class="read-only-field-wrapper">
+                    <mat-label>Number of types</mat-label>
+                    <div class="read-only-field">
+                        {{ myform.get('quantity')?.value }}
+                    </div>
+                </div>
+
+
+                <div class="read-only-field-wrapper">
+
+                    <mat-label>Products</mat-label>
+
+                    <div class="read-only-field" *ngFor="let product of productsList">
+
+                        <div class="productContent" style="padding: 10px;">
+                            <div class="insideProduct">
+                                <h1>Cake's Name:</h1>
+                                <h2>{{ product.name}}</h2>
+                            </div>
+                            <div class="insideProduct">
+                                <h1>Flavour:</h1>
+                                <h2>{{ product.flavour}}</h2>
+                            </div>
+                            <div class="insideProduct">
+                                <h1>Quanlity:</h1>
+                                <h2>{{ product.quantity }}</h2>
+                            </div>
+                            <div class="insideProduct">
+                                <h1>Original Price:</h1>
+                                <h2>{{ product.originPrice}}</h2>
+                            </div>
+                            <div class="insideProduct">
+                                <h1>Price:</h1>
+                                <h2>{{ product.price}}</h2>
+                            </div>
+                            <div class="insideProduct">
+                                <h1>Shape:</h1>
+                                <h2>{{ product.shape}}</h2>
+                            </div>
+                            <div class="insideProduct">
+                                <h1>type:</h1>
+                                <h2>{{ product.type}}</h2>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </mat-card-content>
+        </mat-card>
+    </form>
+</cdk-virtual-scroll-viewport>
