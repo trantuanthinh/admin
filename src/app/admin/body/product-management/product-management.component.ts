@@ -82,6 +82,7 @@ export class ProductManagementComponent implements OnInit {
                     let dataItems: any[] = [];
                     if (res && res.data) {
                         dataItems = res.data;
+                        console.log(res);
                     }
                     for (let item of dataItems) {
                         item.src = this.shareService.getProdPhotoURL(
@@ -176,16 +177,19 @@ export class ProductManagementComponent implements OnInit {
                 confirmMessage: "Do you want to delete?",
             },
         };
-        this.showDialogConfirm(config)
+
+        const dialogRef = this.dialog.open(ConfirmDialogComponent, config);
+        dialogRef
+            .afterClosed()
             .pipe(take(1))
             .subscribe({
                 next: (resConfirm: any) => {
-                    if (resConfirm && resConfirm.action == "ok") {
+                    if (resConfirm && resConfirm.action === "ok") {
                         this.shareService
                             .deleteProduct(item.prod_id)
                             .pipe(take(1))
                             .subscribe(() => {
-                                this.openSnackBar("Deleted Successful");
+                                this.openSnackBar("Deleted Successfully");
                                 this.getData();
                             });
                     }
@@ -216,6 +220,12 @@ export class ProductManagementComponent implements OnInit {
             item.status = "active";
         }
         let dataJSON = {
+            // name: item.name,
+            // image: item.image,
+            // price: item.price,
+            // originPrice: item.originPrice,
+            // status: item.status,
+
             category_id: item.category_id,
             shape_id: item.shape_id,
             size_id: item.size_id,
@@ -224,13 +234,20 @@ export class ProductManagementComponent implements OnInit {
             quantity: item.quantity,
             image: item.image,
             price: item.price,
+            originPrice: item.originPrice,
             status: item.status,
         };
         this.shareService
             .updateProduct(dataJSON, item.prod_id)
             .pipe(take(1))
-            .subscribe(() => {
-                this.openSnackBar("Updated Successfull");
+            .subscribe({
+                next: () => {
+                    this.openSnackBar("Updated Successfully");
+                },
+                error: (error) => {
+                    console.error("Error updating product:", error);
+                    this.openSnackBar("Error updating product");
+                },
             });
     }
 

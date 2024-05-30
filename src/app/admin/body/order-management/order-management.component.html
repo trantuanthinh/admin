@@ -56,8 +56,7 @@
             <th mat-sort-header mat-header-cell *matHeaderCellDef>Status</th>
             <td mat-cell *matCellDef="let element">
                 <mat-slide-toggle (change)="changeStatus(element)" class="example-margin" [color]="color" [checked]="element.
-                    active_status
-                    ==='active'" [disabled]="disabled" matTooltip="Change Status">
+                    active_status==='active'" [disabled]="disabled" matTooltip="Change Status">
                 </mat-slide-toggle>
                 <!-- {{ element.status | titlecase}} -->
             </td>
