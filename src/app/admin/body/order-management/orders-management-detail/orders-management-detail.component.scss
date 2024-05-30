@@ -111,3 +111,32 @@ cdk-virtual-scroll-viewport{
     justify-content: space-between;
 }
 
+.productContent {
+    margin-bottom: 20px;
+    border: 1px solid rgba(81, 67, 54, 0.87);
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.insideProduct {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px; 
+}
+
+.insideProduct h1, .insideProduct h2 {
+    margin: 0; 
+    padding: 0; 
+}
+
+.insideProduct h2 {
+    margin-left: 10px;
+}
+h1{
+    color: rgba(81, 67, 54, 0.87);
+}
+h2{
+    color: rgba(81, 67, 54, 0.87);
+}
+

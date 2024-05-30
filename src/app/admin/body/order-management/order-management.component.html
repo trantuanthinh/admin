@@ -67,11 +67,11 @@
             <th mat-header-cell *matHeaderCellDef>Action</th>
             <td mat-cell *matCellDef="let element">
                 <div class="action-buttons">
-                    <button (click)="editCustomer(element)" mat-raised-button color="primary">
+                    <!-- <button (click)="editCustomer(element)" mat-raised-button color="primary">
                         Edit
-                    </button>
-                    <button mat-raised-button color="warn">Delete</button>
+                    </button> -->
                     <button (click)="detailOrders(element)" mat-raised-button color="primary">Detail</button>
+                    <button mat-raised-button color="warn">Delete</button>
                 </div>
             </td>
         </ng-container>
