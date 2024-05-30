@@ -220,12 +220,6 @@ export class ProductManagementComponent implements OnInit {
             item.status = "active";
         }
         let dataJSON = {
-            // name: item.name,
-            // image: item.image,
-            // price: item.price,
-            // originPrice: item.originPrice,
-            // status: item.status,
-
             category_id: item.category_id,
             shape_id: item.shape_id,
             size_id: item.size_id,

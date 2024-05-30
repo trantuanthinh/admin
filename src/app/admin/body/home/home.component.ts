@@ -54,6 +54,7 @@ export class HomeComponent implements OnInit {
     totalBills = 0;
     totalCost = 0;
     totalProfit = 0;
+    orderCount = 0;
     currentDate: string = "";
     displayedColumns: string[] = ["id", "name", "photo", "quantity"];
     dataSource!: MatTableDataSource<any>;
@@ -65,6 +66,7 @@ export class HomeComponent implements OnInit {
         this.calculateTotalBill();
         this.setCurrentDate();
         this.calculateTotalCost();
+        this.countOrders();
     }
 
     getData() {
@@ -101,9 +103,21 @@ export class HomeComponent implements OnInit {
         this.currentDate = dd + "-" + mm + "-" + yyyy;
     }
 
+    countOrders() {
+        this.shareService
+            .getOrders()
+            .pipe(take(1))
+            .subscribe({
+                next: (res: any) => {
+                    this.orderCount = res?.data?.length || 0;
+                },
+                error: (error) => console.log("Error: " + error),
+            });
+    }
+
     calculateTotalBill() {
         this.shareService
-            .getProducts()
+            .getOrders()
             .pipe(take(1))
             .subscribe({
                 next: (res: any) => {
@@ -113,7 +127,7 @@ export class HomeComponent implements OnInit {
                     }
                     this.totalBills = dataItems.reduce(
                         (acc: number, item: any) =>
-                            acc + (parseFloat(item.price) || 0),
+                            acc + (parseFloat(item.total_price) || 0),
                         0
                     );
                 },
@@ -123,7 +137,7 @@ export class HomeComponent implements OnInit {
 
     calculateTotalCost() {
         this.shareService
-            .getProducts()
+            .getOrders()
             .pipe(take(1))
             .subscribe({
                 next: (res: any) => {
@@ -133,13 +147,16 @@ export class HomeComponent implements OnInit {
                     }
                     this.totalCost = dataItems.reduce(
                         (acc: number, item: any) =>
-                            acc + (parseFloat(item.price) || 0),
+                            acc + (parseFloat(item.total_origin_price) || 0),
                         0
                     );
                     this.totalProfit = this.totalBills - this.totalCost;
                 },
                 error: (error) => console.log("Error: " + error),
             });
+    }
+    calculateProfit() {
+        this.totalProfit = this.totalBills - this.totalCost;
     }
 
     ngAfterViewInit() {
