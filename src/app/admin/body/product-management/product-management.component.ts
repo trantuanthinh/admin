@@ -1,5 +1,5 @@
 import { OverlayModule } from "@angular/cdk/overlay";
-import { CommonModule, TitleCasePipe } from "@angular/common";
+import { CommonModule, IMAGE_CONFIG, TitleCasePipe } from "@angular/common";
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { FormGroup, ReactiveFormsModule } from "@angular/forms";
 import { MatIconButton } from "@angular/material/button";
@@ -37,7 +37,16 @@ import { ProductManagementInfoComponent } from "./product-management-info/produc
         MatIconButton,
         OverlayModule,
     ],
-    providers: [TitleCasePipe],
+    providers: [
+        TitleCasePipe,
+        {
+            provide: IMAGE_CONFIG,
+            useValue: {
+                disableImageSizeWarning: true,
+                disableImageLazyLoadWarning: true,
+            },
+        },
+    ],
     templateUrl: "./product-management.component.html",
     styleUrls: ["./product-management.component.scss"],
 })
@@ -69,7 +78,6 @@ export class ProductManagementComponent implements OnInit {
                     let dataItems: any[] = [];
                     if (res && res.data) {
                         dataItems = res.data;
-                        console.log(res);
                     }
                     for (let item of dataItems) {
                         item.src = this.shareService.getProdPhotoURL(item.image);
