@@ -1,11 +1,8 @@
-import {
-    HttpClient,
-    HttpErrorResponse,
-    HttpHeaders,
-} from "@angular/common/http";
+import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { LocalStorageService } from "ngx-localstorage";
 import { Observable, catchError, throwError } from "rxjs";
+import { environment } from "../environment/environment";
 import { HttpService } from "./http.service";
 import { SharePropertyService } from "./share-property.service";
 
@@ -14,8 +11,8 @@ import { SharePropertyService } from "./share-property.service";
 })
 export class ShareService {
     // http = inject(HttpClient);
-    private PORT: number = 3000;
-    private apiDomain: any = "localhost";
+    private apiDomain: any = environment.API_DOMAIN;
+    private PORT: any = environment.API_PORT;
     private RootEndPointAPI: string = ``;
 
     private headers = new HttpHeaders();
@@ -26,7 +23,6 @@ export class ShareService {
         private sharePropertyService: SharePropertyService,
         private localStorage: LocalStorageService
     ) {
-        this.setAPIDomain(this.localStorage.get("domain"));
         this.getAPI_URL();
     }
 
@@ -47,41 +43,31 @@ export class ShareService {
     getAll(url: string): Observable<any> {
         return this.http
             .get(url, { headers: this.headers })
-            .pipe(
-                catchError((error) => this.handleError("API Error: ", error))
-            );
+            .pipe(catchError((error) => this.handleError("API Error: ", error)));
     }
 
     getItem(url: string): Observable<any> {
         return this.http
             .get(url, { headers: this.headers })
-            .pipe(
-                catchError((error) => this.handleError("API Error: ", error))
-            );
+            .pipe(catchError((error) => this.handleError("API Error: ", error)));
     }
 
     createItem(url: string, item: any): Observable<any> {
         return this.http
             .post(url, item, { headers: this.headers })
-            .pipe(
-                catchError((error) => this.handleError("API Error: ", error))
-            );
+            .pipe(catchError((error) => this.handleError("API Error: ", error)));
     }
 
     updateItem(url: string, item: any): Observable<any> {
         return this.http
             .put(url, item, { headers: this.headers })
-            .pipe(
-                catchError((error) => this.handleError("API Error: ", error))
-            );
+            .pipe(catchError((error) => this.handleError("API Error: ", error)));
     }
 
     deleteItem(url: string): Observable<any> {
         return this.http
             .delete(url, { headers: this.headers })
-            .pipe(
-                catchError((error) => this.handleError("API Error: ", error))
-            );
+            .pipe(catchError((error) => this.handleError("API Error: ", error)));
     }
 
     //getProdPhotoURL
@@ -97,9 +83,7 @@ export class ShareService {
         formData.append("file", file);
         return this.http
             .post(baseUrl, formData, { headers: this.headers })
-            .pipe(
-                catchError((error) => this.handleError("API Error: ", error))
-            );
+            .pipe(catchError((error) => this.handleError("API Error: ", error)));
     }
 
     //getDecorPhotoURL
@@ -115,9 +99,7 @@ export class ShareService {
         formData.append("file", file);
         return this.http
             .post(baseUrl, formData, { headers: this.headers })
-            .pipe(
-                catchError((error) => this.handleError("API Error: ", error))
-            );
+            .pipe(catchError((error) => this.handleError("API Error: ", error)));
     }
 
     //admins
