@@ -1,28 +1,22 @@
+import { OverlayModule } from "@angular/cdk/overlay";
 import { Component, ViewChild } from "@angular/core";
 import { FormGroup, ReactiveFormsModule } from "@angular/forms";
+import { MatIconButton } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { MatDialog } from "@angular/material/dialog";
 import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatIcon } from "@angular/material/icon";
 import { MatInputModule } from "@angular/material/input";
 import { MatPaginator, MatPaginatorModule } from "@angular/material/paginator";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { MatSort, MatSortModule } from "@angular/material/sort";
 import { MatTableDataSource, MatTableModule } from "@angular/material/table";
+import { MatToolbar } from "@angular/material/toolbar";
 import { Observable, take } from "rxjs";
 import { ConfirmDialogComponent } from "../../../control/confirm-dialog/confirm-dialog.component";
 import { ShareService } from "../../../shared/share.service";
 import { SharePropertyService } from "./../../../shared/share-property.service";
 import { CustomerManagementInfoComponent } from "./customer-management-info/customer-management-info.component";
-import { MatToolbar } from "@angular/material/toolbar";
-import { Overlay, OverlayModule } from "@angular/cdk/overlay";
-import { MatIconButton } from "@angular/material/button";
-import { MatIcon } from "@angular/material/icon";
-import { NgModule } from "@angular/core";
-import { BrowserModule } from "@angular/platform-browser";
-import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { MatSlideToggleModule } from "@angular/material/slide-toggle";
-import { ThemePalette } from "@angular/material/core";
-import { CustomerManagementDetailComponent } from "./customer-management-detail/customer-management-detail.component";
 
 export interface UserData {
     id: string;
@@ -97,14 +91,11 @@ export class CustomerManagementComponent {
                         dataItems = res.data;
                     }
                     for (let item of dataItems) {
-                        item._dob =
-                            this.sharePropertyService.convertDateStringToMoment(
-                                item.dateOfBirth,
-                                this.offset
-                            );
-                        item.dob = this.sharePropertyService.formatDate(
-                            item._dob
+                        item._dob = this.sharePropertyService.convertDateStringToMoment(
+                            item.dateOfBirth,
+                            this.offset
                         );
+                        item.dob = this.sharePropertyService.formatDate(item._dob);
                     }
                     this.dataSource = new MatTableDataSource(dataItems);
                     this.dataSource.paginator = this.paginator;
@@ -224,7 +215,6 @@ export class CustomerManagementComponent {
             target: "detail",
             item: item,
         };
-        config.component = CustomerManagementDetailComponent; // Specify the component for viewing details
         this.openFormDialog(config);
     }
 
@@ -233,11 +223,7 @@ export class CustomerManagementComponent {
         config.panelClass = "dialog-form-l";
         config.maxWidth = "80vw";
         config.autoFocus = true;
-        let dialogRef = this.dialog.open(config.component, config);
-        // let dialogRef = this.dialog.open(
-        //     CustomerManagementInfoComponent,
-        //     config
-        // );
+        let dialogRef = this.dialog.open(CustomerManagementInfoComponent, config);
         dialogRef.afterClosed().subscribe((result) => {
             this.getData();
             console.log("The dialog was closed");
@@ -260,10 +246,7 @@ export class CustomerManagementComponent {
         if (filterValue.length >= 3) {
             const searchDigits = filterValue.slice(-3);
 
-            this.dataSource.filterPredicate = (
-                data: UserData,
-                filter: string
-            ) => {
+            this.dataSource.filterPredicate = (data: UserData, filter: string) => {
                 return data.phone.trim().endsWith(searchDigits);
             };
             this.dataSource.filter = searchDigits;
