@@ -1,29 +1,25 @@
+import { OverlayModule } from "@angular/cdk/overlay";
+import { CommonModule } from "@angular/common";
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { FormGroup, ReactiveFormsModule } from "@angular/forms";
+import { MatIconButton } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { ThemePalette } from "@angular/material/core";
 import { MatDialog } from "@angular/material/dialog";
 import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatIcon } from "@angular/material/icon";
 import { MatInputModule } from "@angular/material/input";
 import { MatPaginator, MatPaginatorModule } from "@angular/material/paginator";
 import { MatSlideToggleModule } from "@angular/material/slide-toggle";
+import { MatSnackBar } from "@angular/material/snack-bar";
 import { MatSort, MatSortModule } from "@angular/material/sort";
 import { MatTableDataSource, MatTableModule } from "@angular/material/table";
+import { MatToolbar } from "@angular/material/toolbar";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { take } from "rxjs";
 import { ShareService } from "../../../shared/share.service";
-import { OrdersManagementInfoComponent } from "./orders-management-info/orders-management-info.component";
-import { HomeComponent } from "../home/home.component";
-import { MatToolbar } from "@angular/material/toolbar";
-import { Overlay, OverlayModule } from "@angular/cdk/overlay";
-import { MatIconButton } from "@angular/material/button";
-import { MatIcon } from "@angular/material/icon";
 import { UserData } from "../customer-management/customer-management.component";
-import { MatSnackBar } from "@angular/material/snack-bar";
-import { BrowserModule } from "@angular/platform-browser";
-import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { CommonModule } from "@angular/common";
-import { CustomerManagementDetailComponent } from "./orders-management-detail/orders-management-detail.component";
+import { OrderManagementDetailComponent } from "./orders-management-detail/orders-management-detail.component";
 // import { ProductManagementInfoComponent } from "./product-management-info/product-management-info.component";
 
 @Component({
@@ -71,11 +67,7 @@ export class OrderManagementComponent implements OnInit {
     dataSource!: MatTableDataSource<any>;
     myform!: FormGroup<any>;
 
-    constructor(
-        public dialog: MatDialog,
-        private shareService: ShareService,
-        private _snackBar: MatSnackBar
-    ) {
+    constructor(public dialog: MatDialog, private shareService: ShareService, private _snackBar: MatSnackBar) {
         this.getData();
     }
 
@@ -86,7 +78,6 @@ export class OrderManagementComponent implements OnInit {
             .subscribe({
                 next: (res: any) => {
                     let dataItems: any[] = [];
-                    console.log(res);
                     if (res && res.data) {
                         dataItems = res.data;
                     }
@@ -99,10 +90,7 @@ export class OrderManagementComponent implements OnInit {
     }
 
     calculateTotalBill() {
-        this.totalBills = this.dataSource.data.reduce(
-            (acc, item) => acc + parseFloat(item.bill),
-            0
-        );
+        this.totalBills = this.dataSource.data.reduce((acc, item) => acc + parseFloat(item.bill), 0);
     }
 
     changeStatus(item: any) {
@@ -123,11 +111,11 @@ export class OrderManagementComponent implements OnInit {
             .updateOrder(dataJSON, item.order_id)
             .pipe(take(1))
             .subscribe(() => {
-                this.openSnackBar1("Updated Successfull");
+                this.openSnackBar("Updated Successfull");
             });
     }
 
-    openSnackBar1(message: string) {
+    openSnackBar(message: string) {
         const successMessage = message;
         this._snackBar.open(successMessage, "Close", {
             duration: 2000,
@@ -143,7 +131,6 @@ export class OrderManagementComponent implements OnInit {
             target: "detail",
             item: item,
         };
-        config.component = CustomerManagementDetailComponent; // Specify the component for viewing details
         this.openFormDialog(config);
     }
     openFormDialog(config: any) {
@@ -151,11 +138,7 @@ export class OrderManagementComponent implements OnInit {
         config.panelClass = "dialog-form-l";
         config.maxWidth = "80vw";
         config.autoFocus = true;
-        let dialogRef = this.dialog.open(config.component, config);
-        // let dialogRef = this.dialog.open(
-        //     CustomerManagementInfoComponent,
-        //     config
-        // );
+        let dialogRef = this.dialog.open(OrderManagementDetailComponent, config);
         dialogRef.afterClosed().subscribe((result) => {
             this.getData();
             console.log("The dialog was closed");
@@ -178,10 +161,7 @@ export class OrderManagementComponent implements OnInit {
         if (filterValue.length >= 3) {
             const searchDigits = filterValue.slice(-3);
 
-            this.dataSource.filterPredicate = (
-                data: UserData,
-                filter: string
-            ) => {
+            this.dataSource.filterPredicate = (data: UserData, filter: string) => {
                 return data.phone.trim().endsWith(searchDigits);
             };
             this.dataSource.filter = searchDigits;
@@ -192,14 +172,5 @@ export class OrderManagementComponent implements OnInit {
                 this.dataSource.paginator.firstPage();
             }
         }
-    }
-
-    editCustomer(item: any) {
-        const dialogRef = this.dialog.open(OrdersManagementInfoComponent, {
-            data: item,
-        });
-        dialogRef.afterClosed().subscribe((result) => {
-            console.log("The dialog was closed");
-        });
     }
 }

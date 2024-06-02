@@ -19,8 +19,7 @@
 
         <ng-container matColumnDef="name">
             <th mat-sort-header mat-header-cell *matHeaderCellDef>Customer's Name</th>
-            <td mat-cell *matCellDef="let element">{{ element.first_name
-                }} {{ element.last_name }}</td>
+            <td mat-cell *matCellDef="let element">{{ element.first_name }} {{ element.last_name }}</td>
         </ng-container>
 
         <ng-container matColumnDef="phone">
@@ -35,28 +34,26 @@
 
         <ng-container matColumnDef="bill">
             <th mat-sort-header mat-header-cell *matHeaderCellDef>Bill</th>
-            <td mat-cell *matCellDef="let element">{{ element.total_price
-                }}</td>
+            <td mat-cell *matCellDef="let element">{{ element.total_price }}</td>
         </ng-container>
 
         <ng-container matColumnDef="orderDate">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Order Date</th>
             <td mat-cell *matCellDef="let element">
-                {{ element.created_at | date: 'dd/MM/yyyy' }}
+                {{ element.created_at | date : "dd/MM/yyyy" }}
             </td>
         </ng-container>
 
-
         <ng-container matColumnDef="deliveryStatus">
             <th mat-sort-header mat-header-cell *matHeaderCellDef>Delivery Status</th>
-            <td mat-cell *matCellDef="let element">{{ element.delivery_status}}</td>
+            <td mat-cell *matCellDef="let element">{{ element.delivery_status }}</td>
         </ng-container>
 
         <ng-container matColumnDef="status">
             <th mat-sort-header mat-header-cell *matHeaderCellDef>Status</th>
             <td mat-cell *matCellDef="let element">
-                <mat-slide-toggle (change)="changeStatus(element)" class="example-margin" [color]="color" [checked]="element.
-                    active_status==='active'" [disabled]="disabled" matTooltip="Change Status">
+                <mat-slide-toggle (change)="changeStatus(element)" class="example-margin" [color]="color"
+                    [checked]="element.active_status === 'active'" [disabled]="disabled" matTooltip="Change Status">
                 </mat-slide-toggle>
                 <!-- {{ element.status | titlecase}} -->
             </td>
@@ -66,9 +63,6 @@
             <th mat-header-cell *matHeaderCellDef>Action</th>
             <td mat-cell *matCellDef="let element">
                 <div class="action-buttons">
-                    <!-- <button (click)="editCustomer(element)" mat-raised-button color="primary">
-                        Edit
-                    </button> -->
                     <button (click)="detailOrders(element)" mat-raised-button color="primary">Detail</button>
                     <button mat-raised-button color="warn">Delete</button>
                 </div>
@@ -83,5 +77,3 @@
         <mat-paginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
     </mat-card-footer>
 </div>
-
-<!-- <se-table></se-table> -->

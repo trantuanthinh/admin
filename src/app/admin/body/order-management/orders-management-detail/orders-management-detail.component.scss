@@ -7,7 +7,7 @@
 
 .header-title {
     margin: 0;
-    font-size: 32px; /* Increase the font size */
+    font-size: 32px;
     font-weight: bold;
     color: #007bff;
 }
@@ -26,7 +26,7 @@
 
 .mat-icon {
     font-size: 24px;
-    color: #5f462b; 
+    color: #5f462b;
 }
 
 
@@ -35,9 +35,11 @@ form {
     background-position: center;
     border: 2px solid rgba(243, 234, 234, 0.2);
 }
+
 .fa-window-close:before {
     color: #927564;
 }
+
 .example-additional-selection {
     opacity: 0.75;
     font-size: 0.75em;
@@ -57,7 +59,7 @@ mat-label {
     font-size: 0.8em;
 }
 
-mat-label{
+mat-label {
     color: rgb(134, 98, 59);
 }
 
@@ -70,19 +72,24 @@ mat-label{
 .example-item {
     height: 100px;
 }
-cdk-virtual-scroll-viewport{
+
+cdk-virtual-scroll-viewport {
     min-width: 100%;
     background: rgb(247, 247, 201);
 }
-.productHeader{
+
+.productHeader {
     background: rgb(253, 253, 150);
-    padding: 13px 16px 13px;;
+    padding: 13px 16px 13px;
+    ;
 }
+
 .mat-mdc-card-content:last-child {
     padding-bottom: 16px;
     background-color: rgb(244, 244, 210);
 }
-.mdc-text-field--filled:not(.mdc-text-field--disabled){
+
+.mdc-text-field--filled:not(.mdc-text-field--disabled) {
     background-color: #dfd379;
 }
 
@@ -102,10 +109,10 @@ cdk-virtual-scroll-viewport{
     padding: 8px 12px;
     border: 1px solid rgba(0, 0, 0, 0.23);
     border-radius: 4px;
-    // background-color: #f5f5f5;
     color: rgba(81, 67, 54, 0.87);
 }
-.insideProduct{
+
+.insideProduct {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -122,21 +129,23 @@ cdk-virtual-scroll-viewport{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 10px; 
+    margin-bottom: 10px;
 }
 
-.insideProduct h1, .insideProduct h2 {
-    margin: 0; 
-    padding: 0; 
+.insideProduct h1,
+.insideProduct h2 {
+    margin: 0;
+    padding: 0;
 }
 
 .insideProduct h2 {
     margin-left: 10px;
 }
-h1{
-    color: rgba(81, 67, 54, 0.87);
-}
-h2{
+
+h1 {
     color: rgba(81, 67, 54, 0.87);
 }
 
+h2 {
+    color: rgba(81, 67, 54, 0.87);
+}
