@@ -12,8 +12,8 @@ import { SharePropertyService } from "./share-property.service";
 export class ShareService {
     // http = inject(HttpClient);
     private apiDomain: any = environment.API_DOMAIN;
-    private PORT: any = environment.API_PORT;
-    private RootEndPointAPI: string = ``;
+    private apiPort: any = environment.API_PORT;
+    private RootEndPointAPI: string = `http://${this.apiDomain}:${this.apiPort}/api`;
 
     private headers = new HttpHeaders();
 
@@ -22,9 +22,7 @@ export class ShareService {
         public http: HttpClient,
         private sharePropertyService: SharePropertyService,
         private localStorage: LocalStorageService
-    ) {
-        this.getAPI_URL();
-    }
+    ) {}
 
     setAPIDomain(domain: any) {
         if (this.sharePropertyService.isNullOrEmpty(domain)) {
@@ -33,11 +31,6 @@ export class ShareService {
             this.localStorage.set("domain", domain);
         }
         this.apiDomain = this.localStorage.get("domain");
-        this.getAPI_URL();
-    }
-
-    getAPI_URL() {
-        this.RootEndPointAPI = `http://${this.apiDomain}:${this.PORT}/api`;
     }
 
     getAll(url: string): Observable<any> {

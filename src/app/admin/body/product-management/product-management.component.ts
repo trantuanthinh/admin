@@ -1,24 +1,24 @@
+import { OverlayModule } from "@angular/cdk/overlay";
 import { CommonModule, TitleCasePipe } from "@angular/common";
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { FormGroup, ReactiveFormsModule } from "@angular/forms";
+import { MatIconButton } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { ThemePalette } from "@angular/material/core";
 import { MatDialog } from "@angular/material/dialog";
 import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatIcon } from "@angular/material/icon";
 import { MatInputModule } from "@angular/material/input";
 import { MatPaginator, MatPaginatorModule } from "@angular/material/paginator";
 import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { MatSort, MatSortModule } from "@angular/material/sort";
 import { MatTableDataSource, MatTableModule } from "@angular/material/table";
+import { MatToolbar } from "@angular/material/toolbar";
 import { Observable, take } from "rxjs";
 import { ConfirmDialogComponent } from "../../../control/confirm-dialog/confirm-dialog.component";
 import { ShareService } from "../../../shared/share.service";
 import { ProductManagementInfoComponent } from "./product-management-info/product-management-info.component";
-import { MatToolbar } from "@angular/material/toolbar";
-import { Overlay, OverlayModule } from "@angular/cdk/overlay";
-import { MatIconButton } from "@angular/material/button";
-import { MatIcon } from "@angular/material/icon";
 @Component({
     selector: "app-product-management",
     standalone: true,
@@ -49,24 +49,11 @@ export class ProductManagementComponent implements OnInit {
     checked = true;
     disabled = false;
     isOverlayOpen = false;
-    displayedColumns: string[] = [
-        "id",
-        "name",
-        "photo",
-        "cost",
-        "originalCost",
-        "quantity",
-        "status",
-        "action",
-    ];
+    displayedColumns: string[] = ["id", "name", "photo", "cost", "originalCost", "quantity", "status", "action"];
     dataSource!: MatTableDataSource<any>;
     myform!: FormGroup<any>;
 
-    constructor(
-        public dialog: MatDialog,
-        private shareService: ShareService,
-        private _snackBar: MatSnackBar
-    ) {
+    constructor(public dialog: MatDialog, private shareService: ShareService, private _snackBar: MatSnackBar) {
         this.getData();
         this.calculateTotalBill();
     }
@@ -85,9 +72,7 @@ export class ProductManagementComponent implements OnInit {
                         console.log(res);
                     }
                     for (let item of dataItems) {
-                        item.src = this.shareService.getProdPhotoURL(
-                            item.image
-                        );
+                        item.src = this.shareService.getProdPhotoURL(item.image);
                     }
                     this.dataSource = new MatTableDataSource(dataItems);
                     this.dataSource.paginator = this.paginator;
@@ -110,8 +95,7 @@ export class ProductManagementComponent implements OnInit {
                     }
                     for (let item of dataItems) {
                         this.totalBills = dataItems.reduce(
-                            (acc: number, item: any) =>
-                                acc + (parseFloat(item.price) || 0),
+                            (acc: number, item: any) => acc + (parseFloat(item.price) || 0),
                             0
                         );
                     }
@@ -158,10 +142,7 @@ export class ProductManagementComponent implements OnInit {
         config.panelClass = "dialog-form-l";
         config.maxWidth = "80vw";
         config.autoFocus = true;
-        let dialogRef = this.dialog.open(
-            ProductManagementInfoComponent,
-            config
-        );
+        let dialogRef = this.dialog.open(ProductManagementInfoComponent, config);
         dialogRef.afterClosed().subscribe((result) => {
             this.getData();
             console.log("The dialog was closed");
@@ -177,7 +158,6 @@ export class ProductManagementComponent implements OnInit {
                 confirmMessage: "Do you want to delete?",
             },
         };
-
         const dialogRef = this.dialog.open(ConfirmDialogComponent, config);
         dialogRef
             .afterClosed()
