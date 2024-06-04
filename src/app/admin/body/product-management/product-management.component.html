@@ -67,7 +67,8 @@
             <td mat-cell *matCellDef="let element">
                 <div class="action-buttons">
                     <button (click)="updateProduct(element)" mat-raised-button color="primary">Edit</button>
-                    <button (click)="deleteProduct(element)" mat-raised-button color="warn">Delete</button>
+                    <button class="deleteButton" (click)="deleteProduct(element)" mat-raised-button
+                        color="warn">Delete</button>
                     <!-- <button mat-raised-button color="primary">Detail</button> -->
                 </div>
             </td>

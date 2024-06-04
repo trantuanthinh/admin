@@ -64,7 +64,8 @@
             <td mat-cell *matCellDef="let element">
                 <div class="action-buttons">
                     <button (click)="detailOrders(element)" mat-raised-button color="primary">Detail</button>
-                    <button mat-raised-button color="warn">Delete</button>
+                    <button class="deleteButton" (click)="deleteOrder(element)" mat-raised-button
+                        color="warn">Delete</button>
                 </div>
             </td>
         </ng-container>

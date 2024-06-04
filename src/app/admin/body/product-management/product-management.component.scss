@@ -73,11 +73,17 @@ mat-mdc-paginator-range-actions {
     align-items: center;
     color: #623737;
 }
-
+.deleteButton:hover{
+    color: #c38d06;
+}
 button.mat-raised-button {
     margin: 10px 0;
     padding: 10px 20px;
     font-size: 16px;
     font-weight: bold;
 }
+td{
+    padding: 10px !important;
+}
+
 
