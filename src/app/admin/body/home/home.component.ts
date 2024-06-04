@@ -18,6 +18,7 @@ import { FormsModule } from "@angular/forms";
 import { MatToolbar } from "@angular/material/toolbar";
 import { Overlay, OverlayModule } from "@angular/cdk/overlay";
 import { Router } from "@angular/router";
+import { NavigationItem } from "../../admin-navbar/navbar-items.interface";
 interface UserData {
     id: string;
     name: string;
@@ -57,16 +58,24 @@ export class HomeComponent implements OnInit {
     orderCount = 0;
     currentDate: string = "";
     displayedColumns: string[] = ["id", "name", "photo", "quantity"];
-    dataSource!: MatTableDataSource<any>;
+    dataSource!: MatTableDataSource<UserData>;
     isOverlayOpen = false;
     myform!: FormGroup<any>;
 
-    constructor(public dialog: MatDialog, private shareService: ShareService) {
+    constructor(
+        public dialog: MatDialog,
+        private shareService: ShareService,
+        private router: Router
+    ) {
         this.getData();
         this.calculateTotalBill();
         this.setCurrentDate();
         this.calculateTotalCost();
         this.countOrders();
+    }
+
+    navigateToDetailedReport() {
+        this.router.navigate(["/detailed-report"]);
     }
 
     getData() {

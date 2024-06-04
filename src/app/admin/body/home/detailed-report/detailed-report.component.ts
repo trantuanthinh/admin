@@ -1,12 +1,9 @@
-import { Component } from '@angular/core';
+import { Component } from "@angular/core";
 
 @Component({
-  selector: 'app-detailed-report',
-  standalone: true,
-  imports: [],
-  templateUrl: './detailed-report.component.html',
-  styleUrl: './detailed-report.component.scss'
+    selector: "app-detailed-report",
+    standalone: true,
+    templateUrl: "./detailed-report.component.html",
+    styleUrls: ["./detailed-report.component.scss"],
 })
-export class DetailedReportComponent {
-
-}
+export class DetailedReportComponent {}
