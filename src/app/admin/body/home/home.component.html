@@ -1,11 +1,21 @@
+<router-outlet></router-outlet>
 <main>
     <div class="top">
         <div class="date">
             <span>{{ currentDate }}</span>
         </div>
+
+        <button style="margin-left: 80%">
+            <a class="detailButton" routerLink="/detailed-report" routerLinkActive="active">
+                Detailed Report ->
+            </a>
+        </button>
+
+
         <button class="detailButton" style="margin-left: 80%" (click)="navigateToDetailedReport()">
             Detailed Report ->
         </button>
+
     </div>
     <div class="insights">
 

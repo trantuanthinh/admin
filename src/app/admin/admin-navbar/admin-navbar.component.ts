@@ -64,6 +64,7 @@ export class AdminNavbarComponent implements OnInit {
     getNavData() {
         this.arrApps.push(this.getHome());
         this.arrApps.push(this.getProductsManagement());
+        this.arrApps.push(this.getDesignedProductManagementComponent());
         this.arrApps.push(this.getOrdersManagement());
         this.arrApps.push(this.getIngredientsManagement());
         this.arrApps.push(this.getCustomersManagement());
@@ -161,6 +162,16 @@ export class AdminNavbarComponent implements OnInit {
             code: "productsManagement",
             icon: "fas fa-birthday-cake",
             route: "/admin/product-management",
+        };
+    }
+
+    getDesignedProductManagementComponent(): NavigationItem {
+        return {
+            type: "link",
+            label: "Designed Product",
+            code: "designedProductManagementComponent",
+            icon: "fas fa-marker",
+            route: "/admin/designed-product-management",
         };
     }
 

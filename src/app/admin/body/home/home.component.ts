@@ -17,8 +17,14 @@ import { BrowserModule } from "@angular/platform-browser";
 import { FormsModule } from "@angular/forms";
 import { MatToolbar } from "@angular/material/toolbar";
 import { Overlay, OverlayModule } from "@angular/cdk/overlay";
-import { Router } from "@angular/router";
+import {
+    Router,
+    RouterLink,
+    RouterLinkActive,
+    RouterOutlet,
+} from "@angular/router";
 import { NavigationItem } from "../../admin-navbar/navbar-items.interface";
+import { SharePropertyService } from "../../../shared/share-property.service";
 interface UserData {
     id: string;
     name: string;
@@ -37,6 +43,7 @@ interface UserData {
         MatTableModule,
         MatFormFieldModule,
         MatInputModule,
+        RouterOutlet,
         MatSortModule,
         ReactiveFormsModule,
         CommonModule,
@@ -44,6 +51,8 @@ interface UserData {
         MatIcon,
         MatToolbar,
         OverlayModule,
+        RouterLink,
+        RouterLinkActive,
     ],
     templateUrl: "./home.component.html",
     styleUrl: "./home.component.scss",
@@ -65,7 +74,8 @@ export class HomeComponent implements OnInit {
     constructor(
         public dialog: MatDialog,
         private shareService: ShareService,
-        private router: Router
+        private router: Router,
+        private sharePropertyService: SharePropertyService
     ) {
         this.getData();
         this.calculateTotalBill();
@@ -74,8 +84,18 @@ export class HomeComponent implements OnInit {
         this.countOrders();
     }
 
+    // getDesignedDetailedReport(): NavigationItem {
+    //     return {
+    //         type: "link",
+    //         label: "Designed Product Management",
+    //         code: "designedProductManagementComponent",
+    //         icon: "fas fa-shopping-cart",
+    //         route: "/admin/home/detailed-report",
+    //     };
+    // }
+
     navigateToDetailedReport() {
-        this.router.navigate(["/detailed-report"]);
+        this.router.navigate(["/admin/home/detailed-report"]);
     }
 
     getData() {
@@ -105,11 +125,7 @@ export class HomeComponent implements OnInit {
     }
 
     setCurrentDate() {
-        const today = new Date();
-        const dd = String(today.getDate()).padStart(2, "0");
-        const mm = String(today.getMonth() + 1).padStart(2, "0");
-        const yyyy = today.getFullYear();
-        this.currentDate = dd + "-" + mm + "-" + yyyy;
+        this.currentDate = this.sharePropertyService.setCurrentDate();
     }
 
     countOrders() {
@@ -164,6 +180,7 @@ export class HomeComponent implements OnInit {
                 error: (error) => console.log("Error: " + error),
             });
     }
+
     calculateProfit() {
         this.totalProfit = this.totalBills - this.totalCost;
     }

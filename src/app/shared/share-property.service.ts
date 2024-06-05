@@ -21,7 +21,10 @@ export class SharePropertyService {
             }
             let arrOffset = offset.split(".");
             if (arrOffset.length > 1) {
-                return parseFloat(arrOffset[0] || 0) + parseFloat(arrOffset[1] || 0) / 60;
+                return (
+                    parseFloat(arrOffset[0] || 0) +
+                    parseFloat(arrOffset[1] || 0) / 60
+                );
             }
             return parseFloat(arrOffset[0] || 0);
         }
@@ -53,6 +56,14 @@ export class SharePropertyService {
             return data.format("DD/MM/YYYY");
         }
         return "";
+    }
+
+    public setCurrentDate() {
+        const today = new Date();
+        const dd = String(today.getDate()).padStart(2, "0");
+        const mm = String(today.getMonth() + 1).padStart(2, "0");
+        const yyyy = today.getFullYear();
+        return dd + "-" + mm + "-" + yyyy;
     }
 
     public formatDateMYSQL(data: any): string {

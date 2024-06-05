@@ -10,6 +10,7 @@ import { CustomerManagementComponent } from "./customer-management/customer-mana
 //check-----------------------------------------------------------
 import { GetDataComponent } from "./get-data/get-data.component";
 import { DetailedReportComponent } from "./home/detailed-report/detailed-report.component";
+import { DesignedProductManagementComponent } from "./designed-product-management/designed-product-management.component";
 
 const routes: Routes = [
     {
@@ -18,7 +19,14 @@ const routes: Routes = [
         children: [
             {
                 path: "home",
-                component: HomeComponent,
+                loadChildren: () =>
+                    import("./home/home-routing.module").then(
+                        (m) => m.HomeRoutingModule
+                    ),
+            },
+            {
+                path: "designed-product-management",
+                component: DesignedProductManagementComponent,
             },
             {
                 path: "product-management",

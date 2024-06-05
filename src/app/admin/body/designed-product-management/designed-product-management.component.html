@@ -1,0 +1,85 @@
+<div class="bodyTable">
+    <mat-card>
+        <mat-card-header class="search-bar-container" cdkOverlayOrigin #overlayPosition="cdkOverlayOrigin">
+            <button mat-icon-button>
+                <mat-icon>search</mat-icon>
+            </button>
+            <input matInput placeholder="Search" (focus)="isOverlayOpen = true" (blur)="isOverlayOpen = false"
+                (input)="applyFilter($event)" />
+        </mat-card-header>
+        <ng-template cdkConnectedOverlay [cdkConnectedOverlayOrigin]="overlayPosition"
+            [cdkConnectedOverlayOpen]="isOverlayOpen"></ng-template>
+    </mat-card>
+
+    <button (click)="addProduct()" style="margin-left: 90%" mat-raised-button color="primary">
+        + Add Product
+    </button>
+
+    <table matSort mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+        <ng-container matColumnDef="id">
+            <th mat-sort-header mat-header-cell *matHeaderCellDef>ID</th>
+            <td mat-cell *matCellDef="let element">{{ element.prod_id }}</td>
+        </ng-container>
+
+        <ng-container class="name" matColumnDef="name">
+            <th mat-sort-header mat-header-cell *matHeaderCellDef>Name</th>
+            <td mat-cell *matCellDef="let element" class="bold">{{ element.name | titlecase }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="cost">
+            <th mat-sort-header mat-header-cell *matHeaderCellDef>Price</th>
+            <!-- <td mat-cell *matCellDef="let element">{{ element.price }}</td> -->
+            <td mat-cell *matCellDef="let element">{{ element.price | currency:'USD':'symbol':'1.2-2' }}</td>
+
+            <!-- <td mat-cell *matCellDef="let element">{{ element.cost | number:'1.2-2' }} VND</td> -->
+        </ng-container>
+
+        <ng-container matColumnDef="category">
+            <th mat-sort-header mat-header-cell *matHeaderCellDef>Category</th>
+            <td mat-cell *matCellDef="let element">{{ element.category?.name }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="shape">
+            <th mat-sort-header mat-header-cell *matHeaderCellDef>Shape</th>
+            <td mat-cell *matCellDef="let element">{{ element.quantity }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="flavour">
+            <th mat-sort-header mat-header-cell *matHeaderCellDef>Flavour</th>
+            <td mat-cell *matCellDef="let element">{{ element.quantity }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="date">
+            <th mat-sort-header mat-header-cell *matHeaderCellDef>Oder Date</th>
+            <td mat-cell *matCellDef="let element">{{ element.quantity }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="status">
+            <th mat-sort-header mat-header-cell *matHeaderCellDef>Status</th>
+            <td mat-cell *matCellDef="let element">
+                <mat-slide-toggle (change)="changeStatus(element)" class="example-margin" [color]="color" [checked]="element.
+                    status==='active'" [disabled]="disabled" matTooltip="Change Status">
+                </mat-slide-toggle>
+                <!-- {{ element.status | titlecase}} -->
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef>Action</th>
+            <td mat-cell *matCellDef="let element">
+                <div class="action-buttons">
+                    <button (click)="updateProduct(element)" mat-raised-button color="primary">Edit</button>
+                    <button class="deleteButton" (click)="deleteProduct(element)" mat-raised-button
+                        color="warn">Delete</button>
+                    <!-- <button mat-raised-button color="primary">Detail</button> -->
+                </div>
+            </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+
+    <mat-card-footer>
+        <mat-paginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
+    </mat-card-footer>
+</div>

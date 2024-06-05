@@ -1,0 +1,89 @@
+
+.bodyTable {
+    background: rgb(240, 240, 203);
+    margin-top: 5%;
+    padding: 1rem;
+}
+
+table {
+    width: 100%;
+    background: transparent;
+
+}
+.bold {
+    font-weight: bold;
+    font-size: 20px;
+}
+.smallerPhoto {
+    width: 25%;
+}
+mat-card {
+    margin: 1%;
+    background: rgb(244, 249, 218);
+    border-radius: 20px;
+    border: 2px solid rgba(255, 255, 255, 2);
+}
+mat-card-header{
+    padding: 10px;
+}
+mat-card-header input{
+    color: rgb(116, 77, 58);
+    background: transparent;
+    width: 100%;
+    height: 100%;
+    font-size: 18px; /* Adjust the font size as needed */
+    padding: 10px;
+    border-radius: 10px;
+    
+}
+
+button {
+
+    display: table-cell;
+    font-size: 14px;
+    min-width: 13px;
+}
+button:hover{
+    text-decoration: underline;
+    color: #d72292;
+}
+
+.action-buttons {
+    display: inline-flex;
+    gap: 10px; /* Adjust the gap between buttons */
+}
+
+th {
+    background-color: rgb(252, 112, 210) !important;
+    color: #523725;
+}
+
+td{
+    background-color: rgb(255 187 247) !important;
+    color: #83582a;
+}
+mat-paginator{
+    background: rgb(252, 112, 210);
+}
+.mat-sort-header-arrow{
+    color: #523725;
+}
+mat-mdc-paginator-range-actions {
+    display: flex;
+    align-items: center;
+    color: #623737;
+}
+.deleteButton:hover{
+    color: #c38d06;
+}
+button.mat-raised-button {
+    margin: 10px 0;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+}
+td{
+    padding: 10px !important;
+}
+
+

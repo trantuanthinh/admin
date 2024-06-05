@@ -183,6 +183,11 @@ export class ShareService {
         let baseUrl = this.RootEndPointAPI + `/customers/${id}`;
         return this.deleteItem(baseUrl);
     }
+    //decord-products
+    getDesProduct() {
+        let baseUrl = this.RootEndPointAPI + `/des_products`;
+        return this.getAll(baseUrl);
+    }
 
     //products
     getProducts() {
