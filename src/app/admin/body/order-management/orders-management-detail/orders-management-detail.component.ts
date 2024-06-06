@@ -2,7 +2,13 @@ import { ScrollingModule } from "@angular/cdk/scrolling";
 import { CommonModule } from "@angular/common";
 import { HttpClient } from "@angular/common/http";
 import { Component, Inject, Optional, TrackByFunction } from "@angular/core";
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
+import {
+    FormBuilder,
+    FormGroup,
+    FormsModule,
+    ReactiveFormsModule,
+    Validators,
+} from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { MatCheckboxModule } from "@angular/material/checkbox";
@@ -48,7 +54,16 @@ export class OrderManagementDetailComponent {
     myform!: FormGroup;
     trackByFn!: TrackByFunction<number>;
     element: any = {};
-    productsList: any[] = ["flavour", "name", "originPrice", "price", "quantity", "shape", "type"];
+    element2: any = {};
+    productsList: any[] = [
+        "flavour",
+        "name",
+        "originPrice",
+        "price",
+        "quantity",
+        "shape",
+        "type",
+    ];
 
     constructor(
         @Optional() @Inject(MAT_DIALOG_DATA) public dialogData: any,
@@ -59,6 +74,7 @@ export class OrderManagementDetailComponent {
         private http: HttpClient,
         private _snackBar: MatSnackBar
     ) {
+        this.getCus();
         this.getData();
         this.myform = this.buildFormGroup();
     }
@@ -69,26 +85,44 @@ export class OrderManagementDetailComponent {
 
     buildFormGroup() {
         return this.fb.group({
-            id: [this.dialogData.item ? this.dialogData.item.cus_id : "", [Validators.required]],
-            firstName: [this.dialogData.item ? this.dialogData.item.first_name : "", [Validators.required]],
-            lastName: [this.dialogData.item ? this.dialogData.item.last_name : "", [Validators.required]],
-            address: [this.dialogData.item ? this.dialogData.item.address : "", [Validators.required]],
+            id: [
+                this.dialogData.item ? this.dialogData.item.cus_id : "",
+                [Validators.required],
+            ],
+            firstName: [
+                this.dialogData.item ? this.dialogData.item.first_name : "",
+                [Validators.required],
+            ],
+            lastName: [
+                this.dialogData.item ? this.dialogData.item.last_name : "",
+                [Validators.required],
+            ],
             phone: [
                 this.dialogData.item ? this.dialogData.item.phone : "",
                 [Validators.required, CustomValidator.numeric],
             ],
-            email: [
-                this.dialogData.item ? this.dialogData.item.email : "",
-                [Validators.required, Validators.email],
-            ],
-            created_at: [this.dialogData.item ? this.dialogData.item.created_at : "", [Validators.required]],
-            deliveryStatus: [
-                this.dialogData.item ? this.dialogData.item.delivery_status : "",
+            created_at: [
+                this.dialogData.item ? this.dialogData.item.created_at : "",
                 [Validators.required],
             ],
-            quantity: [this.dialogData.item ? this.dialogData.item.total_unit : "", [Validators.required]],
-            bill: [this.dialogData.item ? this.dialogData.item.total_price : "", [Validators.required]],
-            status: [this.dialogData.item ? this.dialogData.item.active_status : "", [Validators.required]],
+            deliveryStatus: [
+                this.dialogData.item
+                    ? this.dialogData.item.delivery_status
+                    : "",
+                [Validators.required],
+            ],
+            quantity: [
+                this.dialogData.item ? this.dialogData.item.total_unit : "",
+                [Validators.required],
+            ],
+            bill: [
+                this.dialogData.item ? this.dialogData.item.total_price : "",
+                [Validators.required],
+            ],
+            status: [
+                this.dialogData.item ? this.dialogData.item.active_status : "",
+                [Validators.required],
+            ],
         });
     }
 
@@ -107,6 +141,24 @@ export class OrderManagementDetailComponent {
                     this.element = dataItems;
                     this.productsList = dataItems.products;
                     console.log(this.productsList);
+                },
+                error: (error) => console.log("Error: " + error),
+            });
+    }
+
+    getCus() {
+        let formGroup = this.buildFormGroup();
+        let id = formGroup.get("id")?.value;
+        this.shareService
+            .getCustomer(id)
+            .pipe(take(1))
+            .subscribe({
+                next: (res: any) => {
+                    let dataItems: any = {};
+                    if (res && res.data) {
+                        dataItems = res.data;
+                    }
+                    this.element2 = dataItems;
                 },
                 error: (error) => console.log("Error: " + error),
             });

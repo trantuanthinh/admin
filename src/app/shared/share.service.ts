@@ -169,6 +169,11 @@ export class ShareService {
         return this.getAll(baseUrl);
     }
 
+    getCustomer(id: any) {
+        let baseUrl = this.RootEndPointAPI + `/customers/${id}`;
+        return this.getAll(baseUrl);
+    }
+
     createCustomer(item: any) {
         let baseUrl = this.RootEndPointAPI + `/customers`;
         return this.createItem(baseUrl, item);
