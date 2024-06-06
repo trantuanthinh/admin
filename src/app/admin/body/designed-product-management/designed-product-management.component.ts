@@ -66,6 +66,7 @@ export class DesignedProductManagementComponent {
         "shape",
         "flavour",
         "date",
+        "message",
         "status",
     ];
     dataSource!: MatTableDataSource<any>;
@@ -91,10 +92,8 @@ export class DesignedProductManagementComponent {
                     let dataItems: any[] = [];
                     if (res && res.data) {
                         dataItems = res.data;
+                        console.log(dataItems);
                     }
-                    for (let item of dataItems) {
-                    }
-
                     this.dataSource = new MatTableDataSource(dataItems);
                     this.dataSource.paginator = this.paginator;
                     this.dataSource.sort = this.sort;
