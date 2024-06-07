@@ -1,0 +1,225 @@
+
+main {
+    background: rgb(240, 240, 203);
+    margin-top: 4%;
+    padding: 1rem;
+
+}
+.top{
+    display: flex;
+}
+.detailButton{
+    color: #523725; 
+}
+img{
+    padding: 5px;
+}
+
+main .date {
+    display: inline-block;
+    background: transparent; 
+    border-radius: 5px; 
+    border: 2px solid rgb(111, 87, 55); 
+    padding: 0.5rem 1rem;
+}
+
+main .date input[type="date"] {
+    background: transparent;
+    color: #885d3b;
+    border: none; 
+}
+.bold {
+    font-weight: bold;
+    font-size: 20px;
+}
+.smallerPhoto {
+    width: 20%;
+}
+
+main .insights {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.6rem;
+}
+h3 {
+    color: #523725;
+}
+
+h1 {
+    color: #77174f; 
+}
+
+small.text-muted {
+    color: #9e9e9e;
+}
+
+
+main .insights > div {
+    background: #ffffff; /* Use a specific background color */
+    padding: 1.2rem; /* Use specific padding value */
+    border-radius: 8px; /* Use a specific border radius */
+    margin-top: 1rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Use a specific box shadow */
+    transition: all 300ms ease;
+}
+
+
+main .insights > div:hover {
+    box-shadow: none; 
+}
+/* Expense card */
+main .insights > div.expenses {
+    background: #fab0e2; 
+}
+
+main .insights > div span {
+    background: #885d3b; 
+    padding: 0.5rem;
+    border-radius: 50%; 
+    color: #ffffff; 
+    font-size: 2rem; 
+}
+
+main .insights > div.expenses span{
+    background: #f1c072;
+}
+/* Income card */
+main .insights > div.earn span {
+    background: #33817c;
+
+}
+
+main .insights > div .middle{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+main .insights h3{
+    margin: 1rem 0 0.6rem;
+    font-size: 1rem;
+}
+main .insights .progress{
+    position: relative;
+    width: 92px;
+    height: 92px;
+    border-radius: 50%;
+}
+
+main .insights svg{
+    width: 7rem;
+    height: 7rem;
+}
+
+main .insights svg circle{
+    fill: none;
+    stroke: rgb(138, 119, 91);
+    stroke-width: 14;
+    stroke-linecap: round;
+    transform: translate(5px, 5px);
+    stroke-dashoffset: 92;
+    stroke-dasharray: 110;
+}
+
+main .insights .sales svg circle{
+    stroke-dashoffset: -30;
+    stroke-dasharray: 200;
+}
+
+main .insights .expenses svg circle{
+    stroke-dashoffset: 20;
+    stroke-dasharray: 80;
+}
+
+main .insights .earn svg circle{
+    stroke-dashoffset: 35;
+    stroke-dasharray: 110;
+}
+
+main .insights .progress .number{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.bodyTable {
+    background: rgb(240, 240, 203);
+    margin-top: 2%;
+    padding: 1rem;
+}
+
+table {
+    width: 100%;
+    background: transparent;
+}
+
+mat-card {
+    margin: 1%;
+    background: rgb(244, 249, 218);
+    // background: yellow !important;
+    border-radius: 20px;
+    border: 2px solid rgba(255, 255, 255, 2);
+}
+mat-card-header{
+    padding: 10px;
+}
+mat-card-header i{
+    color: #523725;
+    background: transparent;
+    font-size: 18px; /* Adjust the font size as needed */
+    padding: 10px;
+    border-radius: 10px;
+    margin-top: 0.2rem;
+}
+mat-card-header input{
+    color: rgb(116, 77, 58);
+    background: transparent;
+    width: 100%;
+    height: 100%;
+    font-size: 18px; /* Adjust the font size as needed */
+    padding: 10px;
+    border-radius: 10px;
+    
+}
+
+button {
+
+    display: table-cell;
+    font-size: 14px;
+    min-width: 13px;
+}
+button:hover{
+    text-decoration: underline;
+    color: #d72292;
+}
+
+.action-buttons {
+    display: inline-flex;
+    gap: 10px; /* Adjust the gap between buttons */
+}
+
+th {
+    background-color: rgb(252, 112, 210) !important;
+    color: #523725;
+}
+
+td{
+    background-color: rgb(255 187 247) !important;
+    color: #83582a;
+}
+mat-paginator{
+    background: rgb(252, 112, 210);
+}
+.mat-sort-header-arrow{
+    color: #523725;
+}
+mat-mdc-paginator-range-actions {
+    display: flex;
+    align-items: center;
+    color: #623737;
+}

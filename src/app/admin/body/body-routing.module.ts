@@ -11,6 +11,7 @@ import { CustomerManagementComponent } from "./customer-management/customer-mana
 import { GetDataComponent } from "./get-data/get-data.component";
 import { DetailedReportComponent } from "./home/detailed-report/detailed-report.component";
 import { DesignedProductManagementComponent } from "./designed-product-management/designed-product-management.component";
+import { OverAllComponent } from "./home/over-all/over-all.component";
 
 const routes: Routes = [
     {

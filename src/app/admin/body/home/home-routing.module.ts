@@ -2,6 +2,7 @@ import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { HomeComponent } from "./home.component";
 import { DetailedReportComponent } from "./detailed-report/detailed-report.component";
+import { OverAllComponent } from "./over-all/over-all.component";
 
 const routes: Routes = [
     {
@@ -12,7 +13,11 @@ const routes: Routes = [
                 path: "detailed-report",
                 component: DetailedReportComponent,
             },
-            { path: "**", redirectTo: "detailed-report", pathMatch: "full" },
+            {
+                path: "overall",
+                component: OverAllComponent,
+            },
+            { path: "**", redirectTo: "overall", pathMatch: "full" },
         ],
     },
 ];

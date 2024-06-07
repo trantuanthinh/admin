@@ -66,7 +66,7 @@ export class AdminNavbarComponent implements OnInit {
         this.arrApps.push(this.getProductsManagement());
         this.arrApps.push(this.getDesignedProductManagementComponent());
         this.arrApps.push(this.getOrdersManagement());
-        this.arrApps.push(this.getIngredientsManagement());
+        // this.arrApps.push(this.getIngredientsManagement());
         this.arrApps.push(this.getCustomersManagement());
     }
 
@@ -151,7 +151,7 @@ export class AdminNavbarComponent implements OnInit {
             label: "Home",
             code: "home",
             icon: "fas fa-home",
-            route: "/admin/home",
+            route: "/admin/home/overall",
         };
     }
 
@@ -185,37 +185,37 @@ export class AdminNavbarComponent implements OnInit {
         };
     }
 
-    getIngredientsManagement(): NavigationItem {
-        return {
-            type: "group",
-            label: "Ingredients Management",
-            code: "ingredientsManagement",
-            icon: "fas fa-cookie-bite",
-            children: [
-                {
-                    type: "link",
-                    label: "WareHouse",
-                    code: "dasdassdaw",
-                    icon: "fas fa-warehouse",
-                    route: "/admin/products/cakes",
-                },
-                {
-                    type: "link",
-                    label: "Import",
-                    code: "dasdassdaw",
-                    icon: "fas fa-box-open",
-                    route: "/admin/products/cakes",
-                },
-                {
-                    type: "link",
-                    label: "Consumption",
-                    code: "dasdassdaw",
-                    icon: "fas fa-mitten",
-                    route: "/admin/products/cakes",
-                },
-            ],
-        };
-    }
+    // getIngredientsManagement(): NavigationItem {
+    //     return {
+    //         type: "group",
+    //         label: "Ingredients Management",
+    //         code: "ingredientsManagement",
+    //         icon: "fas fa-cookie-bite",
+    //         children: [
+    //             {
+    //                 type: "link",
+    //                 label: "WareHouse",
+    //                 code: "dasdassdaw",
+    //                 icon: "fas fa-warehouse",
+    //                 route: "/admin/products/cakes",
+    //             },
+    //             {
+    //                 type: "link",
+    //                 label: "Import",
+    //                 code: "dasdassdaw",
+    //                 icon: "fas fa-box-open",
+    //                 route: "/admin/products/cakes",
+    //             },
+    //             {
+    //                 type: "link",
+    //                 label: "Consumption",
+    //                 code: "dasdassdaw",
+    //                 icon: "fas fa-mitten",
+    //                 route: "/admin/products/cakes",
+    //             },
+    //         ],
+    //     };
+    // }
 
     getCustomersManagement(): NavigationItem {
         return {
