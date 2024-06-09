@@ -1,8 +1,20 @@
 import { ScrollingModule } from "@angular/cdk/scrolling";
 import { CommonModule, TitleCasePipe } from "@angular/common";
 import { HttpClient } from "@angular/common/http";
-import { Component, Inject, OnInit, Optional, TrackByFunction } from "@angular/core";
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
+import {
+    Component,
+    Inject,
+    OnInit,
+    Optional,
+    TrackByFunction,
+} from "@angular/core";
+import {
+    FormBuilder,
+    FormGroup,
+    FormsModule,
+    ReactiveFormsModule,
+    Validators,
+} from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { MatCheckboxModule } from "@angular/material/checkbox";
@@ -79,12 +91,30 @@ export class ProductManagementInfoComponent implements OnInit {
 
     buildFormGroup() {
         return this.fb.group({
-            name: [this.dialogData.item ? this.dialogData.item.name : "", [Validators.required]],
-            category: [this.dialogData.item ? this.dialogData.item.category_id : "", [Validators.required]],
-            shape: [this.dialogData.item ? this.dialogData.item.shape_id : "", [Validators.required]],
-            size: [this.dialogData.item ? this.dialogData.item.size_id : "", [Validators.required]],
-            flavour: [this.dialogData.item ? this.dialogData.item.flavour_id : "", [Validators.required]],
-            quantity: [this.dialogData.item ? this.dialogData.item.quantity : "", [Validators.required]],
+            name: [
+                this.dialogData.item ? this.dialogData.item.name : "",
+                [Validators.required],
+            ],
+            category: [
+                this.dialogData.item ? this.dialogData.item.category_id : "",
+                [Validators.required],
+            ],
+            shape: [
+                this.dialogData.item ? this.dialogData.item.shape_id : "",
+                [Validators.required],
+            ],
+            size: [
+                this.dialogData.item ? this.dialogData.item.size_id : "",
+                [Validators.required],
+            ],
+            flavour: [
+                this.dialogData.item ? this.dialogData.item.flavour_id : "",
+                [Validators.required],
+            ],
+            quantity: [
+                this.dialogData.item ? this.dialogData.item.quantity : "",
+                [Validators.required],
+            ],
             price: [
                 this.dialogData.item ? this.dialogData.item.price : "",
                 [Validators.required, CustomValidator.numeric],
@@ -148,10 +178,14 @@ export class ProductManagementInfoComponent implements OnInit {
                 flavour_id: valueForm.flavour,
                 name: valueForm.name,
                 quantity: valueForm.quantity,
-                image: this.dialogData ? this.dialogData.item.image : this.fileName,
+                image: this.dialogData
+                    ? this.dialogData.item.image
+                    : this.fileName,
                 price: valueForm.price,
                 status: "active",
             };
+            console.log(dataJSON);
+
             if (!this.dialogData.item) {
                 this.shareService
                     .createProduct(dataJSON)

@@ -19,7 +19,7 @@ import { Observable, take } from "rxjs";
 import { ConfirmDialogComponent } from "../../../control/confirm-dialog/confirm-dialog.component";
 import { ShareService } from "../../../shared/share.service";
 import { ProductManagementInfoComponent } from "./product-management-info/product-management-info.component";
-import { ProductManagementAddComponent } from "./product-management-add/product-management-add.component";
+
 @Component({
     selector: "app-product-management",
     standalone: true,
@@ -150,7 +150,7 @@ export class ProductManagementComponent implements OnInit {
         config.data = {
             target: "add",
         };
-        this.openFormDialogAdd(config);
+        this.openFormDialog(config);
     }
 
     updateProduct(item: any) {
@@ -167,7 +167,10 @@ export class ProductManagementComponent implements OnInit {
         config.panelClass = "dialog-form-l";
         config.maxWidth = "80vw";
         config.autoFocus = true;
-        let dialogRef = this.dialog.open(ProductManagementAddComponent, config);
+        let dialogRef = this.dialog.open(
+            ProductManagementInfoComponent,
+            config
+        );
         dialogRef.afterClosed().subscribe((result) => {
             this.getData();
             console.log("The dialog was closed");
