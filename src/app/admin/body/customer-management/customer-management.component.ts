@@ -104,7 +104,7 @@ export class CustomerManagementComponent {
             });
     }
 
-    deleteProduct(item: any) {
+    deleteCustomer(item: any) {
         let config: any = {
             data: {
                 title: "Customer",
