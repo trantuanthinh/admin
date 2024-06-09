@@ -2,13 +2,7 @@ import { ScrollingModule } from "@angular/cdk/scrolling";
 import { CommonModule } from "@angular/common";
 import { HttpClient } from "@angular/common/http";
 import { Component, Inject, Optional, TrackByFunction } from "@angular/core";
-import {
-    FormBuilder,
-    FormGroup,
-    FormsModule,
-    ReactiveFormsModule,
-    Validators,
-} from "@angular/forms";
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { MatCheckboxModule } from "@angular/material/checkbox";
@@ -16,14 +10,14 @@ import { provideNativeDateAdapter } from "@angular/material/core";
 import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatIconModule } from "@angular/material/icon";
 import { MatInputModule } from "@angular/material/input";
 import { MatSelectModule } from "@angular/material/select";
+import { MatSnackBar } from "@angular/material/snack-bar";
 import { take } from "rxjs";
 import { CustomValidator } from "../../../../shared/CustomValidator";
 import { SharePropertyService } from "../../../../shared/share-property.service";
 import { ShareService } from "../../../../shared/share.service";
-import { MatSnackBar } from "@angular/material/snack-bar";
-import { MatIconModule } from "@angular/material/icon";
 
 @Component({
     selector: "app-customer-management-info",
@@ -66,23 +60,11 @@ export class CustomerManagementInfoComponent {
         this.myform = this.buildFormGroup();
     }
 
-    close() {
-        this.dialogRef.close();
-    }
     buildFormGroup() {
         return this.fb.group({
-            firstName: [
-                this.dialogData.item ? this.dialogData.item.first_name : "",
-                [Validators.required],
-            ],
-            lastName: [
-                this.dialogData.item ? this.dialogData.item.last_name : "",
-                [Validators.required],
-            ],
-            address: [
-                this.dialogData.item ? this.dialogData.item.address : "",
-                [Validators.required],
-            ],
+            firstName: [this.dialogData.item ? this.dialogData.item.first_name : "", [Validators.required]],
+            lastName: [this.dialogData.item ? this.dialogData.item.last_name : "", [Validators.required]],
+            address: [this.dialogData.item ? this.dialogData.item.address : "", [Validators.required]],
             phone: [
                 this.dialogData.item ? this.dialogData.item.phone : "",
                 [Validators.required, CustomValidator.numeric],
@@ -91,14 +73,9 @@ export class CustomerManagementInfoComponent {
                 this.dialogData.item ? this.dialogData.item.email : "",
                 [Validators.required, Validators.email],
             ],
-            gender: [
-                this.dialogData.item ? this.dialogData.item.gender : "",
-                [Validators.required],
-            ],
-            dob: [
-                this.dialogData.item ? this.dialogData.item.dateOfBirth : "",
-                [Validators.required],
-            ],
+            password: [this.dialogData.item ? this.dialogData.item.password : "", [Validators.required]],
+            gender: [this.dialogData.item ? this.dialogData.item.gender : "", [Validators.required]],
+            dob: [this.dialogData.item ? this.dialogData.item.dateOfBirth : "", [Validators.required]],
         });
     }
 
@@ -114,16 +91,14 @@ export class CustomerManagementInfoComponent {
 
     submitProduct() {
         let valueForm = this.myform.value;
-        let temp = this.sharePropertyService.convertDateStringToMoment(
-            valueForm.dob,
-            this.offset
-        );
+        let temp = this.sharePropertyService.convertDateStringToMoment(valueForm.dob, this.offset);
         valueForm.dob = this.sharePropertyService.formatDateMYSQL(temp);
         let dataJSON = {
             first_name: valueForm.firstName,
             last_name: valueForm.lastName,
             phone: valueForm.phone,
             email: valueForm.email,
+            password: valueForm.password,
             address: valueForm.address,
             gender: valueForm.gender,
             dateOfBirth: valueForm.dob,
@@ -147,7 +122,7 @@ export class CustomerManagementInfoComponent {
         }
     }
 
-    closepopup() {
+    close() {
         this.dialogRef.close("Closed using function");
     }
 }

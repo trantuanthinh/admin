@@ -17,7 +17,7 @@ import { ConfirmDialogComponent } from "../../../control/confirm-dialog/confirm-
 import { ShareService } from "../../../shared/share.service";
 import { SharePropertyService } from "./../../../shared/share-property.service";
 import { CustomerManagementInfoComponent } from "./customer-management-info/customer-management-info.component";
-import { CustomerManagementAddComponent } from "./customer-management-add/customer-management-add.component";
+
 export interface UserData {
     id: string;
     name: string;
@@ -43,9 +43,6 @@ export interface UserData {
         MatIcon,
         MatToolbar,
         OverlayModule,
-        // BrowserModule,
-        // BrowserAnimationsModule,
-        // MatSlideToggleModule,
     ],
     templateUrl: "./customer-management.component.html",
     styleUrl: "./customer-management.component.scss",
@@ -63,6 +60,7 @@ export class CustomerManagementComponent {
         "lastName",
         "phone",
         "email",
+        "address",
         "gender",
         "birthday",
         // "status",
@@ -91,14 +89,11 @@ export class CustomerManagementComponent {
                         dataItems = res.data;
                     }
                     for (let item of dataItems) {
-                        item._dob =
-                            this.sharePropertyService.convertDateStringToMoment(
-                                item.dateOfBirth,
-                                this.offset
-                            );
-                        item.dob = this.sharePropertyService.formatDate(
-                            item._dob
+                        item._dob = this.sharePropertyService.convertDateStringToMoment(
+                            item.dateOfBirth,
+                            this.offset
                         );
+                        item.dob = this.sharePropertyService.formatDate(item._dob);
                     }
                     this.dataSource = new MatTableDataSource(dataItems);
                     this.dataSource.paginator = this.paginator;
@@ -160,47 +155,12 @@ export class CustomerManagementComponent {
         });
     }
 
-    // changeStatus(item: any) {
-    //     if (item.status === "active") {
-    //         item.status = "inactive";
-    //     } else {
-    //         item.status = "active";
-    //     }
-    //     let dataJSON = {
-    //         category_id: item.category_id,
-    //         shape_id: item.shape_id,
-    //         size_id: item.size_id,
-    //         flavour_id: item.flavour_id,
-    //         name: item.name,
-    //         quantity: item.quantity,
-    //         image: item.image,
-    //         price: item.price,
-    //         status: item.status,
-    //     };
-    //     this.shareService
-    //         .updateProduct(dataJSON, item.prod_id)
-    //         .pipe(take(1))
-    //         .subscribe(() => {
-    //             this.openSnackBar1("Updated Successfull");
-    //         });
-    // }
-
-    // openSnackBar1(message: string) {
-    //     const successMessage = message;
-    //     this._snackBar.open(successMessage, "Close", {
-    //         duration: 2000,
-    //         verticalPosition: "bottom",
-    //         horizontalPosition: "center",
-    //         panelClass: ["centered-snack-bar"],
-    //     });
-    // }
-
     addCustomer() {
         let config: any = {};
         config.data = {
             target: "add",
         };
-        this.openFormDialogAdd(config);
+        this.openFormDialog(config);
     }
 
     updateCustomer(item: any) {
@@ -209,7 +169,6 @@ export class CustomerManagementComponent {
             target: "edit",
             item: item,
         };
-        config.component = CustomerManagementInfoComponent; // Specify the component for updating customer
         this.openFormDialog(config);
     }
 
@@ -222,30 +181,12 @@ export class CustomerManagementComponent {
         this.openFormDialog(config);
     }
 
-    openFormDialogAdd(config: any) {
-        config.disableClose = true;
-        config.panelClass = "dialog-form-l";
-        config.maxWidth = "80vw";
-        config.autoFocus = true;
-        let dialogRef = this.dialog.open(
-            CustomerManagementAddComponent,
-            config
-        );
-        dialogRef.afterClosed().subscribe((result) => {
-            this.getData();
-            console.log("The dialog was closed");
-        });
-    }
-
     openFormDialog(config: any) {
         config.disableClose = true;
         config.panelClass = "dialog-form-l";
         config.maxWidth = "80vw";
         config.autoFocus = true;
-        let dialogRef = this.dialog.open(
-            CustomerManagementInfoComponent,
-            config
-        );
+        let dialogRef = this.dialog.open(CustomerManagementInfoComponent, config);
         dialogRef.afterClosed().subscribe((result) => {
             this.getData();
             console.log("The dialog was closed");
@@ -268,10 +209,7 @@ export class CustomerManagementComponent {
         if (filterValue.length >= 3) {
             const searchDigits = filterValue.slice(-3);
 
-            this.dataSource.filterPredicate = (
-                data: UserData,
-                filter: string
-            ) => {
+            this.dataSource.filterPredicate = (data: UserData, filter: string) => {
                 return data.phone.trim().endsWith(searchDigits);
             };
             this.dataSource.filter = searchDigits;

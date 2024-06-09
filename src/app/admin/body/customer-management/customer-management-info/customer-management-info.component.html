@@ -1,5 +1,5 @@
 <mat-card-header class="productHeader">
-    <h1 style="font-size: 24px; color: #715f3f;">Customer</h1>
+    <h1 style="font-size: 24px; color: #715f3f">{{ target | titlecase }} Customer</h1>
     <button mat-icon-button (click)="close()">
         <mat-icon aria-label="Close">close</mat-icon>
     </button>
@@ -29,6 +29,16 @@
                 </mat-form-field>
 
                 <mat-form-field>
+                    <mat-label>Password</mat-label>
+                    <input matInput formControlName="password" />
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>Address</mat-label>
+                    <input matInput formControlName="address" />
+                </mat-form-field>
+
+                <mat-form-field>
                     <mat-label>Gender</mat-label>
                     <mat-select formControlName="gender">
                         <mat-option value="male"> Male </mat-option>
@@ -38,18 +48,17 @@
 
                 <mat-form-field>
                     <mat-label>Date Of Birth</mat-label>
-                    <input matInput [matDatepicker]="picker" formControlName="dob">
+                    <input matInput [matDatepicker]="picker" formControlName="dob" />
                     <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
                     <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
-
             </mat-card-content>
         </mat-card>
         <mat-card-footer>
-            <div style="display: flex; flex-direction: row;">
+            <div style="display: flex; flex-direction: row">
                 <!-- <button (click)="closepopup()">Close</button> -->
-                <button type="submit">Edit Customer Information</button>
+                <button type="submit">{{ target | titlecase }} Customer Information</button>
             </div>
         </mat-card-footer>
     </form>
