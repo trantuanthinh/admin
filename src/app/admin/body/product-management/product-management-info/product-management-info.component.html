@@ -1,5 +1,5 @@
 <mat-card-header class="productHeader">
-    <h1 style="font-size: 24px; color: #715f3f;">Product</h1>
+    <h1 style="font-size: 24px; color: #715f3f;">{{target|titlecase}} Product</h1>
     <button mat-icon-button (click)="close()">
         <mat-icon aria-label="Close">close</mat-icon>
     </button>
@@ -51,6 +51,11 @@
                 </mat-form-field>
 
                 <mat-form-field>
+                    <mat-label>Unit Origin Price</mat-label>
+                    <input matInput formControlName="originPrice">
+                </mat-form-field>
+
+                <mat-form-field>
                     <mat-label>Unit Price</mat-label>
                     <input matInput formControlName="price">
                 </mat-form-field>
@@ -59,9 +64,6 @@
                     <mat-label>Quantity</mat-label>
                     <input matInput formControlName="quantity">
                 </mat-form-field>
-
-                <!-- <mat-label>Images</mat-label>
-                <input required type="file" (change)="onFileSelected($event)"> -->
 
                 <div class="file-upload-container">
                     <mat-label class="file-upload-label">Images</mat-label>

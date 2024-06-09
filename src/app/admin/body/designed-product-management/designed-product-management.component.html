@@ -17,7 +17,7 @@
             <td mat-cell *matCellDef="let element">{{ element.des_prod_id }}</td>
         </ng-container>
 
-        <ng-container class="name" matColumnDef="name">
+        <ng-container matColumnDef="name">
             <th mat-sort-header mat-header-cell *matHeaderCellDef>Name</th>
             <td mat-cell *matCellDef="let element" class="bold">{{ element.name | titlecase }}</td>
         </ng-container>
@@ -38,8 +38,8 @@
         <ng-container matColumnDef="status">
             <th mat-sort-header mat-header-cell *matHeaderCellDef>Status</th>
             <td mat-cell *matCellDef="let element">
-                <mat-slide-toggle (change)="changeStatus(element)" class="example-margin" [color]="color" [checked]="element.
-                    status==='active'" [disabled]="disabled" matTooltip="Change Status">
+                <mat-slide-toggle (change)="changeStatus(element)" class="example-margin" [color]="color"
+                    [checked]="element.status==='active'" [disabled]="disabled" matTooltip="Change Status">
                 </mat-slide-toggle>
                 <!-- {{ element.status | titlecase}} -->
             </td>
@@ -49,9 +49,9 @@
             <th mat-header-cell *matHeaderCellDef>Action</th>
             <td mat-cell *matCellDef="let element">
                 <div class="action-buttons">
-                    <button (click)="detailDesPro(element)" mat-raised-button color="primary">Detail</button>
-                    <button (click)="updateProduct(element)" mat-raised-button color="primary">Edit</button>
-                    <button class="deleteButton" (click)="deleteProduct(element)" mat-raised-button
+                    <button (click)="detailDesignedProduct(element)" mat-raised-button color="primary">Detail</button>
+                    <!-- <button (click)="updateProduct(element)" mat-raised-button color="primary">Edit</button> -->
+                    <button class="deleteButton" (click)="deleteDesignedProduct(element)" mat-raised-button
                         color="warn">Delete</button>
                     <!-- <button mat-raised-button color="primary">Detail</button> -->
                 </div>

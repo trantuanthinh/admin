@@ -29,8 +29,7 @@
         <ng-container class="photo" matColumnDef="photo">
             <th mat-sort-header mat-header-cell *matHeaderCellDef>Photo</th>
             <td mat-cell *matCellDef="let element" class="smallerPhoto">
-                <img [src]="element.src" alt="">
-                <!-- <img src="../../../../assets/Bear-Cake.webp" alt=""> -->
+                <img [src]="element.src" [alt]="element.name">
             </td>
         </ng-container>
 

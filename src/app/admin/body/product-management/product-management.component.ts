@@ -1,12 +1,11 @@
 import { OverlayModule } from "@angular/cdk/overlay";
 import { CommonModule, IMAGE_CONFIG, TitleCasePipe } from "@angular/common";
 import { Component, OnInit, ViewChild } from "@angular/core";
-import { FormGroup, ReactiveFormsModule } from "@angular/forms";
+import { FormGroup } from "@angular/forms";
 import { MatIconButton } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { ThemePalette } from "@angular/material/core";
 import { MatDialog } from "@angular/material/dialog";
-import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatIcon } from "@angular/material/icon";
 import { MatInputModule } from "@angular/material/input";
 import { MatPaginator, MatPaginatorModule } from "@angular/material/paginator";
@@ -28,11 +27,9 @@ import { ProductManagementInfoComponent } from "./product-management-info/produc
         MatPaginatorModule,
         MatCardModule,
         MatTableModule,
-        MatFormFieldModule,
         MatSlideToggleModule,
         MatInputModule,
         MatSortModule,
-        ReactiveFormsModule,
         MatIcon,
         MatToolbar,
         MatIconButton,
@@ -59,26 +56,12 @@ export class ProductManagementComponent implements OnInit {
     checked = true;
     disabled = false;
     isOverlayOpen = false;
-    displayedColumns: string[] = [
-        "id",
-        "name",
-        "photo",
-        "cost",
-        "originalCost",
-        "quantity",
-        "status",
-        "action",
-    ];
+    displayedColumns: string[] = ["id", "name", "photo", "cost", "originalCost", "quantity", "status", "action"];
     dataSource!: MatTableDataSource<any>;
     myform!: FormGroup<any>;
 
-    constructor(
-        public dialog: MatDialog,
-        private shareService: ShareService,
-        private _snackBar: MatSnackBar
-    ) {
+    constructor(public dialog: MatDialog, private shareService: ShareService, private _snackBar: MatSnackBar) {
         this.getData();
-        this.calculateTotalBill();
     }
 
     ngOnInit(): void {}
@@ -94,36 +77,11 @@ export class ProductManagementComponent implements OnInit {
                         dataItems = res.data;
                     }
                     for (let item of dataItems) {
-                        item.src = this.shareService.getProdPhotoURL(
-                            item.image
-                        );
+                        item.src = this.shareService.getProdPhotoURL(item.image);
                     }
                     this.dataSource = new MatTableDataSource(dataItems);
                     this.dataSource.paginator = this.paginator;
                     this.dataSource.sort = this.sort;
-                    this.calculateTotalBill();
-                },
-                error: (error) => console.log("Error: " + error),
-            });
-    }
-
-    calculateTotalBill() {
-        this.shareService
-            .getProducts()
-            .pipe(take(1))
-            .subscribe({
-                next: (res: any) => {
-                    let dataItems: any[] = [];
-                    if (res && res.data) {
-                        dataItems = res.data;
-                    }
-                    for (let item of dataItems) {
-                        this.totalBills = dataItems.reduce(
-                            (acc: number, item: any) =>
-                                acc + (parseFloat(item.price) || 0),
-                            0
-                        );
-                    }
                 },
                 error: (error) => console.log("Error: " + error),
             });
@@ -167,10 +125,7 @@ export class ProductManagementComponent implements OnInit {
         config.panelClass = "dialog-form-l";
         config.maxWidth = "80vw";
         config.autoFocus = true;
-        let dialogRef = this.dialog.open(
-            ProductManagementInfoComponent,
-            config
-        );
+        let dialogRef = this.dialog.open(ProductManagementInfoComponent, config);
         dialogRef.afterClosed().subscribe((result) => {
             this.getData();
             console.log("The dialog was closed");
@@ -182,10 +137,7 @@ export class ProductManagementComponent implements OnInit {
         config.panelClass = "dialog-form-l";
         config.maxWidth = "80vw";
         config.autoFocus = true;
-        let dialogRef = this.dialog.open(
-            ProductManagementInfoComponent,
-            config
-        );
+        let dialogRef = this.dialog.open(ProductManagementInfoComponent, config);
         dialogRef.afterClosed().subscribe((result) => {
             this.getData();
             console.log("The dialog was closed");
@@ -243,15 +195,6 @@ export class ProductManagementComponent implements OnInit {
             item.status = "active";
         }
         let dataJSON = {
-            category_id: item.category_id,
-            shape_id: item.shape_id,
-            size_id: item.size_id,
-            flavour_id: item.flavour_id,
-            name: item.name,
-            quantity: item.quantity,
-            image: item.image,
-            price: item.price,
-            originPrice: item.originPrice,
             status: item.status,
         };
         this.shareService
