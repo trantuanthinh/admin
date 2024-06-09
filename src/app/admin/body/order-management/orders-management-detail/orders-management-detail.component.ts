@@ -95,7 +95,6 @@ export class OrderManagementDetailComponent {
                     }
                     this.element = dataItems;
                     this.productsList = dataItems.products;
-                    console.log(this.productsList);
                 },
                 error: (error) => console.log("Error: " + error),
             });
