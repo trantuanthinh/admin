@@ -17,7 +17,7 @@ import { ConfirmDialogComponent } from "../../../control/confirm-dialog/confirm-
 import { ShareService } from "../../../shared/share.service";
 import { SharePropertyService } from "./../../../shared/share-property.service";
 import { CustomerManagementInfoComponent } from "./customer-management-info/customer-management-info.component";
-
+import { CustomerManagementAddComponent } from "./customer-management-add/customer-management-add.component";
 export interface UserData {
     id: string;
     name: string;
@@ -91,11 +91,14 @@ export class CustomerManagementComponent {
                         dataItems = res.data;
                     }
                     for (let item of dataItems) {
-                        item._dob = this.sharePropertyService.convertDateStringToMoment(
-                            item.dateOfBirth,
-                            this.offset
+                        item._dob =
+                            this.sharePropertyService.convertDateStringToMoment(
+                                item.dateOfBirth,
+                                this.offset
+                            );
+                        item.dob = this.sharePropertyService.formatDate(
+                            item._dob
                         );
-                        item.dob = this.sharePropertyService.formatDate(item._dob);
                     }
                     this.dataSource = new MatTableDataSource(dataItems);
                     this.dataSource.paginator = this.paginator;
@@ -103,14 +106,6 @@ export class CustomerManagementComponent {
                 },
                 error: (error) => console.log("Error: " + error),
             });
-    }
-
-    addCustomer() {
-        let config: any = {};
-        config.data = {
-            target: "add",
-        };
-        this.openFormDialog(config);
     }
 
     deleteProduct(item: any) {
@@ -199,6 +194,15 @@ export class CustomerManagementComponent {
     //         panelClass: ["centered-snack-bar"],
     //     });
     // }
+
+    addCustomer() {
+        let config: any = {};
+        config.data = {
+            target: "add",
+        };
+        this.openFormDialogAdd(config);
+    }
+
     updateCustomer(item: any) {
         let config: any = {};
         config.data = {
@@ -218,12 +222,30 @@ export class CustomerManagementComponent {
         this.openFormDialog(config);
     }
 
+    openFormDialogAdd(config: any) {
+        config.disableClose = true;
+        config.panelClass = "dialog-form-l";
+        config.maxWidth = "80vw";
+        config.autoFocus = true;
+        let dialogRef = this.dialog.open(
+            CustomerManagementAddComponent,
+            config
+        );
+        dialogRef.afterClosed().subscribe((result) => {
+            this.getData();
+            console.log("The dialog was closed");
+        });
+    }
+
     openFormDialog(config: any) {
         config.disableClose = true;
         config.panelClass = "dialog-form-l";
         config.maxWidth = "80vw";
         config.autoFocus = true;
-        let dialogRef = this.dialog.open(CustomerManagementInfoComponent, config);
+        let dialogRef = this.dialog.open(
+            CustomerManagementInfoComponent,
+            config
+        );
         dialogRef.afterClosed().subscribe((result) => {
             this.getData();
             console.log("The dialog was closed");
@@ -246,7 +268,10 @@ export class CustomerManagementComponent {
         if (filterValue.length >= 3) {
             const searchDigits = filterValue.slice(-3);
 
-            this.dataSource.filterPredicate = (data: UserData, filter: string) => {
+            this.dataSource.filterPredicate = (
+                data: UserData,
+                filter: string
+            ) => {
                 return data.phone.trim().endsWith(searchDigits);
             };
             this.dataSource.filter = searchDigits;

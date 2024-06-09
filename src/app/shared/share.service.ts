@@ -193,6 +193,14 @@ export class ShareService {
         let baseUrl = this.RootEndPointAPI + `/des_products`;
         return this.getAll(baseUrl);
     }
+    getDesProductID(id: any) {
+        let baseUrl = this.RootEndPointAPI + `/des_products/${id}`;
+        return this.getAll(baseUrl);
+    }
+    deleteDesProduct(id: any) {
+        let baseUrl = this.RootEndPointAPI + `/des_products/${id}`;
+        return this.deleteItem(baseUrl);
+    }
 
     //products
     getProducts() {

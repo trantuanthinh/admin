@@ -1,0 +1,151 @@
+.productHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 16px;
+}
+
+.header-title {
+    margin: 0;
+    font-size: 32px;
+    font-weight: bold;
+    color: #007bff;
+}
+
+.close-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    transition: transform 0.2s ease;
+}
+
+.close-button:hover {
+    transform: scale(1.1);
+}
+
+.mat-icon {
+    font-size: 24px;
+    color: #5f462b;
+}
+
+
+form {
+    background: transparent;
+    background-position: center;
+    border: 2px solid rgba(243, 234, 234, 0.2);
+}
+
+.fa-window-close:before {
+    color: #927564;
+}
+
+.example-additional-selection {
+    opacity: 0.75;
+    font-size: 0.75em;
+}
+
+mat-card {
+    margin: 2%;
+    text-align: left;
+}
+
+mat-label {
+    font-weight: bold;
+    color: black;
+}
+
+::placeholder {
+    font-size: 0.8em;
+}
+
+mat-label {
+    color: rgb(134, 98, 59);
+}
+
+.viewport {
+    height: 550px;
+    width: 550px;
+    border: 2px solid rgba(225, 225, 225, 2);
+}
+
+.example-item {
+    height: 100px;
+}
+
+cdk-virtual-scroll-viewport {
+    min-width: 100%;
+    background: rgb(247, 247, 201);
+}
+
+.productHeader {
+    background: rgb(253, 253, 150);
+    padding: 13px 16px 13px;
+    ;
+}
+
+.mat-mdc-card-content:last-child {
+    padding-bottom: 16px;
+    background-color: rgb(244, 244, 210);
+}
+
+.mdc-text-field--filled:not(.mdc-text-field--disabled) {
+    background-color: #dfd379;
+}
+
+.read-only-field-wrapper {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 16px;
+}
+
+.mat-label {
+    font-size: 12px;
+    color: rgba(0, 0, 0, 0.54);
+    margin-bottom: 4px;
+}
+
+.read-only-field {
+    padding: 8px 12px;
+    border: 1px solid rgba(0, 0, 0, 0.23);
+    border-radius: 4px;
+    color: rgba(81, 67, 54, 0.87);
+}
+
+.insideProduct {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.productContent {
+    margin-bottom: 20px;
+    border: 1px solid rgba(81, 67, 54, 0.87);
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.insideProduct {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.insideProduct h1,
+.insideProduct h2 {
+    margin: 0;
+    padding: 0;
+}
+
+.insideProduct h2 {
+    margin-left: 10px;
+}
+
+h1 {
+    color: rgba(81, 67, 54, 0.87);
+}
+
+h2 {
+    color: rgba(81, 67, 54, 0.87);
+}

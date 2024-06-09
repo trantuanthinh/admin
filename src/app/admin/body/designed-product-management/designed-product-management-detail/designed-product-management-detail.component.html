@@ -1,0 +1,79 @@
+<mat-card-header class="productHeader">
+    <h1 style="font-size: 24px; color: #715f3f;">Designer Cake</h1>
+    <button mat-icon-button (click)="close()">
+        <mat-icon aria-label="Close">close</mat-icon>
+    </button>
+</mat-card-header>
+<cdk-virtual-scroll-viewport itemSize="200" class="viewport">
+    <mat-card>
+        <mat-card-content>
+
+            <div class="read-only-field-wrapper">
+                <mat-label>Product's Id</mat-label>
+                <div class="read-only-field">
+                    {{ myform.get('id')?.value }}
+                </div>
+            </div>
+
+            <div class="read-only-field-wrapper">
+                <mat-label>Product's Name</mat-label>
+                <div class="read-only-field">
+                    {{ myform.get('name')?.value }}
+                </div>
+            </div>
+
+            <div class="read-only-field-wrapper">
+                <mat-label>Price</mat-label>
+                <div class="read-only-field">
+                    {{ myform.get('price')?.value }}
+                </div>
+            </div>
+
+            <div class="read-only-field-wrapper">
+                <mat-label>Order Date</mat-label>
+                <div class="read-only-field">
+                    {{ myform.get('updated_at')?.value | date: 'dd/MM/yyyy' }}
+                </div>
+            </div>
+
+            <div class="read-only-field-wrapper">
+                <mat-label>Price</mat-label>
+                <div class="read-only-field">
+                    {{ myform.get('category')?.value }}
+                </div>
+            </div>
+
+            <div class="read-only-field-wrapper">
+                <mat-label>Size</mat-label>
+                <div class="read-only-field">
+                    {{ myform.get('size')?.value }}
+                </div>
+            </div>
+
+
+            <div class="read-only-field-wrapper">
+                <mat-label>Flavour</mat-label>
+                <div class="read-only-field">
+                    {{ myform.get('flavour')?.value }}
+                </div>
+            </div>
+
+            <div class="read-only-field-wrapper">
+                <mat-label>Shape</mat-label>
+                <div class="read-only-field">
+                    {{ myform.get('shape')?.value }}
+                </div>
+            </div>
+
+            <div class="read-only-field-wrapper">
+                <mat-label>Message</mat-label>
+                <div class="read-only-field">
+                    {{ myform.get('message')?.value }}
+                </div>
+            </div>
+
+
+
+        </mat-card-content>
+    </mat-card>
+</cdk-virtual-scroll-viewport>

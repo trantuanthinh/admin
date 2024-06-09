@@ -18,6 +18,8 @@ import { MatToolbar } from "@angular/material/toolbar";
 import { Observable, forkJoin, take } from "rxjs";
 import { ConfirmDialogComponent } from "../../../control/confirm-dialog/confirm-dialog.component";
 import { ShareService } from "../../../shared/share.service";
+import { DesignedProductManagementInfor } from "./designed-product-management-infor/designed-product-management-infor.component";
+import { DesignedProductManagementDetailComponent } from "./designed-product-management-detail/designed-product-management-detail.component";
 
 @Component({
     selector: "app-designed-product-management",
@@ -62,12 +64,9 @@ export class DesignedProductManagementComponent {
         "id",
         "name",
         "cost",
-        "category",
-        "shape",
-        "flavour",
         "date",
-        "message",
         "status",
+        "action",
     ];
     dataSource!: MatTableDataSource<any>;
     myform!: FormGroup<any>;
@@ -141,14 +140,6 @@ export class DesignedProductManagementComponent {
         }
     }
 
-    addProduct() {
-        let config: any = {};
-        config.data = {
-            target: "add",
-        };
-        this.openFormDialog(config);
-    }
-
     updateProduct(item: any) {
         let config: any = {};
         config.data = {
@@ -164,7 +155,31 @@ export class DesignedProductManagementComponent {
         config.maxWidth = "80vw";
         config.autoFocus = true;
         let dialogRef = this.dialog.open(
-            DesignedProductManagementComponent,
+            DesignedProductManagementInfor,
+            config
+        );
+        dialogRef.afterClosed().subscribe((result) => {
+            this.getData();
+            console.log("The dialog was closed");
+        });
+    }
+
+    detailDesPro(item: any) {
+        let config: any = {};
+        config.data = {
+            target: "detail",
+            item: item,
+        };
+        this.openFormDialogDetail(config);
+    }
+
+    openFormDialogDetail(config: any) {
+        config.disableClose = true;
+        config.panelClass = "dialog-form-l";
+        config.maxWidth = "80vw";
+        config.autoFocus = true;
+        let dialogRef = this.dialog.open(
+            DesignedProductManagementDetailComponent,
             config
         );
         dialogRef.afterClosed().subscribe((result) => {
@@ -176,7 +191,7 @@ export class DesignedProductManagementComponent {
     deleteProduct(item: any) {
         let config: any = {
             data: {
-                title: "Product",
+                title: "Designer Cake ",
                 submitBtn: "Yes",
                 cancelBtn: "No",
                 confirmMessage: "Do you want to delete?",
@@ -190,7 +205,7 @@ export class DesignedProductManagementComponent {
                 next: (resConfirm: any) => {
                     if (resConfirm && resConfirm.action === "ok") {
                         this.shareService
-                            .deleteProduct(item.prod_id)
+                            .deleteDesProduct(item.prod_id)
                             .pipe(take(1))
                             .subscribe(() => {
                                 this.openSnackBar("Deleted Successfully");

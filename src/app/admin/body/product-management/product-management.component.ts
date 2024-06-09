@@ -19,6 +19,7 @@ import { Observable, take } from "rxjs";
 import { ConfirmDialogComponent } from "../../../control/confirm-dialog/confirm-dialog.component";
 import { ShareService } from "../../../shared/share.service";
 import { ProductManagementInfoComponent } from "./product-management-info/product-management-info.component";
+import { ProductManagementAddComponent } from "./product-management-add/product-management-add.component";
 @Component({
     selector: "app-product-management",
     standalone: true,
@@ -58,11 +59,24 @@ export class ProductManagementComponent implements OnInit {
     checked = true;
     disabled = false;
     isOverlayOpen = false;
-    displayedColumns: string[] = ["id", "name", "photo", "cost", "originalCost", "quantity", "status", "action"];
+    displayedColumns: string[] = [
+        "id",
+        "name",
+        "photo",
+        "cost",
+        "originalCost",
+        "quantity",
+        "status",
+        "action",
+    ];
     dataSource!: MatTableDataSource<any>;
     myform!: FormGroup<any>;
 
-    constructor(public dialog: MatDialog, private shareService: ShareService, private _snackBar: MatSnackBar) {
+    constructor(
+        public dialog: MatDialog,
+        private shareService: ShareService,
+        private _snackBar: MatSnackBar
+    ) {
         this.getData();
         this.calculateTotalBill();
     }
@@ -80,7 +94,9 @@ export class ProductManagementComponent implements OnInit {
                         dataItems = res.data;
                     }
                     for (let item of dataItems) {
-                        item.src = this.shareService.getProdPhotoURL(item.image);
+                        item.src = this.shareService.getProdPhotoURL(
+                            item.image
+                        );
                     }
                     this.dataSource = new MatTableDataSource(dataItems);
                     this.dataSource.paginator = this.paginator;
@@ -103,7 +119,8 @@ export class ProductManagementComponent implements OnInit {
                     }
                     for (let item of dataItems) {
                         this.totalBills = dataItems.reduce(
-                            (acc: number, item: any) => acc + (parseFloat(item.price) || 0),
+                            (acc: number, item: any) =>
+                                acc + (parseFloat(item.price) || 0),
                             0
                         );
                     }
@@ -133,7 +150,7 @@ export class ProductManagementComponent implements OnInit {
         config.data = {
             target: "add",
         };
-        this.openFormDialog(config);
+        this.openFormDialogAdd(config);
     }
 
     updateProduct(item: any) {
@@ -145,12 +162,27 @@ export class ProductManagementComponent implements OnInit {
         this.openFormDialog(config);
     }
 
+    openFormDialogAdd(config: any) {
+        config.disableClose = true;
+        config.panelClass = "dialog-form-l";
+        config.maxWidth = "80vw";
+        config.autoFocus = true;
+        let dialogRef = this.dialog.open(ProductManagementAddComponent, config);
+        dialogRef.afterClosed().subscribe((result) => {
+            this.getData();
+            console.log("The dialog was closed");
+        });
+    }
+
     openFormDialog(config: any) {
         config.disableClose = true;
         config.panelClass = "dialog-form-l";
         config.maxWidth = "80vw";
         config.autoFocus = true;
-        let dialogRef = this.dialog.open(ProductManagementInfoComponent, config);
+        let dialogRef = this.dialog.open(
+            ProductManagementInfoComponent,
+            config
+        );
         dialogRef.afterClosed().subscribe((result) => {
             this.getData();
             console.log("The dialog was closed");
