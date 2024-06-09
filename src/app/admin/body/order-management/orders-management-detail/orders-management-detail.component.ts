@@ -2,20 +2,12 @@ import { ScrollingModule } from "@angular/cdk/scrolling";
 import { CommonModule } from "@angular/common";
 import { HttpClient } from "@angular/common/http";
 import { Component, Inject, Optional, TrackByFunction } from "@angular/core";
-import {
-    FormBuilder,
-    FormGroup,
-    FormsModule,
-    ReactiveFormsModule,
-    Validators,
-} from "@angular/forms";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { MatCheckboxModule } from "@angular/material/checkbox";
 import { provideNativeDateAdapter } from "@angular/material/core";
-import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
-import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatIconModule } from "@angular/material/icon";
 import { MatInputModule } from "@angular/material/input";
 import { MatSelectModule } from "@angular/material/select";
@@ -30,18 +22,12 @@ import { ShareService } from "../../../../shared/share.service";
     standalone: true,
     imports: [
         CommonModule,
-        MatFormFieldModule,
-        FormsModule,
-        ReactiveFormsModule,
         MatCheckboxModule,
         MatSelectModule,
-        MatFormFieldModule,
         MatInputModule,
         MatButtonModule,
         MatCardModule,
-        FormsModule,
         ScrollingModule,
-        MatDatepickerModule,
         MatIconModule,
     ],
     providers: [provideNativeDateAdapter()],
@@ -55,15 +41,7 @@ export class OrderManagementDetailComponent {
     trackByFn!: TrackByFunction<number>;
     element: any = {};
     element2: any = {};
-    productsList: any[] = [
-        "flavour",
-        "name",
-        "originPrice",
-        "price",
-        "quantity",
-        "shape",
-        "type",
-    ];
+    productsList: any[] = ["flavour", "name", "originPrice", "price", "quantity", "shape", "type"];
 
     constructor(
         @Optional() @Inject(MAT_DIALOG_DATA) public dialogData: any,
@@ -85,44 +63,21 @@ export class OrderManagementDetailComponent {
 
     buildFormGroup() {
         return this.fb.group({
-            id: [
-                this.dialogData.item ? this.dialogData.item.cus_id : "",
-                [Validators.required],
-            ],
-            firstName: [
-                this.dialogData.item ? this.dialogData.item.first_name : "",
-                [Validators.required],
-            ],
-            lastName: [
-                this.dialogData.item ? this.dialogData.item.last_name : "",
-                [Validators.required],
-            ],
+            id: [this.dialogData.item ? this.dialogData.item.cus_id : "", [Validators.required]],
+            firstName: [this.dialogData.item ? this.dialogData.item.first_name : "", [Validators.required]],
+            lastName: [this.dialogData.item ? this.dialogData.item.last_name : "", [Validators.required]],
             phone: [
                 this.dialogData.item ? this.dialogData.item.phone : "",
                 [Validators.required, CustomValidator.numeric],
             ],
-            created_at: [
-                this.dialogData.item ? this.dialogData.item.created_at : "",
-                [Validators.required],
-            ],
+            created_at: [this.dialogData.item ? this.dialogData.item.created_at : "", [Validators.required]],
             deliveryStatus: [
-                this.dialogData.item
-                    ? this.dialogData.item.delivery_status
-                    : "",
+                this.dialogData.item ? this.dialogData.item.delivery_status : "",
                 [Validators.required],
             ],
-            quantity: [
-                this.dialogData.item ? this.dialogData.item.total_unit : "",
-                [Validators.required],
-            ],
-            bill: [
-                this.dialogData.item ? this.dialogData.item.total_price : "",
-                [Validators.required],
-            ],
-            status: [
-                this.dialogData.item ? this.dialogData.item.active_status : "",
-                [Validators.required],
-            ],
+            quantity: [this.dialogData.item ? this.dialogData.item.total_unit : "", [Validators.required]],
+            bill: [this.dialogData.item ? this.dialogData.item.total_price : "", [Validators.required]],
+            status: [this.dialogData.item ? this.dialogData.item.active_status : "", [Validators.required]],
         });
     }
 

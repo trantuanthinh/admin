@@ -16,6 +16,7 @@ import { Observable, take } from "rxjs";
 import { ConfirmDialogComponent } from "../../../control/confirm-dialog/confirm-dialog.component";
 import { ShareService } from "../../../shared/share.service";
 import { SharePropertyService } from "./../../../shared/share-property.service";
+import { CustomerManagementDetailComponent } from "./customer-management-detail/customer-management-detail.component";
 import { CustomerManagementInfoComponent } from "./customer-management-info/customer-management-info.component";
 
 export interface UserData {
@@ -178,7 +179,7 @@ export class CustomerManagementComponent {
             target: "detail",
             item: item,
         };
-        this.openFormDialog(config);
+        this.openFormDialogDetail(config);
     }
 
     openFormDialog(config: any) {
@@ -187,6 +188,18 @@ export class CustomerManagementComponent {
         config.maxWidth = "80vw";
         config.autoFocus = true;
         let dialogRef = this.dialog.open(CustomerManagementInfoComponent, config);
+        dialogRef.afterClosed().subscribe((result) => {
+            this.getData();
+            console.log("The dialog was closed");
+        });
+    }
+
+    openFormDialogDetail(config: any) {
+        config.disableClose = true;
+        config.panelClass = "dialog-form-l";
+        config.maxWidth = "80vw";
+        config.autoFocus = true;
+        let dialogRef = this.dialog.open(CustomerManagementDetailComponent, config);
         dialogRef.afterClosed().subscribe((result) => {
             this.getData();
             console.log("The dialog was closed");
