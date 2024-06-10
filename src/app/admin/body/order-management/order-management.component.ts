@@ -17,10 +17,10 @@ import { MatTableDataSource, MatTableModule } from "@angular/material/table";
 import { MatToolbar } from "@angular/material/toolbar";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { take } from "rxjs";
+import { ConfirmDialogComponent } from "../../../control/confirm-dialog/confirm-dialog.component";
 import { ShareService } from "../../../shared/share.service";
 import { UserData } from "../customer-management/customer-management.component";
 import { OrderManagementDetailComponent } from "./orders-management-detail/orders-management-detail.component";
-import { ConfirmDialogComponent } from "../../../control/confirm-dialog/confirm-dialog.component";
 // import { ProductManagementInfoComponent } from "./product-management-info/product-management-info.component";
 
 @Component({
@@ -68,11 +68,7 @@ export class OrderManagementComponent implements OnInit {
     dataSource!: MatTableDataSource<any>;
     myform!: FormGroup<any>;
 
-    constructor(
-        public dialog: MatDialog,
-        private shareService: ShareService,
-        private _snackBar: MatSnackBar
-    ) {
+    constructor(public dialog: MatDialog, private shareService: ShareService, private _snackBar: MatSnackBar) {
         this.getData();
     }
 
@@ -95,10 +91,7 @@ export class OrderManagementComponent implements OnInit {
     }
 
     calculateTotalBill() {
-        this.totalBills = this.dataSource.data.reduce(
-            (acc, item) => acc + parseFloat(item.bill),
-            0
-        );
+        this.totalBills = this.dataSource.data.reduce((acc, item) => acc + parseFloat(item.bill), 0);
     }
 
     changeStatus(item: any) {
@@ -140,7 +133,7 @@ export class OrderManagementComponent implements OnInit {
                 next: (resConfirm: any) => {
                     if (resConfirm && resConfirm.action === "ok") {
                         this.shareService
-                            .deleteOrder(item.prod_id)
+                            .deleteOrder(item.order_id)
                             .pipe(take(1))
                             .subscribe(() => {
                                 this.openSnackBar("Deleted Successfully");
@@ -174,10 +167,7 @@ export class OrderManagementComponent implements OnInit {
         config.panelClass = "dialog-form-l";
         config.maxWidth = "80vw";
         config.autoFocus = true;
-        let dialogRef = this.dialog.open(
-            OrderManagementDetailComponent,
-            config
-        );
+        let dialogRef = this.dialog.open(OrderManagementDetailComponent, config);
         dialogRef.afterClosed().subscribe((result) => {
             this.getData();
             console.log("The dialog was closed");
@@ -200,10 +190,7 @@ export class OrderManagementComponent implements OnInit {
         if (filterValue.length >= 3) {
             const searchDigits = filterValue.slice(-3);
 
-            this.dataSource.filterPredicate = (
-                data: UserData,
-                filter: string
-            ) => {
+            this.dataSource.filterPredicate = (data: UserData, filter: string) => {
                 return data.phone.trim().endsWith(searchDigits);
             };
             this.dataSource.filter = searchDigits;

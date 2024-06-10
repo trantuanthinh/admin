@@ -136,8 +136,6 @@ export class DesignedProductManagementComponent {
             .subscribe({
                 next: (resConfirm: any) => {
                     if (resConfirm && resConfirm.action === "ok") {
-                        console.log("Delete: " + item.des_prod_id);
-
                         this.shareService
                             .deleteDesignedProduct(item.des_prod_id)
                             .pipe(take(1))
