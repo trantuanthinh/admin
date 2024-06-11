@@ -1,8 +1,38 @@
-<h1 mat-dialog-title>Delete {{title}}</h1>
+<!-- <h1 mat-dialog-title>Delete {{title}}</h1>
 <mat-dialog-content>
     <h4>{{ confirmMessage }}</h4>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
     <button mat-button mat-dialog-close (click)="confirm(actionCancel)">{{cancelBtn}}</button>
     <button mat-button mat-dialog-close (click)="confirm(actionSubmit)" cdkFocusInitial>{{submitBtn}}</button>
+</mat-dialog-actions> -->
+
+<!-- Dialog Component HTML -->
+<h1 mat-dialog-title style="color: #d15a79; font-size: 1.5rem; font-weight: bold;">
+    Delete {{title}}
+</h1>
+<mat-dialog-content style="background-color: #fff5f8;">
+    <h4 style="color: #d15a79; font-size: 1.2rem;">
+        {{ confirmMessage }}
+    </h4>
+</mat-dialog-content>
+<mat-dialog-actions align="end" style="padding: 16px;">
+    <button mat-button mat-dialog-close (click)="confirm(actionCancel)"
+        style="background-color: #fff9db; color: #d15a79; border: 1px solid #d15a79; margin-left: 8px; padding: 8px 16px; border-radius: 4px; transition: background-color 0.3s ease, color 0.3s ease;">
+        {{cancelBtn}}
+    </button>
+    <button mat-button mat-dialog-close (click)="confirm(actionSubmit)" cdkFocusInitial
+        style="background-color: #fff9db; color: #d15a79; border: 1px solid #d15a79; margin-left: 8px; padding: 8px 16px; border-radius: 4px; transition: background-color 0.3s ease, color 0.3s ease;">
+        {{submitBtn}}
+    </button>
 </mat-dialog-actions>
+
+<style>
+    /* Add hover styles in the embedded style tag */
+    button:hover {
+        background-color: #d15a79 !important;
+        /* Darker shade of pink for hover background */
+        color: #fff !important;
+        /* White text on hover */
+    }
+</style>

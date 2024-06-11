@@ -1,0 +1,40 @@
+/* CSS for the dialog container */
+::ng-deep .mat-dialog-container {
+    background-color: #fff5f8; /* Light pink background */
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* CSS for the title */
+::ng-deep .mat-dialog-title {
+    color: #d15a79; /* Darker shade of pink */
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+/* CSS for the content */
+::ng-deep .mat-dialog-content h4 {
+    color: #d15a79; /* Darker shade of pink */
+    font-size: 1.2rem;
+}
+
+/* CSS for the actions */
+::ng-deep .mat-dialog-actions {
+    padding: 16px;
+}
+
+/* CSS for the buttons */
+::ng-deep .mat-dialog-actions button {
+    background-color: #fff9db; /* Light yellow background */
+    color: #d15a79; /* Darker shade of pink for text */
+    border: 1px solid #d15a79; /* Darker shade of pink for border */
+    margin-left: 8px;
+    padding: 8px 16px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+::ng-deep .mat-dialog-actions button:hover {
+    background-color: #d15a79; /* Darker shade of pink for hover background */
+    color: #fff; /* White text on hover */
+}
